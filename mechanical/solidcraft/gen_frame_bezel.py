@@ -6,10 +6,10 @@ A = f"({T} - 90 deg)"          # direction of the side-0 corner at +x
 
 
 DETENT = [   # bezel bump / frame dimple (user 2026-11-22: snap detents replace the corner pins; PETG flex, no arms)
-    ("det_h", "0.45 mm", "Detent bump height from the flange's inner face: 0.15 fit gap + 0.3 mm engagement."),
+    ("det_h", "0.75 mm", "Detent bump height from the flange's inner face: 0.15 fit gap + 0.6 mm engagement (user 2026-11-22: 0.3 was too small, 1.0 too big)."),
     ("det_top", "0.3 mm", "Flat top of the bump; both faces are 45 deg (snaps on and pulls off, prints without support)."),
     ("det_len", "10 mm", "Bump length along the side (one per side, at mid-side, where the flange flexes most)."),
-    ("det_zc", "0.9 mm", "Bump centre above the flange's bottom edge."),
+    ("det_zc", "1.1 mm", "Bump centre above the flange's bottom edge: the bump spans 0.2 .. 2.0 mm of the 3 mm flange."),
 ]
 
 
@@ -131,9 +131,8 @@ B.param("film_inset", "1.5 mm", "Film edge inset from the outer edge: inside the
 Z0 = "cap_top + riser_h + film_t"
 # film first: n-gon of join-type sectors (each copy merges with the ones it touches), film_inset inside the outer edge,
 # on the frame cap, under the bezel
-B.sector("FilmSketch", "Film", "Ao - film_inset", "cap_top + riser_h", "film_t", "join")
+B.sector("FilmSketch", "Film", "Ao - film_inset", "cap_top + riser_h", "film_t", "join", body_name="Film")
 B.pattern("Film xN", ["Film"])
-B.c("body.rename", body="Body1", name="Film")
 B.c("appearance.assign", bodies=["Film"], color="#EEF1F5", opacity=0.45, name="Diffuser film")
 # bezel: the plate segments start a new body; the flange joins (no target) merge the plate copies; the flange and bumps
 # don't touch the film, so the film stays its own body
