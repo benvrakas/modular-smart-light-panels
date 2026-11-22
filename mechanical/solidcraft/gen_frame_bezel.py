@@ -63,48 +63,32 @@ class Script:
 
 
 
-SHAPES = (("Hexagon", "6"), ("Square", "4"), ("Triangle", "3"))
-
-
-def flange_rows(S, D, short, full):
-    """Configuration rows: each shape with the 3 mm flange, and a 'full flange' row whose flange runs the whole outer
-    wall (user 2026-11-22: no seam line around the panel's side). short/full map parameter -> cell expression."""
-    have = {c.get("param") for c in D["configs"]["columns"]}
-    new = [k for k in short if k not in have]
-    if new:
-        S.c("config.configure", params=new)
-    for name, n in SHAPES:
-        S.c("config.row", name=name, values={"param:n_sides": n} | {f"param:{k}": v for k, v in short.items()})
-        S.c("config.row", name=f"{name} full flange", values={"param:n_sides": n} | {f"param:{k}": v for k, v in full.items()})
-    S.c("config.activate", row="Triangle full flange")   # the default while the full flange is on trial
-
 # ------------------------------------------------------------------ frame
 FD = doc("frame.sc")
 F = Script(p["name"] for p in FD["params"])
 F.c("timeline.delete", features=[f["id"] for f in FD["features"]])
 F.param("fl_t", "1 mm", "Bezel flange thickness (user 2026-11-22: L-section bezel for stiffness).", new=True)
-F.param("fl_h", "3 mm", "Bezel flange depth below the bezel's underside: 3 mm, or the whole outer wall in the full-flange rows.", new=True)
-F.param("rebate_w", "fl_t + 0.15 mm", "Step cut into the frame's outer top edge for the bezel flange (flange + loose fit).", new=True)
-F.param("rebate_bot", "cap_bot + cap_t - fl_h", "Step floor at its inner edge (0.2 mm below the flange end).", new=True)
-F.param("rebate_slope", "20 deg", "Step floor slope from horizontal: the 70 deg overhang limit, since the frame prints cap-down (user 2026-11-22). 0 in the full-flange rows, where the step runs out at the wall bottom.", new=True)
+F.param("rebate_w", "fl_t + 0.15 mm", "Step in the frame's outer face for the bezel flange (flange + loose fit), over the whole wall height (user 2026-11-22: full-length flange, no seam around the side).", new=True)
+F.param("fl_gap", "0.2 mm", "Clearance between the flange end and the frame's bottom plane: the film clamp sets the bezel's height, not the flange.", new=True)
 F.c("parameters.delete", name="pin_hole_d")
 F.c("parameters.delete", name="pin_hole_h")
 for nm, ex, cm in DETENT:
     F.param(nm, ex, cm, new=True)
 F.param("det_dim", "det_h - (rebate_w - fl_t) + 0.1 mm", "Dimple depth in the step wall: the bump's reach past the fit gap + 0.1 mm clearance.", new=True)
-F.param("strap_relief_d", "0.6 mm", "Corner solder relief depth into the wall's inner face: clears the strap or solder bridge on the exterior corner pads (user 2026-11-22: 1.2 mm took too much wall).")
+F.param("strap_relief_d", "1.16 mm", "Corner solder relief depth into the wall's inner face: room for the strap or solder bridge on the exterior corner pads; leaves 0.8 mm of wall under the bezel flange (user 2026-11-22).")
 TOP = "cap_bot + cap_t"
 # rings built directly from exact per-side segments (CLAUDE.md: no oversized blank trimmed back)
 F.segment("CapSketch", "Cap", "Ao", "lip_out - lip_w", "cap_bot", "cap_t", "new", body_name="Frame")
 F.segment("WallSketch", "Wall", "Ao", "w_in", "z_skirt", "cap_bot - z_skirt", "join")
-# step for the bezel flange: per side, through-all along the side, so neighbouring steps mitre at the corners
-F.sketch("RebateSketch", "YZ", None, [["-(Ao - rebate_w)", TOP], ["-(Ao - rebate_w)", "rebate_bot"],
-                                       ["-Ao", "rebate_bot - rebate_w*tan(rebate_slope)"], ["-Ao", TOP]])
+# step for the bezel flange: the whole outer wall, from the frame bottom to the cap top; per side, through-all along
+# the side, so neighbouring steps mitre at the corners
+F.sketch("RebateSketch", "YZ", None, [["-(Ao - rebate_w)", TOP], ["-(Ao - rebate_w)", "z_skirt"],
+                                       ["-Ao", "z_skirt"], ["-Ao", TOP]])
 F.c("solid.extrude", sketch="RebateSketch", operation="cut", direction="symmetric", through_all=True, name="Flange step")
 # detent dimples: one per side at mid-side, 45 deg faces from the step wall (prints cap-down without support),
 # 0.1 mm larger than the bump all round
 YW, YF = "-(Ao - rebate_w)", "-(Ao - rebate_w - det_dim)"
-ZC = f"({TOP} + 0.2 mm - fl_h + det_zc)"
+ZC = "(z_skirt + fl_gap + det_zc)"        # measured from the flange end, as on the bezel
 HF = "(det_top/2 + 0.1 mm)"
 F.sketch("DimpleSketch", "YZ", "-(det_len/2 + 0.1 mm)", [
     [YW, f"{ZC} - {HF} - det_dim"], [YF, f"{ZC} - {HF}"], [YF, f"{ZC} + {HF}"], [YW, f"{ZC} + {HF} + det_dim"]])
@@ -132,7 +116,7 @@ F.c("solid.extrude", sketch="StrapReliefSketch", operation="cut",
     distance="strap_relief_top - z_skirt", name="Strap relief")
 F.c("solid.mirror", name="Strap relief mirror", features=["Strap relief"], plane="YZ")
 F.pattern("Strap reliefs xN", ["Strap relief", "Strap relief mirror"])
-flange_rows(F, FD, {"fl_h": "3 mm", "rebate_slope": "20 deg"}, {"fl_h": "cap_bot + cap_t - z_skirt", "rebate_slope": "0 deg"})
+F.c("config.activate", row="Triangle")
 F.c("inspect.measure", summary=True)
 
 # ------------------------------------------------------------------ bezel
@@ -144,8 +128,9 @@ for nm in ("pin_r", "pin_d", "pin_h", "pin_hole_h", "pin_clear"):
 for nm, ex, cm in DETENT:
     B.param(nm, ex, cm, new=True)
 B.param("fl_t", "1 mm", "Flange thickness (user 2026-11-22: L-section bezel for stiffness; the frame has a matching step).", new=True)
-B.param("fl_h", "3 mm", "Flange depth below the bezel's underside, down the frame's outer face (3 mm, or to 0.2 mm above the frame bottom in the full-flange rows).", new=True)
-B.param("frame_bot", "7.5 mm", "Bottom of the frame's outer wall (frame.sc z_skirt): the full flange ends 0.2 mm above it, as the 3 mm one does above its step floor.", new=True)
+B.param("frame_bot", "7.5 mm", "Bottom of the frame's outer wall (frame.sc z_skirt).", new=True)
+B.param("fl_gap", "0.2 mm", "Clearance between the flange end and the frame's bottom plane: the film clamp sets the bezel's height, not the flange.", new=True)
+B.param("fl_h", "cap_top + riser_h + film_t - frame_bot - fl_gap", "Flange depth below the bezel's underside: down the frame's whole outer wall (user 2026-11-22: no seam around the side).", new=True)
 B.param("film_inset", "1.5 mm", "Film edge inset from the outer edge: inside the flange (fl_t) with 0.35 mm to spare.")
 Z0 = "cap_top + riser_h + film_t"
 # film first: n-gon of join-type sectors (each copy merges with the ones it touches), film_inset inside the outer edge,
@@ -163,7 +148,7 @@ B.sketch("BumpSketch", "YZ", "-det_len/2", [            # from the flange's inne
     [YI, f"{ZB} - det_top/2 - det_h"], [YB, f"{ZB} - det_top/2"], [YB, f"{ZB} + det_top/2"], [YI, f"{ZB} + det_top/2 + det_h"]])
 B.c("solid.extrude", sketch="BumpSketch", operation="join", distance="det_len", name="Detent bump")
 B.pattern("Bezel xN", ["Bezel plate", "Flange", "Detent bump"])
-flange_rows(B, BD, {"fl_h": "3 mm"}, {"fl_h": "cap_top - frame_bot"})
+B.c("config.activate", row="Triangle")
 B.c("inspect.measure", summary=True)
 
 out = sys.argv[1]

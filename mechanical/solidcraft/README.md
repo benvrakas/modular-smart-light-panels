@@ -37,10 +37,10 @@
 ### Frame
 
 - **Board groove:** the cap, the inward lip and the exterior walls form it, at a tight fit.
-- **Corners:** closed (user, 2026-11-21). The wall, the groove and the lip run all the way round. The board ring is soldered **before** it goes into the frame. An L-shaped relief, 0.6 mm deep (`strap_relief_d`; was 1.2), in the wall's inner face around each corner (the last 3.5 mm of each board, z 7.5–12.9) clears the solder on the corner power pads.
+- **Corners:** closed (user, 2026-11-21). The wall, the groove and the lip run all the way round. The board ring is soldered **before** it goes into the frame. An L-shaped relief, 1.16 mm deep (`strap_relief_d`, leaving 0.8 mm of wall under the bezel flange), in the wall's inner face around each corner (the last 3.5 mm of each board, z 7.5–12.9) clears the solder on the corner power pads.
 - **Inner lip:** one mitred segment per side, so it closes into a ring at any corner angle.
 - **Snap legs:** 2 per side. The hooks reach **1.2 mm** under the back-plate tab (`hook_tip`), latching on the plane `latch_z` (z −2.3) with a 25° latch face and a 35° lead-in (`lead_slope`); the legs end at z −4.16, above the back plane (`leg_bot` follows from these). Section: `png/section_seam_hook.png`.
-- **Flange step:** a step cut into the outer top edge for the bezel's flange (`rebate_w` = flange + 0.15 mm, down to `rebate_bot` = 3 mm below the cap top). Its floor slopes at 20° from horizontal (`rebate_slope`): the 70° overhang limit, since the frame prints cap-down (user, 2026-11-22). One detent dimple per side at mid-side (`det_*`, 45° faces).
+- **Flange step:** the outer face is stepped in by the bezel flange + 0.15 mm (`rebate_w`) over the whole wall height, from the frame bottom to the cap top, so the flange sits flush (user, 2026-11-22). One detent dimple per side at mid-side (`det_*`, 45° faces), near the bottom.
 - **Corner solder reliefs:** one mitred cut per side, ending on the corner bisector, so neighbouring reliefs meet exactly at any corner angle (straight boxes crossed at the triangle's 60° corners).
 
 ### Bridge clip
@@ -59,9 +59,8 @@
 ### Bezel
 
 - **Ring:** matches the frame cap.
-- **Flange (L-section):** 1 mm × 3 mm (`fl_t`, `fl_h`) down the outer edge, flush with the frame's outer face in its step. It stiffens the 2 mm bezel, which bowed on the first test print (user, 2026-11-22).
+- **Flange (L-section):** 1 mm thick (`fl_t`) down the frame's whole outer wall, ending `fl_gap` 0.2 mm above the frame's bottom plane, flush with the frame's outer face, so the side shows no seam. It stiffens the 2 mm bezel, which bowed on the first test print (user, 2026-11-22).
 - **Detents:** one bump per side on the flange's inner face snaps into the frame's dimple; PETG flexes enough, so no pins or arms. Sizes and the flange-strain caveat: [decision 0018](../../docs/decisions/0018-l-section-bezel-snap-detents.md).
-- **Full-flange variant (trial):** configuration rows `<Shape> full flange` on `frame.sc` and `diffuser.sc` run the flange down the whole outer wall (step to the frame's bottom, flat floor); exports `stl/frame_<shape>_full.stl`, `stl/bezel_<shape>_full.stl`. They are the default while on trial (the active row, and `gen_assembly.py` unless `--short-flange`). See decision 0018.
 - **Film:** clamped between the frame cap and the bezel. Modelled in `diffuser.sc` as a second body `Film` (0.2 mm, `film_inset` 1.5 mm inside the outer edge so it ends inside the flange; no pin holes), shown semi-transparent; per-shape outlines in `step/film_<shape>.step`. The bezel STL/STEP exports contain the bezel only.
 - **No riser** (user, 2026-11-21). The frame's cap and exterior wall are one continuous part.
 
