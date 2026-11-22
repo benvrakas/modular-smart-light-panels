@@ -7,6 +7,7 @@ The Blender renders come from mechanical/solidcraft/render/render_batch.py (slow
 SPEC.md and the README embed these files; the written description lives only in SPEC.md and docs/decisions/.
 """
 import os
+import shutil
 import subprocess
 import sys
 
@@ -60,6 +61,23 @@ PICS = {
 }
 
 
+# finished videos (render_batch.py names them only when complete), copied as they are
+VIDEOS = {
+    "video_wide.mp4": RO + "penthouse_panels.mp4",
+    "video_closeup.mp4": RO + "penthouse_closeup.mp4",
+}
+
+
+def video_copy(name, rel):
+    src = os.path.join(ROOT, *rel.split("/"))
+    if not os.path.exists(src):
+        print("missing", rel)
+        return
+    dst = os.path.join(HERE, name)
+    if not os.path.exists(dst) or os.path.getmtime(dst) < os.path.getmtime(src):
+        shutil.copy2(src, dst)
+
+
 def web_copy(name, rel, width=1600):
     src = os.path.join(ROOT, *rel.split("/"))
     if not os.path.exists(src):
@@ -84,4 +102,7 @@ if __name__ == "__main__":
             subprocess.run([sys.executable, os.path.join(HERE, script)], check=True)
     for name, rel in PICS.items():
         web_copy(name, rel)
-    print("figures:", len([n for n in PICS if os.path.exists(os.path.join(HERE, n))]), "of", len(PICS))
+    for name, rel in VIDEOS.items():
+        video_copy(name, rel)
+    print("figures:", len([n for n in PICS if os.path.exists(os.path.join(HERE, n))]), "of", len(PICS),
+          "; videos:", len([n for n in VIDEOS if os.path.exists(os.path.join(HERE, n))]), "of", len(VIDEOS))

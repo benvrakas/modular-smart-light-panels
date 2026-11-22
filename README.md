@@ -24,7 +24,7 @@ Vertical (9:16):
 |---|---|---|
 | ![](docs/figures/render_vertical_corner.jpg) | ![](docs/figures/render_vertical_wall.jpg) | ![](docs/figures/render_vertical_inside.jpg) |
 
-Videos: [wide shot](mechanical/solidcraft/render/out/penthouse_panels.mp4) · [close-up](mechanical/solidcraft/render/out/penthouse_closeup.mp4).
+Videos (1440p): [wide shot](docs/figures/video_wide.mp4) · [close-up](docs/figures/video_closeup.mp4).
 
 ## Where things are described
 
