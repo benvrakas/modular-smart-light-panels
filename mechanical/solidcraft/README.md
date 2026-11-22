@@ -23,7 +23,7 @@
 
 ### Back plate
 
-- **Shape:** a 2 mm floor (z 4.6–6.6) with an 8 mm rim, and a seat under the boards. The seat slopes at 20° (`seat_ch`, the shallowest the overhang rule allows) from the plate edge through the board's inner bottom corner, so the boards sit at z 0, nothing flat faces the bed when printing floor-down, and the tab keeps enough material for the frame hooks (user, 2026-11-21).
+- **Shape:** a 2 mm floor (z 4.6–6.6) with an 8 mm rim, and a seat under the boards. The seat slopes at 25° (`seat_ch`, a 65° overhang; was 20°) from the plate edge through the board's inner bottom corner, so the boards sit at z 0, nothing flat faces the bed when printing floor-down, and the tab keeps enough material for the frame hooks (user, 2026-11-21/22). The tab edge is 0.60 mm thick over the clip recess: a thickness along the print's Z, which may go to about 0.5 mm.
 - **Flat back (user, 2026-11-21):** the rim, tabs, bosses and cross-bar all come down to z −4.3, flush with the clip bottom.
 - **Controller pocket:** open through to the wall, with a cross-bar (its underside bridges the pocket, accepted by the user). The 4 support ledges were removed (user, 2026-11-21: unprintable overhangs).
 - **Per side:**
@@ -67,7 +67,7 @@
 ## Rules used
 
 From decision 0013:
-- **Overhangs:** up to 65° from vertical (70° only where 65° doesn't fit: the back-plate seat); steeper only with support standing on the bed. Every latch face is printable (the teeth's 45° latch, the frame hooks and the bezel detents at 65°).
+- **Overhangs:** up to 65° from vertical (70° only where 65° doesn't fit; none left); steeper only with support standing on the bed. Every latch face is printable (the teeth's 45° latch, the frame hooks and the bezel detents at 65°).
 - **Walls:** at least 0.75 mm.
 - **Fit gap per side:** tight 0.09 mm, loose 0.15 mm.
 

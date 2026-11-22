@@ -67,7 +67,7 @@ param("tooth_zb0", "-3.7 mm")
 param("tooth_zb1", "-1.6 mm")
 param("latch_z", "-2.3 mm", "Frame-hook latch plane: the hook-pocket ceiling under the board tab (user 2026-11-21: more engagement).")
 param("hook_s1", "4.95 mm", "Hook pocket depth from the seam: frame hook tip (seam distance 4.8) + fit_loose.")
-param("seat_ch", "20 deg", "Board seat slope from horizontal: 20 deg is the shallowest that prints unsupported (user rule). The slope runs from the plate edge through the board's inner bottom corner (z 0), so there is no flat; the tab edge keeps 0.75 mm over the clip recess and 1.75 mm over the frame hooks (user 2026-11-21).")
+param("seat_ch", "25 deg", "Board seat slope from horizontal: a 65 deg overhang in the floor-down print (user 2026-11-22: 65 is safe, 70 sags). The slope runs from the plate edge through the board's inner bottom corner (z 0), so there is no flat. The tab edge keeps 0.60 mm over the clip recess (a thickness along the print's Z, fine down to about 0.5 mm) and 1.6 mm over the frame hooks.")
 param("bar_s0", "As - Ab", "Cross-bar outer end: the plate edge, which is also the controller pocket's outer edge, so no strip of rim floor hangs exposed between them.")
 
 # ---- outline, per side (patterned): core sector to the plate edge Ab, tab band out to tab_out, both ending on the

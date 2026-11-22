@@ -41,7 +41,7 @@ The user raised three points:
     - No support may be trapped between a top surface of the part and a horizontal bottom surface of the same part above it.
   - **General:**
     - Every part is designed for printing: no supports where avoidable and a sensible print orientation.
-    - **Walls:** at least **0.75 mm** (user, 2026-11-21; was 1.2).
+    - **Walls:** at least **0.75 mm** measured across the layers, in the print's XY plane: two lines of the 0.4 mm nozzle (user, 2026-11-21; was 1.2). A thickness built up in layers (along the print's Z) can go down to about **0.5 mm**, slightly under-extruded (user, 2026-11-22).
     - **Fits, gap per side (user, 2026-11-21):**
       - **tight fit 0.08–0.1 mm** (for example the bridge-clip keys in their grooves, and the bridge PCB in its slot)
       - **loose fit 0.15–0.2 mm** (sliding or easily removable parts)
