@@ -2206,14 +2206,6 @@ def page_gaps(page):
 
 RENDERS = [
     # (path from the project root, caption, wide)
-    ("mechanical/archive/openscad-panel/png/assembly_exploded_color.png", "Exploded hexagon panel, top to bottom: bezel, diffuser film, riser, frame (crown) with the six edge boards, back plate, then the seam bridge in its carrier. The controller sits under the back plate.", False),
-    ("mechanical/archive/openscad-panel/png/assembly_panel_color.png", "One assembled hexagon with the film fitted. The two dimples in the middle are the plugged screw-access holes for the wall puck.", False),
-    ("mechanical/archive/openscad-panel/png/assembly_cluster_color.png", "The rev A prototype: three hexagons on the wall, joined by seam bridges. The left panel is shown without its film.", False),
-    ("mechanical/archive/openscad-panel/png/section_seam.png", "Cut through a seam, heights to scale: the bridge stands in its carrier between two edge boards, its springs touching at z 3.5 mm, below the 6.6 mm floor. The frame wall starts at 7.5 mm, clear of the bridge top at 7.0.", False),
-    ("mechanical/archive/openscad-panel/png/section_controller.png", "Cut through the controller edge: the controller (blue) lies under the floor, parts facing the wall, its pocket open through to the wall. It meets the code-0 edge board at 90°.", False),
-    ("mechanical/archive/openscad-panel/png/frame_corner.png", "Frame corner from inside: only the 2 mm cap spans the corner, so the corner joints are soldered with the boards held in the frame. The tall tabs are the snap legs.", False),
-    ("mechanical/archive/openscad-panel/png/bridge_carrier.png", "Bridge carrier: the bridge (gold) stands in its slot. The carrier floats, trapped between the wall and the two panels and centred by the springs.", False),
-    ("mechanical/archive/openscad-panel/png/wall_puck.png", "Wall puck: two countersunk screws into the wall, two split-tube snap posts that the panel's back plate clicks onto. One per panel.", False),
     ("hardware/edge-board/output/fab-hex/edge-board-hex_render_top.png", "Edge board, inward face (94.1 × 13.5 mm): hexagon version: three SK6812 RGBW LEDs at x 0 and ±31.2 mm. All three shapes share this layout; only the outer LEDs and the board ends move, the 10 controller-joint pads J4 in the middle, the ID resistor and diode, and the corner signal pads at both ends.", True),
     ("hardware/edge-board/output/fab-hex/edge-board-hex_render_bottom.png", "Edge board, exterior face: the 10 gold contact pads X1–X10 along the wall edge (mask opened as one strip), the +24V and GND lanes, and the corner power pads at both ends.", True),
     ("hardware/edge-board/output/fab-square/edge-board-square_render_top.png", "Square edge board (89.8 × 13.5 mm): the same layout as the hexagon and triangle, with LEDs at x 0 and ±29.9 mm.", True),
@@ -2244,11 +2236,7 @@ def render_gallery(kind="boards"):
                 'below the controller) and R3 is an 0402 just under LED1, so nothing on the inward face sits below z 6.8.</p>'
                 f'<div class="gallery">{"".join(figs)}</div>')
         return sec("hw-boards", "Rev A · Boards", "What the rev A boards look like", body)
-    body = ('<p><b>Superseded concept.</b> The first mechanical model, made in OpenSCAD (<code>mechanical/archive/openscad-panel/</code>). '
-            'It used a floating bridge carrier, a screwed wall puck and plugged screw holes. Decisions 0013 and 0014 replaced those parts; '
-            'the frame, back plate and diffuser ideas carry over into the SolidCraft redesign planned above.</p>'
-            f'<div class="gallery">{"".join(figs)}</div>')
-    return sec("mech-old", "Earlier concept", "The first mechanical model (OpenSCAD, superseded)", body)
+    return ""
 
 
 
@@ -3008,8 +2996,8 @@ def assemble(old, js, lo_sum, hi_sum, parts, cert_rows):
     biz_ids = [("hw-7", "Cost"), ("hw-compare", "vs Nanoleaf"), ("hw-8", "Hardware gaps"), ("hw-9", "Product")]
     biz_body = "".join(['<p class="lede">What it costs, how it compares, what the hardware plan is still missing, and what selling it would take.</p>', toc(biz_ids)] + [H[i_] for i_, _ in biz_ids])
     mech_body = "".join(['<p class="lede">The planned mechanics: how panels are held together, joined to each other and hung. Conceptual until modelled; finished parts move to the design reference.</p>',
-                         toc([("mech-1", "Fit"), ("mech-2", "Clip"), ("mech-3", "Shapes"), ("mech-4", "Free edges"), ("mech-5", "Build order"), ("mech-cad", "CAD"), ("mech-old", "Earlier concept")]),
-                         mech_plan(), media_gallery("cad"), render_gallery("mech")])
+                         toc([("mech-1", "Fit"), ("mech-2", "Clip"), ("mech-3", "Shapes"), ("mech-4", "Free edges"), ("mech-5", "Build order"), ("mech-cad", "CAD")]),
+                         mech_plan(), media_gallery("cad")])
 
     def router(views):
         return ROUTER.replace("__VIEWS__", json.dumps(views))

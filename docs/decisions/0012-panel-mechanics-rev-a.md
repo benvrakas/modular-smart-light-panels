@@ -1,10 +1,10 @@
 # 0012 — Panel mechanics, rev A: floating bridge carrier, wall pucks, film clamp
 
-**Date:** 2026-11-21 · **Note:** the bridge carrier is superseded by [decision 0014](0014-rigid-snap-bridge-clip.md) (rigid snap clip); the wall puck is superseded by [decision 0013](0013-dual-lock-mounting-fdm-rules.md) (Dual Lock mounting). · **Status:** **Accepted by the coordinator** under the user's delegation to coordinate prototype work. The user may override. · **Proposed by:** the mechanics agent (`mechanical/archive/openscad-panel/MECH-NOTES.md` §3–§4) · **Changes:** SPEC §1 (Bridge), §2, §3.3, §9, §10 item 17
+**Date:** 2026-11-21 · **Note:** the bridge carrier is superseded by [decision 0014](0014-rigid-snap-bridge-clip.md) (rigid snap clip); the wall puck is superseded by [decision 0013](0013-dual-lock-mounting-fdm-rules.md) (Dual Lock mounting). · **Status:** **Accepted by the coordinator** under the user's delegation to coordinate prototype work. The user may override. · **Proposed by:** the mechanics agent (notes in the first CAD model, since removed §3–§4) · **Changes:** SPEC §1 (Bridge), §2, §3.3, §9, §10 item 17
 
 ## Context
 
-Work package 1.6 modelled the rev A hexagon panel in OpenSCAD (`mechanical/archive/openscad-panel/`), using the controller layout (finished) and the in-progress edge-board layout. SPEC V6.3 had said the bridge carrier anchors to the wall and the panels' snap fits locate on it.
+Work package 1.6 modelled the rev A hexagon panel (a first CAD model, removed on 2026-11-22; the mechanics now live in SolidCraft, `mechanical/solidcraft/`), using the controller layout (finished) and the in-progress edge-board layout. SPEC V6.3 had said the bridge carrier anchors to the wall and the panels' snap fits locate on it.
 
 ## Decision
 

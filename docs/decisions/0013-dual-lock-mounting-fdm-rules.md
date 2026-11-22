@@ -49,7 +49,7 @@ The user raised three points:
 
 ## Consequences
 
-- **Panel depth:** it now depends on the engaged Dual Lock thickness (≈4–6 mm, depending on the type). It is set in params.scad once a type is chosen.
+- **Panel depth:** it now depends on the engaged Dual Lock thickness (≈4–6 mm, depending on the type). It is set in the SolidCraft model once a type is chosen.
 - **Shopping list:** add Dual Lock (for example SJ3550 or a low-profile type) to the P0 list.
 - **Removing a panel:** pull it straight off the wall. The captive carriers come with their panel, and the springs slide off the neighbours' pads.
-- **Fallback:** the wall puck from decision 0012 stays in `mechanical/archive/openscad-panel/` as an option, not used by default.
+- **Fallback:** none. The decision 0012 wall puck existed only in the first CAD model, which was removed on 2026-11-22.

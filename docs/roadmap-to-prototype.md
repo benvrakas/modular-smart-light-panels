@@ -32,10 +32,10 @@ The two physical unknowns, **optics depth** and **spring contact zone**, set the
 |---|---|---|---|---|
 | **P0 — de-risk and setup (start now)** |||||
 | 0.1 | Spring datasheet → bridge numbers | — | coordinator | **Done**: 30 mΩ, 60–80 gf, 20k cycles, working height 3.0–3.5 mm, no current rating. Seam ≈6.8–7.8 mm (d ≈3.4–3.9). |
-| 0.2 | ~~Optics test rig with LED strip~~ **Dropped (user, 2026-11-16):** the optics test runs on the rev A boards instead (see 3.2). A partial rig model is kept in `mechanical/archive/optics-test/` for reference. | — | — | Dropped |
+| 0.2 | ~~Optics test rig with LED strip~~ **Dropped (user, 2026-11-16):** the optics test runs on the rev A boards instead (see 3.2). | — | — | Dropped |
 | 0.3 | Buy the test and bring-up kit (see shopping list below) | — | **user** (I can't place orders) | Waiting |
 | 0.4 | **LED height on the edge board: as low as possible** (decided 2026-11-16, see below). Panel depth is then tuned on the rev A boards using the frame's adjustable diffuser height (1.6, 3.2). | — | coordinator | Decided |
-| 0.5 | Toolchains: OpenSCAD (installed, 2021.01), RISC-V GCC for CH32V203 (MounRiver Studio or xPack), ESP-IDF for ESP32-C6 (≈3–5 GB) | — | **user**, when starting firmware | Deferred |
+| 0.5 | Toolchains: RISC-V GCC for CH32V203 (MounRiver Studio or xPack), ESP-IDF for ESP32-C6 (≈3–5 GB) | — | **user**, when starting firmware | Deferred |
 | **P1 — design rev A** |||||
 | 1.1 | Controller board schematic (new 4-layer project `hardware/controller-board/`), from the V5 active schematic, with the 24 V changes (decision 0010) | — | schematic agent | **Done** (ERC 0), incl. PTC F1 (V6.2.1) |
 | 1.2 | Passive edge board schematic V6: controller-joint pads, code-0 population option, +24V, LED decoupling on +5V | — | schematic agent | **Done** (ERC 0) |
