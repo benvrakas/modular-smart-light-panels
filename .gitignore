@@ -35,3 +35,6 @@ mechanical/solidcraft/render/out/logs/
 # Too large for GitHub (334 MB): the BlenderKit penthouse scene, re-downloadable (render/CREDITS.md)
 mechanical/solidcraft/render/assets/penthouse/*.blend
 mechanical/solidcraft/render/assets/penthouse/*.blend1
+
+# SolidCraft open-file locks
+.~*.lock

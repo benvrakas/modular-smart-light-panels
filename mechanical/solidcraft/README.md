@@ -61,6 +61,7 @@
 - **Ring:** matches the frame cap.
 - **Flange (L-section):** 1 mm × 3 mm (`fl_t`, `fl_h`) down the outer edge, flush with the frame's outer face in its step. It stiffens the 2 mm bezel, which bowed on the first test print (user, 2026-11-22).
 - **Detents:** one bump per side on the flange's inner face snaps into the frame's dimple; PETG flexes enough, so no pins or arms. Sizes and the flange-strain caveat: [decision 0018](../../docs/decisions/0018-l-section-bezel-snap-detents.md).
+- **Full-flange variant (trial):** configuration rows `<Shape> full flange` on `frame.sc` and `diffuser.sc` run the flange down the whole outer wall (step to the frame's bottom, flat floor); exports `stl/frame_<shape>_full.stl`, `stl/bezel_<shape>_full.stl`. `gen_assembly.py --full-flange` builds the assembly with them. See decision 0018.
 - **Film:** clamped between the frame cap and the bezel. Modelled in `diffuser.sc` as a second body `Film` (0.2 mm, `film_inset` 1.5 mm inside the outer edge so it ends inside the flange; no pin holes), shown semi-transparent; per-shape outlines in `step/film_<shape>.step`. The bezel STL/STEP exports contain the bezel only.
 - **No riser** (user, 2026-11-21). The frame's cap and exterior wall are one continuous part.
 
