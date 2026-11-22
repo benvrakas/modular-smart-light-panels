@@ -97,7 +97,7 @@ The contact patch adds ±0.45 mm.
 - **Assembly:** springs on both faces, so **JLC double-sided SMT** is needed (the design requires it, SPEC 3.3).
 - **Not included:**
   - **CAN TVS footprint** (SPEC "recommended"): no room in 56 × 9 mm with the slot zone. Each controller already has NUP3105L (D4).
-  - **Isolating variant:** out of scope for rev A. It needs a +36V cut, and the back-to-back via ties at ±17.5 would have to become DNP links.
+  - **Isolating, segment, and segment + isolating variants** (planned, BOMs not generated yet; SPEC 3.3, decision 0021): made on this PCB by leaving out face-A springs (SA2/SA9 for +36V, SA4/SA5 for CAN). Panel A's pads for those nets then touch nothing, either way round. No +36V cut or DNP links needed.
 
 ## 7. Spring test coupon (`coupon/`)
 

@@ -2,7 +2,7 @@
 
 Copyright © 2026 Ben Vrakas. All rights not granted below are reserved.
 
-This project is published for personal, educational and other **non-commercial** use. **Commercial use, including selling panels, kits, boards or parts made from these designs, is not permitted** under either license below. For a commercial license, contact the author through GitHub ([@benvrakas](https://github.com/benvrakas)).
+This project is published for personal, educational and other **non-commercial** use. **Commercial use, including selling panels, kits, boards or parts made from these designs, is not permitted** under either license below.
 
 | What | License | Text |
 |---|---|---|

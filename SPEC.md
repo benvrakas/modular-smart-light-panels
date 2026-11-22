@@ -1,6 +1,6 @@
 # Modular Smart Lighting System — Architectural & Design Specifications
 
-**Version:** V6.10.0 (2026-11-22) — supersedes V4. See [Changelog](#11-changelog).
+**Version:** V6.11.0 (2026-11-22) — supersedes V4. See [Changelog](#11-changelog).
 
 This file is the source of truth. Design decisions are recorded in [docs/decisions/](docs/decisions/). When a decision changes anything here, this file is updated in the same change.
 
@@ -13,7 +13,7 @@ A low-cost, edge-lit, snap-together light panel system that scales from a single
 1. **Self-configuring.** Panels snap together in any arrangement. The system discovers the full topology (which panel touches which, through which edge) and each panel's orientation, with no manual layout entry.
 2. **Room-scale 3D effects.** Animations live in room coordinates (a sparse 3D voxel space), not in strip order or a 2D grid. Effects flow continuously across walls and ceilings and respect real-world gravity.
 
-**Scope:** personal build for the author's home. Certification (FCC/UL/CE) is not a goal. Safety margins (fusing, current ratings, thermal) still apply because of the power levels involved.
+**Scope:** personal build for the author's home, published as a non-commercial open-source project ([LICENSE.md](LICENSE.md)); it will not be sold. Certification (FCC/UL/CE) is not a goal. Safety margins (fusing, current ratings, thermal) still apply because of the power levels involved.
 
 ## 1. Terminology
 
@@ -26,7 +26,9 @@ A low-cost, edge-lit, snap-together light panel system that scales from a single
 | **Corner connection** | The internal electrical joint between two edge boards at a polygon corner, within one panel. |
 | **Edge contacts** | Ten plated pads on the **exterior face** of an edge board, along its wall edge: power and signal nets. They carry no parts. |
 | **Bridge** | A thin double-sided **bridge PCB** standing upright in the seam between two adjacent panels. Low-cost **top-contact SMT springs** on each face press on the facing panel's edge contacts. A rigid printed **bridge clip** across the back of the seam holds it upright in a slot and **snaps onto both panels' back plates with zero play**: **straight-sided keys** (chamfered at the top) on the clip sit in grooves in both back plates and carry the pull between panels, and four in-plane snap arms put teeth (latch faces sloped ≈25°) into lug windows only to keep the clip on; no screws. The clip sets the seam width and carries every load between panels, so a cluster is one rigid assembly ([decision 0014](docs/decisions/0014-rigid-snap-bridge-clip.md)). All springs are machine-placed from tape and reel. |
-| **Cluster** | A set of panels joined by bridges on one flat surface. |
+| **Cluster** | A set of panels joined by bridges on one flat surface, sharing one CAN segment. |
+| **Segment bridge** | A bridge that passes GND and the SENSE↔DRIVE cross but not CAN, so two CAN segments can share one rigid assembly ([decision 0021](docs/decisions/0021-segment-bridge-superclusters.md)). |
+| **Supercluster** | Clusters joined by segment bridges: one rigid assembly with one frame and one room placement, served by one cluster controller per segment (§4.4). |
 | **Cluster controller** | A snap-on ESP32 module, one per cluster. It owns that cluster's CAN bus and bridges it to Wi-Fi. |
 | **CAN segment** | One physical CAN bus. Normally one cluster per segment, owned by its cluster controller. |
 | **Coordinator** | The single system brain (Raspberry Pi or a designated cluster controller). It holds the Room Layout and runs the voxel engine across all cluster controllers. |
@@ -75,7 +77,7 @@ A low-cost, edge-lit, snap-together light panel system that scales from a single
   - **Nominal 36 V; the highest steady voltage is 37.8 V (+5 %)**, so supplies must not be trimmed above it. A panel works from 27 to 37.8 V.
   - Why 36 V: the seam-bridge springs (rating still unconfirmed) carry 1.5× the power of 24 V at the same current, ≈72 W per bridge path at ≈1 A per spring, while nearly every 24 V part still fits. 48 V was rejected: the CAN transceiver's ±58 V and the 60 V buck, PTC and MOSFET would have no margin.
   - Everything connected directly to +36V is rated above the **SMAJ36A's 58.1 V clamp** (≥60 V), or sits behind a series resistor.
-  - **Supplies:** kits that are sold ship with a 100 W Class 2 supply (2.8 A at 36 V). A bigger supply may feed an install only through several fused injection bridges, each fused for what the springs and lanes carry (§8).
+  - **Supplies:** the default is one 100 W Class 2 supply (2.8 A at 36 V) per power domain. A bigger supply may feed an install only through several fused injection bridges, each fused for what the springs and lanes carry (§8).
   - The LEDs run from the 5 V rail made on each panel's controller board.
 
 ### 3.2 Controller board circuitry
@@ -142,10 +144,13 @@ Rationale: [docs/decisions/0002-seam-bridge-cheap-springs.md](docs/decisions/000
 - **Net mapping:** the bridge PCB routes each net with its own traces, including the **SENSE↔DRIVE cross-connect** (one panel's SENSE_EDGE meets the other's DRIVE). The edge pinout does not have to be a palindrome. The bridge layout is 180° symmetric, so it works in either orientation.
 - **Forces:** the springs push the two panels apart. Each board sees ≈10 × 0.6–0.8 N ≈ 7 N toward its panel's interior, so the panel frame and snap fit must take it. Inside a tiled cluster the forces mostly cancel; at cluster edges they don't.
 - **Spare contact (X8):** reserved for a switched LED rail (see the standby-power gap) or a later feature.
-- **Bridge PCB variants:**
+- **Bridge PCB variants** (BOM variants of one PCB; [decision 0021](docs/decisions/0021-segment-bridge-superclusters.md)): a net is broken by leaving out its **face-A springs**, so panel A's pads for it touch nothing. That works either way round, and the layout doesn't change. Face A then pushes on panel A with fewer springs; the clip takes the difference.
   - **Standard:** all nets connected.
   - **Injection:** adds a supply input and a fuse.
-  - **Isolating:** +36V left unconnected, with GND, CAN, and SENSE/DRIVE passed through.
+  - **Isolating:** without SA2/SA9, so +36V is not joined; GND, CAN and SENSE/DRIVE pass.
+  - **Segment:** without SA4/SA5, so CAN is not joined; GND, +36V and SENSE/DRIVE pass. Two CAN segments then share one rigid assembly and still discover each other (§4.4).
+  - **Segment + isolating:** without SA2/SA4/SA5/SA9; only GND, SENSE/DRIVE and SPARE pass.
+  - Segment bridges must be visibly marked (clip colour or a printed mark).
   - A footprint for a CAN TVS on every bridge is recommended.
 
 ### 3.4 Corner connections (internal)
@@ -185,7 +190,7 @@ The LED chain starts at the code-0 board (fed by the controller board) and runs 
   - outline length per shape
   - board height (once set)
   - 1.6 mm thickness
-- **Hex kit:** one panel of six 2-layer edge boards (R1 codes 0–5, as BOM variants) plus one controller board. Eight code variants exist (0–7, [decision 0020](docs/decisions/0020-eight-edge-id-codes.md)): a triangle uses 0–2, a square 0–3, a hexagon 0–5 and a future octagon 0–7.
+- **Hexagon board set:** one panel of six 2-layer edge boards (R1 codes 0–5, as BOM variants) plus one controller board. Eight code variants exist (0–7, [decision 0020](docs/decisions/0020-eight-edge-id-codes.md)): a triangle uses 0–2, a square 0–3, a hexagon 0–5 and a future octagon 0–7.
 - **Assembly:** small parts on both boards are pasted and reflowed; the corner and controller joints are drag-soldered by hand.
 
 ## 4. Topology & Orientation Discovery
@@ -225,10 +230,22 @@ Codes are numbered in order around the polygon, so the code also gives the edge'
 5. Combining the adjacency list with each panel's shape (its edge count, see §7.3) gives exact 2D geometry within a cluster.
 6. Re-discovery runs on boot and on demand. It can be incremental when a CAN node appears or disappears.
 
+### 4.4 Cross-segment discovery (superclusters, [decision 0021](docs/decisions/0021-segment-bridge-superclusters.md))
+A segment bridge passes SENSE/DRIVE and GND but not CAN, so panels on different segments can read each other's DRIVE pulses, but no single CAN bus can schedule them.
+1. **One pulse at a time:** the coordinator schedules every discovery DRIVE pulse of all the segments it controls on the shared clock (§5). Cluster controllers relay the schedule over CAN, with slot times in shared-clock time. Two pulses must never overlap where a panel could read both.
+2. **Who takes part:** after each segment's own discovery, only panels with an **unpaired edge** take part, as drivers and as readers. A panel whose edges are all paired inside its segment can't touch another segment.
+3. **Slots:** each slot is ≈10 ms. The driver pulls DRIVE low for ≤5 ms (the R11 fault limit, §3.2). Readers sample SENSE through the whole slot and report a code only if it holds steady for ≥1 ms. That tolerates the ≤2 ms skew between cluster controllers.
+4. **Result:** the reader knows its own edge from the code, and the slot says who drove. With the roles reversed, this gives cross-segment pairs `(A, k) ↔ (B, j)`, the same as §4.3.
+5. **Frames:** one cross-segment pair fixes the exact 2D transform between two clusters' frames, because both are rigid and in one plane. The coordinator merges them into one supercluster frame. Further pairs must agree; a mismatch flags a badly seated bridge.
+6. **No coordinator:** a cluster controller runs its own discovery unscheduled. If a neighbour's pulses interfere, the readings come out inconsistent and it retries after a random delay.
+- **Rules:**
+  - Every segment needs its own cluster controller on one of its own free outer edges, and its own termination (§5). Panels behind a segment bridge with no controller have no CAN, so they can't be discovered.
+  - Cluster controllers must detect another controller's frames on their bus (a standard bridge put in by mistake between two segments). They report it, and the coordinator lets one of them own the merged segment.
+
 ## 5. Network Topology
 
 - **Bus:** CAN 2.0B (classic). **125–250 kbps** for tolerance of branched (tree-shaped) layouts. The bus passes through each panel's internal perimeter and crosses to neighbors through the bridges.
-- **Segmentation:** **One CAN segment per cluster**, owned by that cluster's **cluster controller**. Plan for ≤ ~50 panels per cluster; split larger walls into two clusters with an isolating bridge (§8). Cluster controllers talk to the **coordinator** over Wi-Fi. A 100+ panel, multi-room install is therefore a set of independent clusters (walls, ceilings, slopes) joined only by Wi-Fi. This also settles how panels on different planes connect: they don't connect electrically.
+- **Segmentation:** **One CAN segment per cluster**, owned by that cluster's **cluster controller**. Plan for ≤ ~50 panels per cluster; split larger walls into two clusters with a **segment bridge** (§3.3), which keeps them one rigid supercluster that is discovered and placed as one (§4.4). Splitting also adds bandwidth: each segment carries only its own panels' traffic. CAN FD was evaluated and not adopted ([decision 0021](docs/decisions/0021-segment-bridge-superclusters.md)); more segments on classic CAN are cheaper. Cluster controllers talk to the **coordinator** over Wi-Fi. A 100+ panel, multi-room install is therefore a set of independent clusters (walls, ceilings, slopes) joined only by Wi-Fi. This also settles how panels on different planes connect: they don't connect electrically.
 - **Termination:** 120 Ω on the cluster controller, plus one controller board at the electrically farthest point (solder jumper). Branches stay short because each run between panels is ≈ one edge length.
 - **Cross-cluster time sync:** The coordinator keeps all cluster controllers on a common clock over Wi-Fi (target ≤ 2 ms skew, e.g. a PTP-lite exchange or ESP-NOW beacons), so effects stay continuous across walls and ceilings. Each controller re-broadcasts the clock on its CAN bus.
 - **Traffic model:** Effect parameters, time sync, discovery, and configuration. Per-pixel streaming is a low-rate fallback mode only (see §6).
@@ -251,7 +268,7 @@ Codes are numbered in order around the polygon, so the code also gives the edge'
 ## 7. Software & Spatial Mapping
 
 ### 7.1 Coordinator
-- Stores the master **Room Layout JSON**: clusters, panels, adjacency, per-panel transforms, power domains.
+- Stores the master **Room Layout JSON**: clusters, superclusters (clusters joined by segment bridges and their relative transforms, §4.4), panels, adjacency, per-panel transforms, power domains.
 - Runs the **volumetric 3D voxel engine** (sparse voxel grid). It schedules effects in room coordinates and translates them into per-segment descriptors.
 - Provides the user-facing control and API (integrations TBD).
 
@@ -279,7 +296,7 @@ Codes are numbered in order around the polygon, so the code also gives the edge'
     2. Decode each panel's code to its ID.
     3. Raycast each panel centroid onto the detected plane, or use LiDAR scene depth, to get a 3D point.
     4. Fit the cluster's **6-DoF pose** to the discovery layout (≥3 panels; least squares with residual check to reject misreads).
-    - Only one rigid transform per cluster is solved; each panel's pose then follows from discovery geometry.
+    - Only one rigid transform per cluster is solved (per supercluster, when segment bridges join clusters, §4.4); each panel's pose then follows from discovery geometry.
   - **Multi-room:** Use either one continuous walk-through session (single world frame, small drift that grows with distance), or per-room sessions saved as ARWorldMaps and joined by a shared anchor seen from both rooms (a cluster visible through a doorway, or a marker on the door frame). On LiDAR iPhones, **RoomPlan** captures walls, doors, and openings for the voxel model (§6.1).
   - **Output:** Per-cluster transforms, room geometry, and portals, all written to the Room Layout JSON.
   - **Flash safety:** Codes use near-equal-luminance colour steps at low brightness, with no bright on/off or saturated-red flashing, at ≤ ~3–4 changes per second.
@@ -299,7 +316,7 @@ Codes are numbered in order around the polygon, so the code also gives the edge'
 - **Standby:** With so few LEDs, idle draw is dominated by the MCU and CAN transceiver (≈0.3–0.5 W per panel). MCU sleep and CAN transceiver standby with wake-on-bus are required. The per-panel **LED rail is switched by a P-MOSFET on the controller board** (V6.0; the 5 V buck stays on for the MCU and CAN transceiver), so LEDs draw nothing in standby; the spare contact (X8) is no longer needed for that. Domain-level supply switching remains an option for full off.
 - **Brightness limiting:** The coordinator enforces a **per-power-domain current budget**, scaling global brightness to fit each PSU. This is mandatory.
 - **Brightness normalised per shape ([decision 0017](docs/decisions/0017-brightness-normalised-to-lowest-led-density.md)):** each panel's 100 % is scaled to the shape with the fewest LEDs per area (today the hexagon), so every shape shows the same surface luminance: hexagon up to full output, square ≈53 %, triangle ≈26 %. Estimated maximum ≈1,570 cd/m² on the film.
-- **Power domains:** Each PSU feeds a domain through one or more **injection bridges** (a bridge PCB variant with a supply input and a **time-lag fuse**: rev A uses a Bel 0685T5000-01, LCSC C3163312, 5 A slow-blow, 63 V DC, 1206, with wire pads at both bridge ends). It must be time-lag so that a panel's own PTC (F1, §3.2) trips first and only that panel goes dark. Neighboring domains are joined by **isolating bridges**, a PCB variant with the +36V traces left unconnected. These carry GND, CAN, and SENSE/DRIVE, so PSUs never back-feed each other.
+- **Power domains:** Each PSU feeds a domain through one or more **injection bridges** (a bridge PCB variant with a supply input and a **time-lag fuse**: rev A uses a Bel 0685T5000-01, LCSC C3163312, 5 A slow-blow, 63 V DC, 1206, with wire pads at both bridge ends). It must be time-lag so that a panel's own PTC (F1, §3.2) trips first and only that panel goes dark. Neighboring domains are joined by **isolating bridges**, the bridge without its face-A +36V springs (§3.3). These carry GND, CAN, and SENSE/DRIVE, so PSUs never back-feed each other. Where a domain boundary is also a segment boundary, a segment + isolating bridge does both.
 - **Bridge current rating:** Each joint has two +36V springs and three GND springs per board. The BW0019-series spring's rating is not yet confirmed; assume ≈1 A per spring (≈2 A, ≈72 W, of +36V per bridge path) until measured. A supply bigger than one bridge path carries needs several fused injection bridges (decision 0019). Domain size and injection spacing follow from the measured number. If that is too low, add power pads and springs (≈$0.02 each).
 - **Thermal:** Lanes are sized for the worst-case current through a panel acting as a feed path (a third of the 12 V current at 36 V).
 
@@ -322,7 +339,7 @@ Rev A hexagon mechanics are modelled in `mechanical/archive/openscad-panel/` (Op
 - **Back plate:** its top is the chamber floor (z 6.6); its rim takes the springs' inward push. The controller pocket is open through to the wall (meets the §3.5 stepped-pocket rule), giving wall-side jig and iron access.
 - **Bridge clip:** rigid snap fit with zero play, see §3.3 ([decision 0014](docs/decisions/0014-rigid-snap-bridge-clip.md)). The frame keeps its 12 snap legs (|x| 30–36.5); the clip ends inside |x| ≤ 29.5. CAD moves to SolidCraft (`mechanical/solidcraft/`).
 - **Wall mount:** **3M Dual Lock** pads on the back plate's wall face, clear of the controller pocket on every shape ([decision 0013](docs/decisions/0013-dual-lock-mounting-fdm-rules.md)). There's no puck, no wall screws and no holes in the reflector; the seam's ≈7 N spring push is far below the pads' shear capacity. Only some panels need pads: the clips make the cluster rigid, and the clip sets the seam width (no spacing gauge). The panel back plane is z ≈ −4.3 (clip and lug bottoms). The cluster is hung after assembly; adding a panel means taking it down first (accepted by the user). The decision 0012 wall puck stays in the model as an unused fallback.
-- **Diffuser:** film clamped straight between the frame cap and a bezel (no riser: removed by the user on 2026-11-21, [decision 0014](docs/decisions/0014-rigid-snap-bridge-clip.md)). The film sits ≈2.1 mm above the board top. **The bezel has an L-section:** a 1 mm flange runs down the frame's whole outer wall, flush in a step in the frame's outer face, so the side shows no seam; it stiffens the thin bezel (a test print bowed) and locates it; one snap detent per side (a bump on the flange's inside with 0.6 mm engagement, 10 mm long, into a dimple in the frame) holds it, relying on PETG's flex, with no pins or arms (user, 2026-11-22; [decision 0018](docs/decisions/0018-l-section-bezel-snap-detents.md)). The film stops 1.5 mm inside the outer edge, inside the flange.
+- **Diffuser:** film clamped straight between the frame cap and a bezel (no riser: removed by the user on 2026-11-21, [decision 0014](docs/decisions/0014-rigid-snap-bridge-clip.md)). The film sits ≈2.1 mm above the board top. **The bezel has an L-section:** a 1 mm flange runs down the frame's whole outer wall, flush in a step in the frame's outer face, so the side shows no seam; it stiffens the thin bezel (a test print bowed) and locates it; one snap detent per side (a bump on the flange's inside, 5.5 mm below the bezel's underside, with 0.6 mm engagement, 10 mm long, into a dimple in the frame) holds it, relying on PETG's flex, with no pins or arms (user, 2026-11-22; [decision 0018](docs/decisions/0018-l-section-bezel-snap-detents.md)). The film stops 1.5 mm inside the outer edge, inside the flange.
 - **Panel depth:** board stack ≈20.9 mm plus the engaged Dual Lock thickness (≈4–6 mm, depending on the type), With no riser, the film height is fixed; if the optics test shows hot spots, the fix is a taller frame cap (a frame parameter), not a separate riser.
 - **FDM design rules ([decision 0013](docs/decisions/0013-dual-lock-mounting-fdm-rules.md)):** if a part uses round or split snap posts, their lips are **ovalized** (they protrude only in the direction the split flexes); **glue and M2/M3 screws** are allowed, threading straight into the plastic through tapered-entry pilot holes (no heat-set inserts); overhangs up to 65° from vertical (70° prints but sags slightly: only where 65° doesn't fit; user, 2026-11-22); steeper only with support standing on the bed, never support trapped between surfaces of the same part; walls ≥ 0.75 mm across the layers (≈0.5 mm where the thickness is built up in layers, user 2026-11-22); fits per side: **tight 0.08–0.1 mm**, **loose 0.15–0.2 mm** (user, 2026-11-21).
 - **Edge-board keep-outs** (reserved for these reasons only): exterior face z 0–7.5 at |x| 30–36.5 (snap legs); inward face z ≥ 12.8 (frame lip); inward face below z 6.6 flat copper only (bears on the plate rim); nothing below the wall edge at |x| 30.4–36.1.
@@ -349,12 +366,18 @@ See also [docs/gap-analysis.md](docs/gap-analysis.md) for the full pre-project g
 16. ~~**LED-rail switch**~~ — **Closed (V6.2):** AO3401A + 2N7002 from PA0, ≈0.9 ms soft start.
 17. **Heights (rev A interface):** controller side confirmed (V6.3): underside z = 5.0, top/chamber floor z = 6.6, J4 origin z = 5.25, J1/J4 pads x = ±11.43 mm. **LED centres moved to z ≈ 9.8 mm** (LED ≈7.3–12.3 mm, centred in the visible wall 6.6–13), because at 9.4 the LED bottom sat only 0.3 mm above the controller top. **Edge side confirmed (V6.5):** H = 13.5; LEDs at x −31.2/0/+31.2, centre z 9.8 (body 7.37–12.23); J4 pads 1.3 × 2.85 mm at z 2.5–5.35 since V6.9.2 (2.5 mm of fillet land below the controller; origin unchanged); contacts end z 6.0; spring contact ≤ z 5.0.
 18. **Seam inset d:** at d = 3.5 the springs compress to 3.1 mm, near their 3.0 mm minimum; d ≈ 3.8 would centre them. Rev A boards keep d = 3.5 lengths: the seam width is set by panel spacing (the printed spacing gauge), so the spring coupon decides the spacing without a board change. If a later revision changes d, re-derive L_board (decision 0004).
+19. **Segment bridge and superclusters ([decision 0021](docs/decisions/0021-segment-bridge-superclusters.md)):** on rev A, join two small triangle clusters with a segment bridge (a BOM variant with no SA4/SA5) and check that the cross-segment codes read cleanly and that the derived transform matches.
+20. **CAN bit rate:** on a rev A cluster, scope CANH−CANL at 500 kbps and 1 Mbps and measure how long the bus takes to settle after a dominant-to-recessive edge. That sets whether per-LED streaming (≈13–26 hexagons per segment at 30 fps) is possible; §5 stays at 125–250 kbps until then.
 
 ## 11. Changelog
+**V6.11.0 (2026-11-22)** — segment bridge and superclusters (user; [decision 0021](docs/decisions/0021-segment-bridge-superclusters.md)). New bridge variants, made by leaving out face-A springs on the same PCB: **segment** (no CAN) and **segment + isolating** (no CAN, no +36V); the isolating variant is now made the same way, without a +36V cut. Clusters joined by segment bridges form one **supercluster**, found by coordinator-scheduled cross-segment discovery (§4.4) and placed with one AR pose. Classic CAN is kept; CAN FD was evaluated and not adopted. Open items 19 (segment-bridge test) and 20 (CAN bit-rate test) added. Non-commercial open-source project (user): references to sold kits removed (§0, §3.1, decision 0019), and so is the gap analysis's commercial-viability section.
+
 **V6.10.0 (2026-11-22)** — 36 V bus and eight edge codes (user).
-- **Bus 24 V → 36 V** ([decision 0019](docs/decisions/0019-36v-bus.md)): 1.5× the power per bridge spring at the same current. Nets `+24V`/`+24V_IN` are now `+36V`/`+36V_IN` on every board. Controller parts: SMAJ36A (58.1 V clamp), C_IN 2 × 4.7 µF 100 V, 100 nF 100 V, SS310 catch diode, SENSE resistors 10 k 0805 anti-surge 500 mW, R26 (DNP) 22 k. Same footprints; layouts unchanged; DRC with schematic parity passes on all boards. Supplies: 36 V nominal, 37.8 V maximum; sold kits use one 100 W Class 2 supply, larger supplies only through several fused injection bridges.
+- **Bus 24 V → 36 V** ([decision 0019](docs/decisions/0019-36v-bus.md)): 1.5× the power per bridge spring at the same current. Nets `+24V`/`+24V_IN` are now `+36V`/`+36V_IN` on every board. Controller parts: SMAJ36A (58.1 V clamp), C_IN 2 × 4.7 µF 100 V, 100 nF 100 V, SS310 catch diode, SENSE resistors 10 k 0805 anti-surge 500 mW, R26 (DNP) 22 k. Same footprints; layouts unchanged; DRC with schematic parity passes on all boards. Supplies: 36 V nominal, 37.8 V maximum; one 100 W Class 2 supply per power domain by default, larger supplies only through several fused injection bridges.
 - **Eight edge ID codes** ([decision 0020](docs/decisions/0020-eight-edge-id-codes.md)): R_k 0 / 2k / 4k7 / 9k1 / 15k / 27k / 47k / 100k with R11 = 1 kΩ (was 470 Ω), so octagons can be identified; the smallest worst-case gap between codes is 167 mV (was 41 mV between codes 0 and 1). Edge BOM variants code0–7; CPL variant `code1-7`.
 - Schematic generator fix: writing the same sheet for three outlines no longer duplicates parts in the square and triangle schematics (their ERC is clean again).
+
+**V6.9.13 (2026-11-22)** — bezel snap detents moved up (user): the bump centre sits 5.5 mm below the bezel's underside (was 7.2 mm, near the flange's free end), so less flange flexes and the snap is about 2.2× stiffer, at about 3 % flange strain ([decision 0018](docs/decisions/0018-l-section-bezel-snap-detents.md)).
 
 **V6.9.12 (2026-11-22)** — from the test print (user): the frame's groove leaves 0.3 mm over the edge boards (was 0.09, which held some snap legs off their latch), raising the cap and bezel 0.21 mm; snap legs 1.6 mm thick (was 1.3) for a firmer hold.
 

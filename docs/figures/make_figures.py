@@ -34,6 +34,7 @@ PICS = {
     "render_vertical_corner.jpg": RO + "penthouse_vertical_corner.png",
     "render_vertical_wall.jpg": RO + "penthouse_vertical_wall.png",
     "render_vertical_inside.jpg": RO + "penthouse_vertical_inside.png",
+    "render_exploded_hex.jpg": RO + "exploded_hex.png",
     # SolidCraft (snap_cad.py)
     "cad_assembly_front.jpg": SC + "assembly_front.png",
     "cad_assembly_back.jpg": SC + "assembly_back.png",

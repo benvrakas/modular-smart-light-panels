@@ -10,7 +10,9 @@ DETENT = [   # bezel bump / frame dimple (user 2026-11-22: snap detents replace 
     ("det_top", "0.3 mm", "Flat top of the bump."),
     ("det_ang", "65 deg", "Bump and dimple faces from the flange face / wall (vertical): steep for a firm snap, and a safe 65 deg overhang in both print orientations (user 2026-11-22: 65 safe, 70 sags slightly)."),
     ("det_len", "10 mm", "Bump length along the side (one per side, at mid-side, where the flange flexes most)."),
-    ("det_zc", "1.1 mm", "Bump centre above the flange's bottom edge: the bump spans 0.2 .. 2.0 mm of the 3 mm flange."),
+    ("det_zc", "2.8 mm", "Bump centre above the flange's bottom edge: 5.5 mm below the flange root (bezel underside), so the bump spans 2.3 .. 3.3 mm "
+                         "of the 8.3 mm flange (user 2026-11-22: tabs higher up, less flange to flex, firmer snap; was 1.1 mm, 7.2 mm below the root; "
+                         "about 3 % flange strain at 0.6 mm engagement)."),
 ]
 
 

@@ -47,6 +47,6 @@ c("file.insert_step", path=ROOT + "boards/with-copper/controller-board.step", na
 c("appearance.assign", components=["Back plate", "Frame", "Bezel"], color="#F2F2EF", name="White PETG")
 c("appearance.assign", bodies=["Film"], color="#EEF1F5", name="Diffuser film")
 c("appearance.assign", faces=[{"point": [0, -(Ai - 0.2) + 12, 6.6], "body": "controller-board_PCB"}], color="#F4F4F1", name="White mask")
-c("export", path=ROOT + f"render/panel_{shape}.glb", format="glb")
+c("file.export", path=ROOT + f"render/panel_{shape}.glb", format="glb")
 json.dump({"commands": S}, open(sys.argv[2], "w"), indent=1)
 print(len(S), "steps")

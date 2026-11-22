@@ -1,6 +1,6 @@
 # Gap Analysis & Cost Estimate (pre-project)
 
-**Date:** 2026-11-14 · **Against:** [SPEC.md](../SPEC.md) V4 · **Status updated:** 2026-11-22 for SPEC V6.10
+**Date:** 2026-11-14 · **Against:** [SPEC.md](../SPEC.md) V4 · **Status updated:** 2026-11-22 for SPEC V6.11
 
 > **Status as of SPEC V5 (2026-11-15).** This analysis was written against V4. Where an item is resolved or changed, SPEC.md is authoritative. See also [decision 0001](decisions/0001-edge-board-parts.md).
 >
@@ -209,48 +209,3 @@ They set PSU count, domain size, bridge current, and whether the copper "solder 
   3. Edge PCB price (finish, bevel, panelization)
   4. Active-board BOM
 - **Running cost:** idle draw (A4) is roughly $40–65/yr for 100 panels unless panels sleep.
-
----
-
-## Commercial viability (if this ever becomes a product)
-
-**Price gap.** Comparable modular panel kits retail for very roughly $15–25 per panel. Retail is typically 3–4× landed material cost, which puts the target near **$5–8 per hexagon** against ≈$9–18 now (V6.0: seam bridge, RGBW, rear controller board, 24 V). The gap is now spread across the fixed per-panel parts: edge PCBs, the active board, LEDs and bridges.
-- One-time costs: moulding tooling is roughly $15–60k per part family, and certification testing roughly $15–40k.
-
-**Design changes:**
-- Moulded PC or PC/ABS enclosure (UL94 V-0) instead of PETG.
-- No hand-soldered corners: a one-piece ring PCB, board-to-board connectors, or a moulded frame that captures the boards.
-- Diffuser film held in a moulded frame, or a moulded diffuser.
-- Same bridge approach in a moulded enclosure, with the socket qualified for mating cycles.
-- Listed plug-in Class 2 adapters (≈100 W per circuit in the US) instead of bench supplies.
-- Standby within EU limits (≈0.5 W, or ≈2 W networked), so power gating is required.
-- Minimum LED count, guided onboarding that works without AR, and signed OTA with rollback.
-
-**Compliance** (a starting map, not legal advice):
-- FCC Part 15B, and 15C/RED through a pre-certified ESP32 module.
-- CE: EMC, RED, RoHS, REACH, WEEE.
-- UL/ETL safety listing.
-- IEC 62471 photobiological safety.
-- Energy rules: EU Ecodesign standby; US DoE adapter efficiency.
-- Cybersecurity: UK PSTI, EU Cyber Resilience Act, US Cyber Trust Mark.
-- Matter certification (optional).
-
-**Software and service:**
-- Native iOS and Android apps.
-- Local-first control.
-- Integrations: Matter, Apple Home, Google, Alexa, Home Assistant.
-- Customer support, warranty, and replacement panels.
-
-**Reliability testing:**
-- Connector mating cycles.
-- Thermal cycling at full white.
-- LED failure rate against the warranty period.
-- Mounting on real wall finishes, and ceiling pull-out force.
-- Drop and shipping tests.
-
-**Business and legal:**
-- **Patent freedom-to-operate search first.** Established brands hold patents on connectable panels and layout detection.
-- Trademark, liability insurance, and capital for MOQs and inventory.
-- Validate demand (e.g., crowdfunding).
-
-**Differentiator:** room-scale effects that run continuously across walls, ceilings, and rooms, placed by an AR scan. Most current products map a layout in 2D on one surface.
