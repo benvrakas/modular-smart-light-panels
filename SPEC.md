@@ -1,6 +1,6 @@
 # Modular Smart Lighting System — Architectural & Design Specifications
 
-**Version:** V6.9.11 (2026-11-22) — supersedes V4. See [Changelog](#11-changelog).
+**Version:** V6.9.12 (2026-11-22) — supersedes V4. See [Changelog](#11-changelog).
 
 This file is the source of truth. Design decisions are recorded in [docs/decisions/](docs/decisions/). When a decision changes anything here, this file is updated in the same change.
 
@@ -312,7 +312,7 @@ Codes are numbered in order around the polygon, so the code also gives the edge'
 | ![Section through a clip tooth](docs/figures/section_seam_tooth.jpg) | ![Section through a frame hook](docs/figures/section_seam_hook.jpg) |
 
 Rev A hexagon mechanics are modelled in `mechanical/archive/openscad-panel/` (OpenSCAD, parametric; `MECH-NOTES.md`), per [decision 0012](docs/decisions/0012-panel-mechanics-rev-a.md).
-- **Frame (crown):** board top edges sit in a groove; 12 snap legs in the seam band; the corners are closed (wall, groove and lip run all the way round, with 1.16 mm reliefs for the corner solder), and the edge-board ring is soldered on a separate jig before it goes into the frame. White PETG, printed cap down.
+- **Frame (crown):** board top edges sit in a groove with 0.3 mm vertical clearance; 12 snap legs in the seam band; the corners are closed (wall, groove and lip run all the way round, with 1.16 mm reliefs for the corner solder), and the edge-board ring is soldered on a separate jig before it goes into the frame. White PETG, printed cap down.
 - **Back plate:** its top is the chamber floor (z 6.6); its rim takes the springs' inward push. The controller pocket is open through to the wall (meets the §3.5 stepped-pocket rule), giving wall-side jig and iron access.
 - **Bridge clip:** rigid snap fit with zero play, see §3.3 ([decision 0014](docs/decisions/0014-rigid-snap-bridge-clip.md)). The frame keeps its 12 snap legs (|x| 30–36.5); the clip ends inside |x| ≤ 29.5. CAD moves to SolidCraft (`mechanical/solidcraft/`).
 - **Wall mount:** **3M Dual Lock** pads on the back plate's wall face, clear of the controller pocket on every shape ([decision 0013](docs/decisions/0013-dual-lock-mounting-fdm-rules.md)). There's no puck, no wall screws and no holes in the reflector; the seam's ≈7 N spring push is far below the pads' shear capacity. Only some panels need pads: the clips make the cluster rigid, and the clip sets the seam width (no spacing gauge). The panel back plane is z ≈ −4.3 (clip and lug bottoms). The cluster is hung after assembly; adding a panel means taking it down first (accepted by the user). The decision 0012 wall puck stays in the model as an unused fallback.
@@ -345,6 +345,8 @@ See also [docs/gap-analysis.md](docs/gap-analysis.md) for the full pre-project g
 18. **Seam inset d:** at d = 3.5 the springs compress to 3.1 mm, near their 3.0 mm minimum; d ≈ 3.8 would centre them. Rev A boards keep d = 3.5 lengths: the seam width is set by panel spacing (the printed spacing gauge), so the spring coupon decides the spacing without a board change. If a later revision changes d, re-derive L_board (decision 0004).
 
 ## 11. Changelog
+**V6.9.12 (2026-11-22)** — from the test print (user): the frame's groove leaves 0.3 mm over the edge boards (was 0.09, which held some snap legs off their latch), raising the cap and bezel 0.21 mm; snap legs 1.6 mm thick (was 1.3) for a firmer hold.
+
 **V6.9.11 (2026-11-22)** — wall rule clarified (user): 0.75 mm applies to widths printed in XY (two 0.4 mm lines); thicknesses built up in layers can be ≈0.5 mm (decision 0013). The back-plate board seat now slopes at 25° (65° overhang, was 20°); the tab edge over the clip recess is 0.60 mm, along the print's Z.
 
 **V6.9.10 (2026-11-22)** — overhang rule: 65° from vertical is the safe limit, 70° only where 65° doesn't fit (decision 0013). Bezel detent bump and frame dimple faces at 65° (were 45°) for a firmer snap ([decision 0018](docs/decisions/0018-l-section-bezel-snap-detents.md)).

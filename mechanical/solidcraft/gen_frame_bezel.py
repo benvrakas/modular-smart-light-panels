@@ -68,6 +68,9 @@ class Script:
 FD = doc("frame.sc")
 F = Script(p["name"] for p in FD["params"])
 F.c("timeline.delete", features=[f["id"] for f in FD["features"]])
+F.param("board_clr_z", "0.3 mm", "Vertical clearance over the edge boards, seat to groove ceiling (user 2026-11-22: with 0.09 the test print's boards held some frame legs off their latch; PCB routing and prints both vary by more).", new=True)
+F.param("cap_bot", "board_H + board_clr_z", "Cap underside = groove ceiling above the board tops.")
+F.param("leg_t", "1.6 mm", "Snap leg thickness (user 2026-11-22: 1.3 was not firm enough; about 1.9x stiffer).")
 F.param("fl_t", "1 mm", "Bezel flange thickness (user 2026-11-22: L-section bezel for stiffness).", new=True)
 F.param("rebate_w", "fl_t + 0.15 mm", "Step in the frame's outer face for the bezel flange (flange + loose fit), over the whole wall height (user 2026-11-22: full-length flange, no seam around the side).", new=True)
 F.param("fl_gap", "0.2 mm", "Clearance between the flange end and the frame's bottom plane: the film clamp sets the bezel's height, not the flange.", new=True)
@@ -128,6 +131,7 @@ for nm in ("pin_r", "pin_d", "pin_h", "pin_hole_h", "pin_clear"):
     B.c("parameters.delete", name=nm)
 for nm, ex, cm in DETENT:
     B.param(nm, ex, cm, new=True)
+B.param("cap_top", "15.8 mm", "Frame cap top (frame.sc board_H + board_clr_z + cap_t = 13.5 + 0.3 + 2); the film sits on it.")
 B.param("fl_t", "1 mm", "Flange thickness (user 2026-11-22: L-section bezel for stiffness; the frame has a matching step).", new=True)
 B.param("frame_bot", "7.5 mm", "Bottom of the frame's outer wall (frame.sc z_skirt).", new=True)
 B.param("fl_gap", "0.2 mm", "Clearance between the flange end and the frame's bottom plane: the film clamp sets the bezel's height, not the flange.", new=True)

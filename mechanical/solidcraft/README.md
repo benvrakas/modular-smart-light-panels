@@ -36,10 +36,10 @@
 
 ### Frame
 
-- **Board groove:** the cap, the inward lip and the exterior walls form it, at a tight fit.
+- **Board groove:** the cap, the inward lip and the exterior walls form it: tight across the boards, with 0.3 mm vertical clearance over them (`board_clr_z`; user, 2026-11-22: at 0.09 the test print's boards held some legs off their latch).
 - **Corners:** closed (user, 2026-11-21). The wall, the groove and the lip run all the way round. The board ring is soldered **before** it goes into the frame. An L-shaped relief, 1.16 mm deep (`strap_relief_d`, leaving 0.8 mm of wall under the bezel flange), in the wall's inner face around each corner (the last 3.5 mm of each board, z 7.5–12.9) clears the solder on the corner power pads.
 - **Inner lip:** one mitred segment per side, so it closes into a ring at any corner angle.
-- **Snap legs:** 2 per side. The hooks reach **1.2 mm** under the back-plate tab (`hook_tip`), latching on the plane `latch_z` (z −2.3) with a 25° latch face and a 35° lead-in (`lead_slope`); the legs end at z −4.16, above the back plane (`leg_bot` follows from these). Section: `png/section_seam_hook.png`.
+- **Snap legs:** 2 per side, 1.6 mm thick (`leg_t`, was 1.3; user, 2026-11-22: firmer). The hooks reach **1.2 mm** under the back-plate tab (`hook_tip`), latching on the plane `latch_z` (z −2.3) with a 25° latch face and a 35° lead-in (`lead_slope`); the legs end at z −4.16, above the back plane (`leg_bot` follows from these). Section: `png/section_seam_hook.png`.
 - **Flange step:** the outer face is stepped in by the bezel flange + 0.15 mm (`rebate_w`) over the whole wall height, from the frame bottom to the cap top, so the flange sits flush (user, 2026-11-22). One detent dimple per side at mid-side (`det_*`, 45° faces), near the bottom.
 - **Corner solder reliefs:** one mitred cut per side, ending on the corner bisector, so neighbouring reliefs meet exactly at any corner angle (straight boxes crossed at the triangle's 60° corners).
 
