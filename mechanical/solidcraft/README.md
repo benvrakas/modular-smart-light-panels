@@ -77,7 +77,7 @@ From decision 0013:
 - **Volume:** prints are mostly hollow, so volume is used only to verify geometry, not to save material.
 - **Engagement:** a test clip shifted 0.2 mm across the seam hits the recess wall and the key groove, so it is held across the seam by solid walls.
 - **Retention:** a test clip pulled 0.3 mm off the back meets only the 45° latch faces of the teeth, so it is retained, and a firm pull releases it.
-- **Sections:** `png/section_seam_spring.png`, `png/section_seam_tooth.png` and `png/section_seam_hook.png` cut across the A–B seam of the assembly (made by `docs/diagrams/snap_cad.py` with solidcraft-cli).
+- **Sections:** `png/section_seam_spring.png`, `png/section_seam_tooth.png` and `png/section_seam_hook.png` cut across the A–B seam of the assembly (made by `docs/figures/snap_cad.py` with solidcraft-cli).
 - **Real boards (2026-11-21):** the rev A KiCad STEP models are placed in `panel_assembly.sc`, with copper (`png/assembly_front.png`, `png/assembly_back.png`).
   - **Mixed cluster:** across 3,242 bodies there is **no interference between parts**. The only overlaps left are inside the controller and bridge STEP models themselves (component models touching their own pads).
   - **Clashes found and fixed:** fuse F1 against the clip spine (fuse reliefs); square and triangle C1/C3/R3 against the back-plate wall and the controller (parts moved above z 6.8).

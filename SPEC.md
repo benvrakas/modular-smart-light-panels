@@ -1,6 +1,6 @@
 # Modular Smart Lighting System — Architectural & Design Specifications
 
-**Version:** V6.9.3 (2026-11-21) — supersedes V4. See [Changelog](#11-changelog).
+**Version:** V6.9.4 (2026-11-21) — supersedes V4. See [Changelog](#11-changelog).
 
 This file is the source of truth. Design decisions are recorded in [docs/decisions/](docs/decisions/). When a decision changes anything here, this file is updated in the same change.
 
@@ -32,6 +32,13 @@ A low-cost, edge-lit, snap-together light panel system that scales from a single
 | **Coordinator** | The single system brain (Raspberry Pi or a designated cluster controller). It holds the Room Layout and runs the voxel engine across all cluster controllers. |
 
 ## 2. Physical Architecture & Optical Design
+
+*Figures are generated from the design files by `docs/figures/make_figures.py`; the text below is the specification.*
+
+| Mixed cluster (SolidCraft) | Back of the cluster |
+|---|---|
+| ![Mixed cluster (SolidCraft)](docs/figures/cad_assembly_front.jpg) | ![Back of the cluster](docs/figures/cad_assembly_back.jpg) |
+
 
 - **Edge-lit optics:** Perimeter-mounted, inward-facing addressable **RGBW** LEDs (SKC6812RGBW, neutral white, on a per-panel 5 V rail; see [decision 0003](docs/decisions/0003-rgbw-leds-5v-rail.md)) with a shallow internal air gap, a white matte back reflector, and a thin **LCD-style diffuser film** (PET/PC, ≈0.1–0.3 mm, one or two layers) **clamped flat between the frame cap (or a riser ring) and a bezel ring** registered on corner pins ([decision 0012](docs/decisions/0012-panel-mechanics-rev-a.md)). Thick acrylic is not required. The goal is smooth, hot-spot-free color blending in a slim profile; the optics test must confirm the film hides individual LEDs (see the gap analysis).
 - **Common edge length:** All shapes share one nominal edge length of **≈100 mm**, measured on the **seam centrelines** (the lines along which panels tile), so triangles, squares, and hexagons can mate with each other. A hexagon is ≈200 mm across its corners and ≈173 mm across its flats (0.026 m²), which fits common 220–256 mm print beds in one piece.
@@ -89,6 +96,11 @@ Parts carried over from the V5 active edge board (decisions [0001](docs/decision
 | Joint to the code-0 edge board | **10 pads at 2.54 mm**, in the order **+24V, GND, +5V_LED, LED_RETURN, LED_DATA_OUT, SPARE, CANH, CANL, SENSE, DRIVE**. Footprints ControllerJoint_ControllerEdge / ControllerJoint_EdgeBoard; pad n meets pad n. On the controller the pads are on its **parts side** (the wall side). Drag-soldered at 90° to the code-0 edge board's inward face. | +24V sits at the end with only GND beside it; DRIVE is at the far end; LED data is kept off +5V_LED. Order and reasons: SCHEMATIC-NOTES §6. The joint pads exist on every edge board; only the code-0 board's are used. |
 
 ### 3.3 Edge contacts and bridge
+
+| Section across a seam, through a spring | Seam bridge | Edge board, exterior face (contacts) |
+|---|---|---|
+| ![Section across a seam, through a spring](docs/figures/section_seam_spring.jpg) | ![Seam bridge](docs/figures/board_bridge_top.jpg) | ![Edge board, exterior face (contacts)](docs/figures/board_edge_triangle_bottom.jpg) |
+
 Rationale: [docs/decisions/0002-seam-bridge-cheap-springs.md](docs/decisions/0002-seam-bridge-cheap-springs.md). This replaces V5.1's flat bridge with Harwin side springs.
 
 - **Concept (seam bridge):** the bridge is a thin (≈0.8 mm) double-sided PCB that stands **upright in the seam** between two adjacent panels, parallel to their edge boards, at the wall edge.
@@ -148,6 +160,11 @@ The LED chain starts at the code-0 board (fed by the controller board) and runs 
   - **Population option:** R3 (0 Ω) runs from the corner-IN D pad to LED1 DIN, fitted on codes 1–5 and DNP on code 0. The joint's LED_RETURN pad is wired to the corner-IN D pad and its LED_DATA_OUT pad to LED1 DIN.
 
 ### 3.5 Board types (V6.0, [decision 0009](docs/decisions/0009-rear-controller-board.md))
+
+| Edge board, inward face | Controller, parts side | Controller, chamber side |
+|---|---|---|
+| ![Edge board, inward face](docs/figures/board_edge_triangle_top.jpg) | ![Controller, parts side](docs/figures/board_controller_top.jpg) | ![Controller, chamber side](docs/figures/board_controller_bottom.jpg) |
+
 - **Edge board (passive, 2-layer):** one design per polygon shape (hexagon first; decision 0004), used for every edge, including the code-0 board.
   - **Parts:** 3 LEDs, decoupling, D1 + R1 (edge ID code: a BOM variant per position, code 0 = 0 Ω), test pads.
   - **Controller-joint pads:** ≈10, used only on the code-0 board.
@@ -267,6 +284,11 @@ Codes are numbered in order around the polygon, so the code also gives the edge'
 
 ## 8. Power Distribution & Protection
 
+| Maximum brightness, day | Maximum brightness, night |
+|---|---|
+| ![Maximum brightness, day](docs/figures/render_max_day.jpg) | ![Maximum brightness, night](docs/figures/render_max_night.jpg) |
+
+
 - **Budget:** ≈40 mA per RGBW LED at full output on the 5 V rail (§3.2, datasheet). A hexagon with 18 LEDs draws ≈0.73 A at 5 V (≈3.7 W), or ≈4.3 W from +24V through the buck at ≈86% (≈0.18 A). 100 hexagons at full output is ≈430 W, so one 100 W Class 2 supply feeds roughly 23 hexagons.
 - **Standby:** With so few LEDs, idle draw is dominated by the MCU and CAN transceiver (≈0.3–0.5 W per panel). MCU sleep and CAN transceiver standby with wake-on-bus are required. The per-panel **LED rail is switched by a P-MOSFET on the controller board** (V6.0; the 5 V buck stays on for the MCU and CAN transceiver), so LEDs draw nothing in standby; the spare contact (X8) is no longer needed for that. Domain-level supply switching remains an option for full off.
 - **Brightness limiting:** The coordinator enforces a **per-power-domain current budget**, scaling global brightness to fit each PSU. This is mandatory.
@@ -276,6 +298,19 @@ Codes are numbered in order around the polygon, so the code also gives the edge'
 - **Thermal:** Lanes are sized for the worst-case current through a panel acting as a feed path (halved at 24 V).
 
 ## 9. Mechanical
+
+| Back plate | Back plate, wall side | Frame |
+|---|---|---|
+| ![Back plate](docs/figures/cad_back_plate.jpg) | ![Back plate, wall side](docs/figures/cad_back_plate_back.jpg) | ![Frame](docs/figures/cad_frame.jpg) |
+
+| Bezel and film | Bridge clip | Edge cover |
+|---|---|---|
+| ![Bezel and film](docs/figures/cad_bezel.jpg) | ![Bridge clip](docs/figures/cad_bridge_clip.jpg) | ![Edge cover](docs/figures/cad_edge_cover.jpg) |
+
+| Section through a clip tooth | Section through a frame hook |
+|---|---|
+| ![Section through a clip tooth](docs/figures/section_seam_tooth.jpg) | ![Section through a frame hook](docs/figures/section_seam_hook.jpg) |
+
 Rev A hexagon mechanics are modelled in `mechanical/archive/openscad-panel/` (OpenSCAD, parametric; `MECH-NOTES.md`), per [decision 0012](docs/decisions/0012-panel-mechanics-rev-a.md).
 - **Frame (crown):** board top edges sit in a groove; 12 snap legs in the seam band; the corners are closed (wall, groove and lip run all the way round, with 1.2 mm reliefs for the corner solder), and the edge-board ring is soldered on a separate jig before it goes into the frame. White PETG, printed cap down.
 - **Back plate:** its top is the chamber floor (z 6.6); its rim takes the springs' inward push. The controller pocket is open through to the wall (meets the §3.5 stepped-pocket rule), giving wall-side jig and iron access.
@@ -310,6 +345,8 @@ See also [docs/gap-analysis.md](docs/gap-analysis.md) for the full pre-project g
 18. **Seam inset d:** at d = 3.5 the springs compress to 3.1 mm, near their 3.0 mm minimum; d ≈ 3.8 would centre them. Rev A boards keep d = 3.5 lengths: the seam width is set by panel spacing (the printed spacing gauge), so the spring coupon decides the spacing without a board change. If a later revision changes d, re-derive L_board (decision 0004).
 
 ## 11. Changelog
+**V6.9.4 (2026-11-21)** — documentation only: generated figures (renders, CAD, cross-sections, boards in 3D) embedded in §2, §3.3, §3.5, §8 and §9. This file and the decision records are the only written description; the HTML explainer is retired to `docs/archive/explainer/` (user: no second source of truth).
+
 **V6.9.3 (2026-11-21)** — panel brightness normalised to the shape with the lowest LED density (the hexagon); squares and triangles are scaled down to match ([decision 0017](docs/decisions/0017-brightness-normalised-to-lowest-led-density.md), user). The bridge clip's fuse reliefs are open channels through the spine top, so an injection bridge can be inserted.
 
 **V6.9.2 (2026-11-21)** — pre-order fixes (user; roadmap 2.0, 2.0b, 2.0c; [decision 0015](docs/decisions/0015-square-triangle-edge-boards.md)):

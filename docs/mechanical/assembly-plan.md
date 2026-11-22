@@ -1,6 +1,6 @@
 # Panel and cluster assembly plan (rev A)
 
-**Status:** planned and accepted (2026-11-21, [decision 0014](../decisions/0014-rigid-snap-bridge-clip.md)). Not modelled yet. **Pictures:** `docs/diagrams/planning.html`, Mechanics tab. **CAD:** SolidCraft, `mechanical/solidcraft/`.
+**Status:** planned and accepted (2026-11-21, [decision 0014](../decisions/0014-rigid-snap-bridge-clip.md)). Not modelled yet. **Pictures:** the CAD views and cross-sections in [docs/figures/](../figures/) (generated from the SolidCraft files). **CAD:** SolidCraft, `mechanical/solidcraft/`.
 
 ## Height stack
 

@@ -13,6 +13,7 @@
   2. Update `SPEC.md`: bump the version and add a changelog entry.
   3. Update the status table at the top of `docs/gap-analysis.md` if an item there is affected.
 - Never leave `SPEC.md` contradicting a decision record. If you can't update the spec, tell the user it is out of date.
+- **One source of truth (user, 2026-11-21):** `SPEC.md` and `docs/decisions/` are the only written description of the design. The README and `docs/figures/` only link or show generated pictures (re-run `docs/figures/make_figures.py`); don't restate design numbers anywhere else. The old HTML explainer is retired in `docs/archive/explainer/`.
 - Before relying on the spec, check `docs/decisions/` for records dated later than the spec version. If one exists, the spec is stale: say so.
 
 ## Project conventions
