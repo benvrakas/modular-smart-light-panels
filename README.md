@@ -60,3 +60,7 @@ Each design folder has its own notes (for example `hardware/edge-board/LAYOUT-NO
 
 - Figures: `python docs/figures/make_figures.py --all` (KiCad 3D views and SolidCraft snapshots, then the web copies).
 - Renders: `python mechanical/solidcraft/render/render_batch.py` (Blender, GPU; slow). The penthouse scene file is not in git (over GitHub's file-size limit): get "Modern Loft Apartment" by Matteo Pascale from BlenderKit (free) into `mechanical/solidcraft/render/assets/penthouse/`, as described in `render/CREDITS.md`.
+
+## License
+
+Non-commercial use only: hardware, CAD and docs under CC BY-NC-SA 4.0, software under PolyForm Noncommercial 1.0.0. Details and third-party exceptions: [LICENSE.md](LICENSE.md).

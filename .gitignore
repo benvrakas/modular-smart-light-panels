@@ -38,3 +38,9 @@ mechanical/solidcraft/render/assets/penthouse/*.blend1
 
 # SolidCraft open-file locks
 .~*.lock
+
+# Manufacturer datasheets: local only (their copyright); docs/datasheets/README.md lists them
+docs/datasheets/**
+!docs/datasheets/README.md
+# Local backups (history before the public-repo rewrite)
+.local-backup/
