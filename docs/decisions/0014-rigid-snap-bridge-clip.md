@@ -24,7 +24,7 @@ The user wants panels joined to each other into one rigid assembly, so that only
   - **Flat back:** the panel bottom is flush with the clip bottom (z −4.3).
   - **No separate lugs:** the thin lugs are replaced by notches in the wall of a clip recess in the back plate.
   - **Removable teeth:** both tooth faces are obtuse (60° lead-in, 45° latch), so the clip snaps in and back out instead of locking permanently.
-  - **Closed frame corners:** the exterior wall, the board groove and the inward lip run all the way round each corner. The edge-board ring is soldered **before** it goes into the frame, so the frame is no longer the corner-soldering jig (that jig moves to roadmap 2.3). A 1.2 mm relief in the wall's inner face around each corner clears the solder on the corner power pads.
+  - **Closed frame corners:** the exterior wall, the board groove and the inward lip run all the way round each corner. The edge-board ring is soldered **before** it goes into the frame, so the frame is no longer the corner-soldering jig (that jig moves to roadmap 2.3). A relief in the wall's inner face around each corner clears the solder on the corner power pads: 0.6 mm deep since V6.9.8 (was 1.2 mm; the user wanted the wall back).
   - **No riser:** the diffuser riser is removed. The bezel clamps the film straight onto the frame cap, and the cap and exterior wall are one continuous part. The optics test can no longer vary the film height with risers; if it shows hot spots, the frame cap gets taller instead.
 - **One clip for every shape pair** (so it is universal):
   - **Size:** clip ≈ 59 mm long (it must hold the 56 mm bridge), keys at |x| ≤ 26, lugs at |x| 19–27 and ≤ 11.5 mm from the seam.

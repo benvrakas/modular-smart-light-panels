@@ -4,7 +4,7 @@ import json, math, sys
 ROOT = "C:/Users/benvr/My Drive/Projects/Modular Smart Light Panels/mechanical/solidcraft/"
 # boards/ = copper-free models (clean viewport); "--copper" builds from boards/with-copper/ instead
 BOARDS = "boards/" if "--no-copper" in sys.argv else "boards/with-copper/"   # full copper models by default (user 2026-11-21)
-FLANGE = " full flange" if "--full-flange" in sys.argv else ""   # frame/bezel rows with the flange down the whole wall
+FLANGE = "" if "--short-flange" in sys.argv else " full flange"   # flange down the whole wall by default (trial, user 2026-11-22)
 EDGE_L, SEAM_D, BOARD_T, CTRL_GAP = 100.0, 3.5, 1.6, 0.2
 SHAPE = {3: "Triangle", 4: "Square", 6: "Hexagon"}
 STEP = {3: "edge-board-triangle", 4: "edge-board-square", 6: "edge-board-hex"}

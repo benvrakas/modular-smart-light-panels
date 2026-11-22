@@ -76,7 +76,7 @@ def flange_rows(S, D, short, full):
     for name, n in SHAPES:
         S.c("config.row", name=name, values={"param:n_sides": n} | {f"param:{k}": v for k, v in short.items()})
         S.c("config.row", name=f"{name} full flange", values={"param:n_sides": n} | {f"param:{k}": v for k, v in full.items()})
-    S.c("config.activate", row="Triangle")
+    S.c("config.activate", row="Triangle full flange")   # the default while the full flange is on trial
 
 # ------------------------------------------------------------------ frame
 FD = doc("frame.sc")
@@ -92,6 +92,7 @@ F.c("parameters.delete", name="pin_hole_h")
 for nm, ex, cm in DETENT:
     F.param(nm, ex, cm, new=True)
 F.param("det_dim", "det_h - (rebate_w - fl_t) + 0.1 mm", "Dimple depth in the step wall: the bump's reach past the fit gap + 0.1 mm clearance.", new=True)
+F.param("strap_relief_d", "0.6 mm", "Corner solder relief depth into the wall's inner face: clears the strap or solder bridge on the exterior corner pads (user 2026-11-22: 1.2 mm took too much wall).")
 TOP = "cap_bot + cap_t"
 # rings built directly from exact per-side segments (CLAUDE.md: no oversized blank trimmed back)
 F.segment("CapSketch", "Cap", "Ao", "lip_out - lip_w", "cap_bot", "cap_t", "new", body_name="Frame")
