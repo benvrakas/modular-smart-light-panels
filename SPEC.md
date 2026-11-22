@@ -1,6 +1,6 @@
 # Modular Smart Lighting System — Architectural & Design Specifications
 
-**Version:** V6.9.9 (2026-11-22) — supersedes V4. See [Changelog](#11-changelog).
+**Version:** V6.9.10 (2026-11-22) — supersedes V4. See [Changelog](#11-changelog).
 
 This file is the source of truth. Design decisions are recorded in [docs/decisions/](docs/decisions/). When a decision changes anything here, this file is updated in the same change.
 
@@ -318,7 +318,7 @@ Rev A hexagon mechanics are modelled in `mechanical/archive/openscad-panel/` (Op
 - **Wall mount:** **3M Dual Lock** pads on the back plate's wall face, clear of the controller pocket on every shape ([decision 0013](docs/decisions/0013-dual-lock-mounting-fdm-rules.md)). There's no puck, no wall screws and no holes in the reflector; the seam's ≈7 N spring push is far below the pads' shear capacity. Only some panels need pads: the clips make the cluster rigid, and the clip sets the seam width (no spacing gauge). The panel back plane is z ≈ −4.3 (clip and lug bottoms). The cluster is hung after assembly; adding a panel means taking it down first (accepted by the user). The decision 0012 wall puck stays in the model as an unused fallback.
 - **Diffuser:** film clamped straight between the frame cap and a bezel (no riser: removed by the user on 2026-11-21, [decision 0014](docs/decisions/0014-rigid-snap-bridge-clip.md)). The film sits ≈2.1 mm above the board top. **The bezel has an L-section:** a 1 mm flange runs down the frame's whole outer wall, flush in a step in the frame's outer face, so the side shows no seam; it stiffens the thin bezel (a test print bowed) and locates it; one snap detent per side (a bump on the flange's inside with 0.6 mm engagement, 10 mm long, into a dimple in the frame) holds it, relying on PETG's flex, with no pins or arms (user, 2026-11-22; [decision 0018](docs/decisions/0018-l-section-bezel-snap-detents.md)). The film stops 1.5 mm inside the outer edge, inside the flange.
 - **Panel depth:** board stack ≈20.9 mm plus the engaged Dual Lock thickness (≈4–6 mm, depending on the type), With no riser, the film height is fixed; if the optics test shows hot spots, the fix is a taller frame cap (a frame parameter), not a separate riser.
-- **FDM design rules ([decision 0013](docs/decisions/0013-dual-lock-mounting-fdm-rules.md)):** if a part uses round or split snap posts, their lips are **ovalized** (they protrude only in the direction the split flexes); **glue and M2/M3 screws** are allowed, threading straight into the plastic through tapered-entry pilot holes (no heat-set inserts); overhangs up to 70° from vertical; steeper only with support standing on the bed, never support trapped between surfaces of the same part; walls ≥ 0.75 mm; fits per side: **tight 0.08–0.1 mm**, **loose 0.15–0.2 mm** (user, 2026-11-21).
+- **FDM design rules ([decision 0013](docs/decisions/0013-dual-lock-mounting-fdm-rules.md)):** if a part uses round or split snap posts, their lips are **ovalized** (they protrude only in the direction the split flexes); **glue and M2/M3 screws** are allowed, threading straight into the plastic through tapered-entry pilot holes (no heat-set inserts); overhangs up to 65° from vertical (70° prints but sags slightly: only where 65° doesn't fit; user, 2026-11-22); steeper only with support standing on the bed, never support trapped between surfaces of the same part; walls ≥ 0.75 mm; fits per side: **tight 0.08–0.1 mm**, **loose 0.15–0.2 mm** (user, 2026-11-21).
 - **Edge-board keep-outs** (reserved for these reasons only): exterior face z 0–7.5 at |x| 30–36.5 (snap legs); inward face z ≥ 12.8 (frame lip); inward face below z 6.6 flat copper only (bears on the plate rim); nothing below the wall edge at |x| 30.4–36.1.
 - **Still to do:** check the square and triangle variants (the triangle needs a shorter, offset puck); tune the back-plate snap force (≈90 N) after a test print; ceiling mounting.
 
@@ -345,6 +345,8 @@ See also [docs/gap-analysis.md](docs/gap-analysis.md) for the full pre-project g
 18. **Seam inset d:** at d = 3.5 the springs compress to 3.1 mm, near their 3.0 mm minimum; d ≈ 3.8 would centre them. Rev A boards keep d = 3.5 lengths: the seam width is set by panel spacing (the printed spacing gauge), so the spring coupon decides the spacing without a board change. If a later revision changes d, re-derive L_board (decision 0004).
 
 ## 11. Changelog
+**V6.9.10 (2026-11-22)** — overhang rule: 65° from vertical is the safe limit, 70° only where 65° doesn't fit (decision 0013). Bezel detent bump and frame dimple faces at 65° (were 45°) for a firmer snap ([decision 0018](docs/decisions/0018-l-section-bezel-snap-detents.md)).
+
 **V6.9.9 (2026-11-22)** — full-length bezel flange adopted (user); the 3 mm flange version and its files removed. Frame corner solder reliefs 1.16 mm deep (more room for solder; 0.8 mm of wall left under the flange) ([decision 0018](docs/decisions/0018-l-section-bezel-snap-detents.md)).
 
 **V6.9.8 (2026-11-22)** — frame corner solder reliefs 0.6 mm deep (were 1.2; user: too much wall removed); the full-length bezel flange is the default configuration while on trial.

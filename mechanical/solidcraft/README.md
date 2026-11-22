@@ -67,7 +67,7 @@
 ## Rules used
 
 From decision 0013:
-- **Overhangs:** up to 70°; steeper only with support standing on the bed. Every latch face is printable (the teeth's 45° latch, and the frame hooks at 25°).
+- **Overhangs:** up to 65° from vertical (70° only where 65° doesn't fit: the back-plate seat); steeper only with support standing on the bed. Every latch face is printable (the teeth's 45° latch, the frame hooks and the bezel detents at 65°).
 - **Walls:** at least 0.75 mm.
 - **Fit gap per side:** tight 0.09 mm, loose 0.15 mm.
 

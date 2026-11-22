@@ -35,7 +35,8 @@ The user raised three points:
     - Screws **thread straight into the plastic** through a pilot hole with a **tapered entry**, so no heat-set inserts.
     - Starting pilot sizes in PETG: M2 ≈ Ø1.7 mm, M3 ≈ Ø2.6 mm. Tune these on a test print.
   - **Overhangs (user, 2026-11-21):**
-    - Up to **70° from vertical** (faces at least 20° from horizontal) prints without support.
+    - Up to **65° from vertical** (faces at least 25° from horizontal) prints cleanly: use 65° wherever the geometry allows (user, 2026-11-22).
+    - **70°** (20° from horizontal) also prints without support, but the lines sag slightly: only where 65° doesn't fit.
     - Steeper overhangs are allowed only if the support stands on the **print bed**.
     - No support may be trapped between a top surface of the part and a horizontal bottom surface of the same part above it.
   - **General:**

@@ -7,7 +7,8 @@ A = f"({T} - 90 deg)"          # direction of the side-0 corner at +x
 
 DETENT = [   # bezel bump / frame dimple (user 2026-11-22: snap detents replace the corner pins; PETG flex, no arms)
     ("det_h", "0.75 mm", "Detent bump height from the flange's inner face: 0.15 fit gap + 0.6 mm engagement (user 2026-11-22: 0.3 was too small, 1.0 too big)."),
-    ("det_top", "0.3 mm", "Flat top of the bump; both faces are 45 deg (snaps on and pulls off, prints without support)."),
+    ("det_top", "0.3 mm", "Flat top of the bump."),
+    ("det_ang", "65 deg", "Bump and dimple faces from the flange face / wall (vertical): steep for a firm snap, and a safe 65 deg overhang in both print orientations (user 2026-11-22: 65 safe, 70 sags slightly)."),
     ("det_len", "10 mm", "Bump length along the side (one per side, at mid-side, where the flange flexes most)."),
     ("det_zc", "1.1 mm", "Bump centre above the flange's bottom edge: the bump spans 0.2 .. 2.0 mm of the 3 mm flange."),
 ]
@@ -85,13 +86,13 @@ F.segment("WallSketch", "Wall", "Ao", "w_in", "z_skirt", "cap_bot - z_skirt", "j
 F.sketch("RebateSketch", "YZ", None, [["-(Ao - rebate_w)", TOP], ["-(Ao - rebate_w)", "z_skirt"],
                                        ["-Ao", "z_skirt"], ["-Ao", TOP]])
 F.c("solid.extrude", sketch="RebateSketch", operation="cut", direction="symmetric", through_all=True, name="Flange step")
-# detent dimples: one per side at mid-side, 45 deg faces from the step wall (prints cap-down without support),
+# detent dimples: one per side at mid-side, faces at det_ang from the wall (prints cap-down without support),
 # 0.1 mm larger than the bump all round
 YW, YF = "-(Ao - rebate_w)", "-(Ao - rebate_w - det_dim)"
 ZC = "(z_skirt + fl_gap + det_zc)"        # measured from the flange end, as on the bezel
 HF = "(det_top/2 + 0.1 mm)"
 F.sketch("DimpleSketch", "YZ", "-(det_len/2 + 0.1 mm)", [
-    [YW, f"{ZC} - {HF} - det_dim"], [YF, f"{ZC} - {HF}"], [YF, f"{ZC} + {HF}"], [YW, f"{ZC} + {HF} + det_dim"]])
+    [YW, f"{ZC} - {HF} - det_dim/tan(det_ang)"], [YF, f"{ZC} - {HF}"], [YF, f"{ZC} + {HF}"], [YW, f"{ZC} + {HF} + det_dim/tan(det_ang)"]])
 F.c("solid.extrude", sketch="DimpleSketch", operation="cut", distance="det_len + 0.2 mm", name="Detent dimple")
 # lip: one mitred segment per side (a closed ring once patterned)
 F.sketch("LipSketch", "XY", "lip_bot", [
@@ -144,8 +145,8 @@ B.segment("BezelSketch", "Bezel plate", "Ao", "A_in", Z0, "bezel_t", "new", body
 B.segment("FlangeSketch", "Flange", "Ao", "Ao - fl_t", f"{Z0} - fl_h", "fl_h", "join")
 YI, YB = "-(Ao - fl_t)", "-(Ao - fl_t - det_h)"
 ZB = f"({Z0} - fl_h + det_zc)"
-B.sketch("BumpSketch", "YZ", "-det_len/2", [            # from the flange's inner face, 45 deg faces
-    [YI, f"{ZB} - det_top/2 - det_h"], [YB, f"{ZB} - det_top/2"], [YB, f"{ZB} + det_top/2"], [YI, f"{ZB} + det_top/2 + det_h"]])
+B.sketch("BumpSketch", "YZ", "-det_len/2", [            # from the flange's inner face, faces at det_ang
+    [YI, f"{ZB} - det_top/2 - det_h/tan(det_ang)"], [YB, f"{ZB} - det_top/2"], [YB, f"{ZB} + det_top/2"], [YI, f"{ZB} + det_top/2 + det_h/tan(det_ang)"]])
 B.c("solid.extrude", sketch="BumpSketch", operation="join", distance="det_len", name="Detent bump")
 B.pattern("Bezel xN", ["Bezel plate", "Flange", "Detent bump"])
 B.c("config.activate", row="Triangle")
