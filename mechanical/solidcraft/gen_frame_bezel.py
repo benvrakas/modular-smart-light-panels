@@ -13,16 +13,29 @@ DETENT = [   # bezel bump / frame dimple (user 2026-11-22: snap detents replace 
 ]
 
 
+def doc(path):
+    """The saved design: rebuilds delete whatever features it has and add or change parameters as needed."""
+    import os, zipfile
+    here = os.path.dirname(os.path.abspath(__file__))
+    return json.loads(zipfile.ZipFile(os.path.join(here, path)).read("document.json"))
+
+
 class Script:
-    def __init__(self):
+    def __init__(self, existing=()):
         self.s = []
+        self.existing = set(existing)
 
     def c(self, cmd, **p):
+        if cmd == "parameters.delete":
+            if p["name"] not in self.existing:
+                return
+            self.existing.discard(p["name"])
         self.s.append({"command": cmd, "params": p})
 
     def param(self, name, expr, comment=None, new=False):
         """Engine commands as solidcraft-cli runs them (set_parameter is an MCP-only alias)."""
-        self.c("parameters.add" if new else "parameters.change", name=name, expression=expr)
+        self.c("parameters.change" if name in self.existing else "parameters.add", name=name, expression=expr)
+        self.existing.add(name)
         if comment:
             self.c("parameters.comment", name=name, comment=comment)
 
@@ -51,8 +64,9 @@ class Script:
 
 
 # ------------------------------------------------------------------ frame
-F = Script()
-F.c("timeline.delete", features=list(range(69, 92)))
+FD = doc("frame.sc")
+F = Script(p["name"] for p in FD["params"])
+F.c("timeline.delete", features=[f["id"] for f in FD["features"]])
 F.param("fl_t", "1 mm", "Bezel flange thickness (user 2026-11-22: L-section bezel for stiffness).", new=True)
 F.param("fl_h", "3 mm", "Bezel flange depth below the bezel's underside.", new=True)
 F.param("rebate_w", "fl_t + 0.15 mm", "Step cut into the frame's outer top edge for the bezel flange (flange + loose fit).", new=True)
@@ -94,26 +108,28 @@ F.c("solid.extrude", sketch="LipSketch", operation="join", distance="cap_bot - l
 LEG = [["-w_in", "z_skirt + 0.1 mm"], ["-(w_in + leg_t)", "z_skirt + 0.1 mm"], ["-(w_in + leg_t)", "leg_bot"],
        ["-(w_in + 0.2 mm)", "leg_bot"], ["-hook_tip", "leg_bot + (w_in + 0.2 mm - hook_tip)*tan(lead_slope)"],
        ["-hook_tip", "latch_z - (w_in - hook_tip)*tan(latch_slope)"], ["-w_in", "latch_z"]]
-F.sketch("LegSketchR", "YZ", "leg_x0", LEG)
-F.c("solid.extrude", sketch="LegSketchR", operation="join", distance="leg_len", name="Leg R")
-F.sketch("LegSketchL", "YZ", "-(leg_x0 + leg_len)", LEG)
-F.c("solid.extrude", sketch="LegSketchL", operation="join", distance="leg_len", name="Leg L")
-F.pattern("Sides xN", ["Lip", "Leg R", "Leg L"])
+# snap leg: modelled once on the +x half of side 0, mirrored to -x (CAD symmetry rule)
+F.sketch("LegSketch", "YZ", "leg_x0", LEG)
+F.c("solid.extrude", sketch="LegSketch", operation="join", distance="leg_len", name="Leg")
+F.c("solid.mirror", name="Leg mirror", features=["Leg"], plane="YZ")
+F.pattern("Sides xN", ["Lip", "Leg", "Leg mirror"])
 # corner solder reliefs: one mitred cut per side, ending on the corner bisector, so neighbouring
 # reliefs meet exactly at any corner angle (straight boxes crossed and poked out at the triangle's 60 deg corners)
-for side, sgn in (("R", ""), ("L", "-")):
-    si, so = "(w_in - 0.5 mm)", "(w_in + strap_relief_d)"
-    F.sketch(f"StrapReliefSketch{side}", "XY", "z_skirt - 0.1 mm", [
-        [f"{sgn}strap_relief_x0", f"-{si}"], [f"{sgn}{si}*tan({T})", f"-{si}"],
-        [f"{sgn}{so}*tan({T})", f"-{so}"], [f"{sgn}strap_relief_x0", f"-{so}"]])
-    F.c("solid.extrude", sketch=f"StrapReliefSketch{side}", operation="cut",
-        distance="strap_relief_top - z_skirt + 0.1 mm", name=f"Strap relief {side}")
-F.pattern("Strap reliefs xN", ["Strap relief R", "Strap relief L"])
+si, so = "(w_in - 0.5 mm)", "(w_in + strap_relief_d)"
+F.sketch("StrapReliefSketch", "XY", "z_skirt - 0.1 mm", [
+    ["strap_relief_x0", f"-{si}"], [f"{si}*tan({T})", f"-{si}"],
+    [f"{so}*tan({T})", f"-{so}"], ["strap_relief_x0", f"-{so}"]])
+F.c("solid.extrude", sketch="StrapReliefSketch", operation="cut",
+    distance="strap_relief_top - z_skirt + 0.1 mm", name="Strap relief")
+F.c("solid.mirror", name="Strap relief mirror", features=["Strap relief"], plane="YZ")
+F.pattern("Strap reliefs xN", ["Strap relief", "Strap relief mirror"])
 F.c("inspect.measure", summary=True)
 
 # ------------------------------------------------------------------ bezel
-B = Script()
-B.c("timeline.delete", features=list(range(10, 19)) + [26, 27])      # bezel and the film's pin holes; the film stays
+BD = doc("diffuser.sc")
+B = Script(p["name"] for p in BD["params"])
+B.c("timeline.delete", features=[f["id"] for f in BD["features"]           # everything but the film body's features
+                                 if not (f["name"].startswith("Film") and "pin" not in f["name"].lower())])
 for nm in ("pin_r", "pin_d", "pin_h", "pin_hole_h", "pin_clear"):
     B.c("parameters.delete", name=nm)
 for nm, ex, cm in DETENT:

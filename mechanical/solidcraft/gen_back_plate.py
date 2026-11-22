@@ -6,6 +6,13 @@ S = []
 
 
 def c(cmd, **p):
+    if cmd == "set_parameter":        # MCP alias -> engine commands, as solidcraft-cli runs them
+        S.append({"command": "parameters.change", "params": {"name": p["name"], "expression": p["value"]}})
+        if p.get("comment"):
+            S.append({"command": "parameters.comment", "params": {"name": p["name"], "comment": p["comment"]}})
+        return
+    if cmd == "measure":
+        cmd = "inspect.measure"
     S.append({"command": cmd, "params": p})
 
 
@@ -26,7 +33,8 @@ def pattern(name, feats, count):
     c("solid.pattern.circular", name=name, features=feats, axis="Z", count=count)
 
 
-old_ids = list(range(253, 280))  # update after each rebuild
+old_ids = list(range(280, 305))  # update after each rebuild
+c("config.column", feature="Boss trim", delete=True)   # recreated below with the new feature
 c("timeline.delete", features=old_ids)
 
 # ---- parameters
@@ -105,16 +113,13 @@ NOTCH = [
     ["-As + clip_edge + tooth_h + fit_loose", "tooth_zb1 + fit_loose/cos(tooth_lead) - (tooth_h + fit_loose)*tan(tooth_lead)"],
     ["-As + clip_edge + tooth_h + fit_loose", "tooth_zb0 - fit_loose/cos(tooth_latch) + (tooth_h + fit_loose)*tan(tooth_latch)"],
     ["-As + clip_edge + 0.05 mm", "tooth_zb0 - fit_loose/cos(tooth_latch) + 0.05 mm*tan(tooth_latch)"]]
-sketch("NotchSketchR", "YZ", "lug_xc - tooth_len/2 - fit_loose", NOTCH)
-c("solid.extrude", sketch="NotchSketchR", operation="cut", distance="tooth_len + 2*fit_loose", name="Notch R")
-sketch("NotchSketchL", "YZ", "-(lug_xc + tooth_len/2 + fit_loose)", NOTCH)
-c("solid.extrude", sketch="NotchSketchL", operation="cut", distance="tooth_len + 2*fit_loose", name="Notch L")
-for side, sgn in (("R", ""), ("L", "-")):
-    box(f"Hook pocket {side}", [f"{sgn}(hook_x1 + clip_half + fit_loose)/2", "-As + (hook_s1 - 1 mm)/2",
-                                "(latch_z + z_bot - 1 mm)/2"],
-        "hook_x1 - clip_half - fit_loose", "hook_s1 + 1 mm", "latch_z - z_bot + 1 mm", "cut")
-pattern("Side features xN", ["Clip recess", "Groove", "Notch R", "Notch L", "Hook pocket R", "Hook pocket L"],
-        "n_sides")
+# tooth notch and hook pocket: modelled once on the +x half of side 0, mirrored to -x (CAD symmetry rule)
+sketch("NotchSketch", "YZ", "lug_xc - tooth_len/2 - fit_loose", NOTCH)
+c("solid.extrude", sketch="NotchSketch", operation="cut", distance="tooth_len + 2*fit_loose", name="Notch")
+box("Hook pocket", ["(hook_x1 + clip_half + fit_loose)/2", "-As + (hook_s1 - 1 mm)/2", "(latch_z + z_bot - 1 mm)/2"],
+    "hook_x1 - clip_half - fit_loose", "hook_s1 + 1 mm", "latch_z - z_bot + 1 mm", "cut")
+c("solid.mirror", name="Mirror left-right", features=["Notch", "Hook pocket"], plane="YZ")
+pattern("Side features xN", ["Clip recess", "Groove", "Notch", "Hook pocket", "Mirror left-right"], "n_sides")
 
 # ---- outline: edge profile per side (plate edge Ab above z 0, board seat sloped at seat_ch, tab_out below)
 sketch("EdgeTrimSketch", "YZ", None, [
