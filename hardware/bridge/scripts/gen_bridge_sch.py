@@ -1,0 +1,99 @@
+"""Generate the seam-bridge and spring-coupon schematics (roadmap WP 1.5) from data, with the placer/writer of
+hardware/controller-board/scripts/gen_v6_schematics.py (imported, not modified).
+
+  hardware/bridge/bridge.kicad_sch                 seam bridge, standard + injection variants (one PCB, BOM variants)
+  hardware/bridge/coupon/spring-coupon.kicad_sch   spring test coupon (spring half + pad half)
+
+Run with KiCad's Python:  "C:/Program Files/KiCad/9.0/bin/python.exe" gen_bridge_sch.py
+Edit this script, not the generated .kicad_sch files.
+"""
+import os
+import sys
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+BRIDGE = os.path.normpath(os.path.join(HERE, '..'))
+sys.path.insert(0, os.path.normpath(os.path.join(BRIDGE, '..', 'controller-board', 'scripts')))
+import gen_v6_schematics as g  # noqa: E402
+
+g.CAT.update({
+    'SPRING': ('Connector:TestPoint', 'BW0019CG-L3.5W1.5H4.3', 'ModularLight:Spring_BW0019CG', 'C2826517',
+               'BW0019CG-L3.5W1.5H4.3', 'BAT Wireless', 'SMT antenna spring, top contact, 4.3 mm free / 3.0-3.5 working'),
+    'FUSE5T': ('Device:Fuse', '5A T', 'Fuse:Fuse_1206_3216Metric', 'C3163312', '0685T5000-01', 'Bel Fuse',
+               'C1T slow-blow 1206, 5 A, 63 V DC, 50 A interrupt (time-lag so the 0.5 A panel PTC trips first)'),
+    'WIRE': ('Connector:TestPoint', 'WIRE', 'Connector_Wire:SolderWire-0.75sqmm_1x01_D1.25mm_OD2.3mm', '', '', '',
+             'solder pad for an 18 AWG supply wire'),
+    'KPAD': ('Connector:TestPoint', 'TP', 'TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm', '', '', '',
+             'Kelvin force/sense pad (wire or clip)'),
+    'CPAD': ('Connector:TestPoint', 'PAD', 'ModularLight:ContactPad_3x6', '', '', '', 'ENIG mating pad 3 x 6 mm'),
+})
+P = g.P
+
+# face A springs (F.Cu) touch panel A's X1..X10, face B springs (B.Cu) panel B's (SPEC 3.3)
+A_NETS = ['GND', '+24V', 'GND', 'CANH', 'CANL', 'DRV_A_SNS_B', 'SNS_A_DRV_B', 'SPARE', '+24V', 'GND']
+B_NETS = ['GND', '+24V', 'GND', 'CANH', 'CANL', 'SNS_A_DRV_B', 'DRV_A_SNS_B', 'SPARE', '+24V', 'GND']
+
+
+def bridge_parts():
+    BA, BB, BI, BF = ('Face A springs (touch panel A X1..X10)', 'Face B springs (touch panel B X1..X10)',
+                      'Injection variant: supply input + slow-blow fuse', 'Power flags (ERC)')
+    p = []
+    for i in range(10):
+        p.append(P(f'SA{i + 1}', 'SPRING', {'1': A_NETS[i]}, BA, value='BW0019CG', note=f'meets panel A X{i + 1}'))
+    for i in range(10):
+        p.append(P(f'SB{i + 1}', 'SPRING', {'1': B_NETS[i]}, BB, value='BW0019CG', note=f'meets panel B X{i + 1}'))
+    p.append(P('F1', 'FUSE5T', {'1': '+24V_IN', '2': '+24V'}, BI, pop='INJECTION', note='fitted on injection bridges only'))
+    p.append(P('J1', 'WIRE', {'1': '+24V_IN'}, BI, value='+24V IN', pop='INJECTION'))
+    p.append(P('J2', 'WIRE', {'1': 'GND'}, BI, value='GND IN', pop='INJECTION'))
+    for i, net in enumerate(['GND', '+24V', '+24V_IN'], 1):
+        p.append(P(f'#FLG{i:02d}', 'FLAG', {'1': net}, BF))
+    return p, [BA, BB, BI, BF]
+
+
+def coupon_parts():
+    BS, BP = ('Spring half: 4 springs, Kelvin force/sense pads', 'Pad half: 4 ENIG pads, Kelvin force/sense pads')
+    p = []
+    for k in range(1, 5):
+        p.append(P(f'S{k}', 'SPRING', {'1': f'SPR{k}'}, BS, value='BW0019CG'))
+        p.append(P(f'TP{k}1', 'KPAD', {'1': f'SPR{k}'}, BS, value=f'F{k}'))
+        p.append(P(f'TP{k}2', 'KPAD', {'1': f'SPR{k}'}, BS, value=f'S{k}'))
+    for k in range(1, 5):
+        p.append(P(f'P{k}', 'CPAD', {'1': f'PAD{k}'}, BP, value=f'PAD{k}'))
+        p.append(P(f'TP{k + 4}1', 'KPAD', {'1': f'PAD{k}'}, BP, value=f'F{k}\''))
+        p.append(P(f'TP{k + 4}2', 'KPAD', {'1': f'PAD{k}'}, BP, value=f'S{k}\''))
+    return p, [BS, BP]
+
+
+BRIDGE_NOTES = """DESIGN NOTES (hardware/bridge/BRIDGE-NOTES.md)
+1. Face A = F.Cu, face B = B.Cu. A spring at bridge position x touches panel A's pad at x and panel B's pad at -x,
+   so face B's springs SB1..SB10 sit at the mirrored positions. SENSE_EDGE <-> DRIVE is crossed: DRV_A_SNS_B, SNS_A_DRV_B.
+2. The copper is 180-degree symmetric (rotate about the vertical axis: face A <-> face B), so the bridge fits either way round.
+3. Variants (one PCB): STANDARD = springs only. INJECTION = + F1 (5 A slow-blow) + J1/J2 supply wire pads.
+   F1 is time-lag so a panel's 0.5 A PTC trips before the domain fuse (SPEC 8)."""
+
+COUPON_NOTES = """DESIGN NOTES (hardware/bridge/BRIDGE-NOTES.md, coupon section)
+Spring half and pad half are one PCB joined by two mouse-bite tabs. Snap apart, stack face to face on M2 standoffs
+(spring working height 3.0-3.5 mm). Force current between F and F', measure voltage between S and S' (Kelvin)."""
+
+
+def main():
+    parts, blocks = bridge_parts()
+    sh = g.Sheet('bridge', '7d2f8e8a-6c43-4f0e-9a31-5b1c2e7a9d01', 'A3', 'Seam Bridge (0.8 mm 2-layer)',
+                 ['SPEC V6.2.2 3.3, decision 0002. Standard + injection variants (BOM).',
+                  'BW0019CG springs, 10 per face. 180-degree symmetric copper.',
+                  'Generated by bridge/scripts/gen_bridge_sch.py.'])
+    y = sh.place_blocks(parts, blocks, 25.4, 20.32, 370)
+    sh.write(os.path.join(BRIDGE, 'bridge.kicad_sch'), 'bridge', parts, [(25.4, g.snap(y), BRIDGE_NOTES)])
+    cparts, cblocks = coupon_parts()
+    sh2 = g.Sheet('coupon', '1b9e4c55-2a7d-4e61-8f02-3c6d5a8e7f12', 'A4', 'Spring Test Coupon (0.8 mm 2-layer)',
+                  ['Contact resistance and current per BW0019CG spring (roadmap 3.3).',
+                   'Kelvin pads per spring and per mating pad.',
+                   'Generated by bridge/scripts/gen_bridge_sch.py.'])
+    os.makedirs(os.path.join(BRIDGE, 'coupon'), exist_ok=True)
+    y2 = sh2.place_blocks(cparts, cblocks, 25.4, 20.32, 260)
+    sh2.write(os.path.join(BRIDGE, 'coupon', 'spring-coupon.kicad_sch'), 'spring-coupon', cparts,
+              [(25.4, g.snap(y2), COUPON_NOTES)])
+    print('wrote bridge and coupon schematics')
+
+
+if __name__ == '__main__':
+    main()

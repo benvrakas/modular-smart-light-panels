@@ -1,0 +1,37 @@
+# Build output and caches (kept in this folder; listed here only to keep them out of version control)
+build/
+.pio/
+.cache/
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.o
+*.elf
+*.bin
+*.hex
+*.map
+
+# KiCad generated/backup files
+*-backups/
+*.kicad_prl
+fp-info-cache
+_autosave-*
+*.lck
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+
+# Backups and scratch
+*.bak
+*.sc.bak
+*.part.png
+*.part.mp4
+mechanical/solidcraft/render/out/logs/
+
+# Too large for GitHub (334 MB): the BlenderKit penthouse scene, re-downloadable (render/CREDITS.md)
+mechanical/solidcraft/render/assets/penthouse/*.blend
+mechanical/solidcraft/render/assets/penthouse/*.blend1

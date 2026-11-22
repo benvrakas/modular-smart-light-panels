@@ -1,0 +1,13 @@
+(footprint "NPTH_0.5mm"
+	(version 20241229)
+	(generator "pcbnew")
+	(generator_version "9.0")
+	(layer "F.Cu")
+	(descr "Plain 0.5 mm non-plated hole: mouse-bite breakaway tabs (spring coupon).")
+	(tags "npth mouse bite")
+	(property "Reference" "REF**" (at 0 -0.8 0) (layer "F.Fab") (hide yes) (uuid "73490200-c42e-540e-b09d-44b5e8948732") (effects (font (size 0.3 0.3) (thickness 0.045))))
+	(property "Value" "NPTH_0.5mm" (at 0 0.8 0) (layer "F.Fab") (hide yes) (uuid "cc5e9f19-7b22-5398-b768-808870eba6eb") (effects (font (size 0.3 0.3) (thickness 0.045))))
+	(attr exclude_from_pos_files exclude_from_bom allow_missing_courtyard board_only)
+	(pad "" np_thru_hole circle (at 0 0) (size 0.5 0.5) (drill 0.5) (layers "*.Cu" "*.Mask") (uuid "78d86c89-8920-5feb-851a-5d941d711d0b"))
+	(embedded_fonts no)
+)

@@ -1,0 +1,9 @@
+{
+  "f_only": ["+5V_LED", "/D_IN", "/D_OUT", "/ID_K", "/LED1_DI", "/LED_D1", "/LED_D2"],
+  "keepouts": [
+    ["wire_keepout", "B.Cu", -25.3, -1, 25.3, 6.15],
+    ["via_keepout", "B.Cu", -25.3, -1, 25.3, 5.3],
+    ["via_keepout", "F.Cu", -25.3, -1, 25.3, 5.3]
+  ],
+  "edge": 0.35
+}

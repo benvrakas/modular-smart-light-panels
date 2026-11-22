@@ -1,0 +1,5385 @@
+(kicad_pcb
+	(version 20241229)
+	(generator "pcbnew")
+	(generator_version "9.0")
+	(general
+		(thickness 0.8)
+		(legacy_teardrops no)
+	)
+	(paper "A4")
+	(layers
+		(0 "F.Cu" signal)
+		(2 "B.Cu" signal)
+		(9 "F.Adhes" user "F.Adhesive")
+		(11 "B.Adhes" user "B.Adhesive")
+		(13 "F.Paste" user)
+		(15 "B.Paste" user)
+		(5 "F.SilkS" user "F.Silkscreen")
+		(7 "B.SilkS" user "B.Silkscreen")
+		(1 "F.Mask" user)
+		(3 "B.Mask" user)
+		(17 "Dwgs.User" user "User.Drawings")
+		(19 "Cmts.User" user "User.Comments")
+		(21 "Eco1.User" user "User.Eco1")
+		(23 "Eco2.User" user "User.Eco2")
+		(25 "Edge.Cuts" user)
+		(27 "Margin" user)
+		(31 "F.CrtYd" user "F.Courtyard")
+		(29 "B.CrtYd" user "B.Courtyard")
+		(35 "F.Fab" user)
+		(33 "B.Fab" user)
+		(39 "User.1" user)
+		(41 "User.2" user)
+		(43 "User.3" user)
+		(45 "User.4" user)
+	)
+	(setup
+		(pad_to_mask_clearance 0)
+		(allow_soldermask_bridges_in_footprints no)
+		(tenting front back)
+		(aux_axis_origin 72 100)
+		(pcbplotparams
+			(layerselection 0x00000000_00000000_55555555_5755f5ff)
+			(plot_on_all_layers_selection 0x00000000_00000000_00000000_00000000)
+			(disableapertmacros no)
+			(usegerberextensions no)
+			(usegerberattributes yes)
+			(usegerberadvancedattributes yes)
+			(creategerberjobfile yes)
+			(dashed_line_dash_ratio 12.000000)
+			(dashed_line_gap_ratio 3.000000)
+			(svgprecision 4)
+			(plotframeref no)
+			(mode 1)
+			(useauxorigin no)
+			(hpglpennumber 1)
+			(hpglpenspeed 20)
+			(hpglpendiameter 15.000000)
+			(pdf_front_fp_property_popups yes)
+			(pdf_back_fp_property_popups yes)
+			(pdf_metadata yes)
+			(pdf_single_document no)
+			(dxfpolygonmode yes)
+			(dxfimperialunits yes)
+			(dxfusepcbnewfont yes)
+			(psnegative no)
+			(psa4output no)
+			(plot_black_and_white yes)
+			(sketchpadsonfab no)
+			(plotpadnumbers no)
+			(hidednponfab no)
+			(sketchdnponfab yes)
+			(crossoutdnponfab yes)
+			(subtractmaskfromsilk no)
+			(outputformat 1)
+			(mirror no)
+			(drillshape 1)
+			(scaleselection 1)
+			(outputdirectory "")
+		)
+	)
+	(net 0 "")
+	(net 1 "+24V")
+	(net 2 "/+24V_IN")
+	(net 3 "/CANH")
+	(net 4 "/CANL")
+	(net 5 "/DRV_A_SNS_B")
+	(net 6 "/SNS_A_DRV_B")
+	(net 7 "/SPARE")
+	(net 8 "GND")
+	(footprint "Connector_Wire:SolderWire-0.75sqmm_1x01_D1.25mm_OD2.3mm"
+		(layer "F.Cu")
+		(uuid "074ab544-699f-499a-bee1-e6a3d8a7e109")
+		(at 126.4 94)
+		(descr "Soldered wire connection, for a single 0.75 mm² wire, basic insulation, conductor diameter 1.25mm, outer diameter 2.3mm, size source Multi-Contact FLEXI-E 0.75 (https://www.staubli.com/content/dam/ecs/catalogs-brochures/TM/CAB-Main-11014119-en.pdf#page=9), bend radius 3 times outer diameter, generated with kicad-footprint-generator")
+		(tags "connector wire 0.75sqmm")
+		(property "Reference" "J1"
+			(at 0 -2.5 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "1d594b31-b747-47f2-b09e-4af89003c636")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Value" "+24V IN"
+			(at 0 2.5 0)
+			(layer "F.Fab")
+			(uuid "50b90a02-618d-437c-9589-2ddb1e2e4003")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "afffe9a3-38ef-4552-93c3-e5e391c4d6db")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "ffbd6a76-02cc-49ac-80b6-97c50d5b4664")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" ""
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d6d615ef-3fa6-4094-9f64-107b78976e95")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" ""
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f6825fc8-890a-42c0-869f-c654c48370e4")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" ""
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "69d55348-e58f-4716-b667-947058dc19bc")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Pop" "INJECTION"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "773a2c14-3591-46f6-968e-b3635be714cc")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(path "/1696fccc-c2a3-5bfd-b906-afe5228de00e")
+		(attr exclude_from_pos_files)
+		(fp_line
+			(start -1.9 -1.8)
+			(end -1.9 1.8)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "64cea935-0fbf-4a7e-8364-24234b70a16c")
+		)
+		(fp_line
+			(start -1.9 1.8)
+			(end 1.9 1.8)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "876cee58-4577-4ead-9481-624b0b3d969b")
+		)
+		(fp_line
+			(start 1.9 -1.8)
+			(end -1.9 -1.8)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "514878f6-c973-485f-9f08-406df25ee1bb")
+		)
+		(fp_line
+			(start 1.9 1.8)
+			(end 1.9 -1.8)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "ef23f9a0-0073-4f79-9bf2-df289d9bcb42")
+		)
+		(fp_circle
+			(center 0 0)
+			(end 1.15 0)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.Fab")
+			(uuid "6acc0a83-4bb3-4613-9abc-d3f812de6b38")
+		)
+		(fp_text user "${REFERENCE}"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(uuid "155f4aae-754e-495f-8dca-d8915d59c36f")
+			(effects
+				(font
+					(size 0.57 0.57)
+					(thickness 0.09)
+				)
+			)
+		)
+		(pad "1" thru_hole roundrect
+			(at 0 0)
+			(size 2.6 2.6)
+			(drill 1.6)
+			(layers "*.Cu" "*.Mask")
+			(remove_unused_layers no)
+			(roundrect_rratio 0.096154)
+			(net 2 "/+24V_IN")
+			(uuid "41163640-18f2-44ca-b4fb-8845f05bacea")
+		)
+		(embedded_fonts no)
+		(model "${KICAD9_3DMODEL_DIR}/Connector_Wire.3dshapes/SolderWire-0.75sqmm_1x01_D1.25mm_OD2.3mm.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "ModularLight:Spring_BW0019CG"
+		(layer "F.Cu")
+		(uuid "10514312-81e2-48dd-bfa2-708b3b0f4b62")
+		(at 87.5 93.65)
+		(descr "BAT Wireless BW0019CG-L3.5W1.5H4.3 SMT antenna spring (LCSC C2826517; BW0019BG-L3.5W1.5H3.8 C2826516 fits). Drawing 681-0019C-3: body 3.5 x 1.5 mm, free height 4.3, working height 3.0-3.5, land 2.10 x 1.50 at the contact end. ORIGIN = BODY CENTRE; CONTACT POINT (dome) = (0, +0.85), 0.90 +-0.15 mm from the contact end. The contact end (free end of the cantilever) points +y: place +y toward the wall so a panel sliding toward the wall rides over the spring from its root bend. The root bend overhangs the board (y -1.75..-0.35) at 0.33 mm.")
+		(tags "spring contact antenna BW0019 seam bridge")
+		(property "Reference" "SA3"
+			(at 0 -2.4 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f5bd461c-8906-46e9-880a-63455ce958f8")
+			(effects
+				(font
+					(size 0.6 0.6)
+					(thickness 0.09)
+				)
+			)
+		)
+		(property "Value" "BW0019CG"
+			(at 0 2.6 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "aef9ccb9-dd8d-447a-8de4-555133690e27")
+			(effects
+				(font
+					(size 0.5 0.5)
+					(thickness 0.075)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "682a7896-6a82-46b9-887c-5b0f49f572ae")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "62983cce-7d8f-4020-90f0-a6248d74c742")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" "C2826517"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "24a5bcc1-a5c9-4283-9c43-8a5beb6d15ea")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "BW0019CG-L3.5W1.5H4.3"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "a97188d3-5a2b-4d4f-9ee5-97657d849d8e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "BAT Wireless"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "4f74f908-859d-4a34-aacc-a56e5971014c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Pop" "ALL"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "47e6270f-bb73-4144-8154-d304fdbefcd7")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Note" "meets panel A X3"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "872c1bef-2e3b-4e06-995a-8814f5d7541c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(path "/9a8f1bc9-a972-5753-9d16-90c6846c283c")
+		(attr smd)
+		(fp_line
+			(start -0.95 -1.9)
+			(end 0.95 -1.9)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "218a0f87-6595-46ba-9596-9807eb39545e")
+		)
+		(fp_rect
+			(start -1 -2)
+			(end 1 2)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.CrtYd")
+			(uuid "904e7931-aa51-4428-8117-8dffbf4067fc")
+		)
+		(fp_line
+			(start -0.5 0.85)
+			(end 0.5 0.85)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "8c7b285a-9a4d-403e-a46e-0e33228c076b")
+		)
+		(fp_line
+			(start 0 0.35)
+			(end 0 1.35)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "06b5418d-59ba-4214-883d-c26b0ee18808")
+		)
+		(fp_rect
+			(start -0.75 -1.75)
+			(end 0.75 1.75)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.Fab")
+			(uuid "4de23e53-fd46-4184-8d43-f4d8d722a1a9")
+		)
+		(fp_text user "contact"
+			(at 0.9 0.85 0)
+			(layer "F.Fab")
+			(uuid "4ec1f4f4-3dca-467f-8fbe-f5c22437216d")
+			(effects
+				(font
+					(size 0.3 0.3)
+					(thickness 0.045)
+				)
+				(justify left)
+			)
+		)
+		(pad "1" smd rect
+			(at 0 0.7)
+			(size 1.5 2.1)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(net 8 "GND")
+			(uuid "39f4dfa5-a7c2-401c-b60f-06197ce5f491")
+		)
+		(embedded_fonts no)
+		(model "${KIPRJMOD}/../lib/3dmodels/Spring_BW0019CG.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "Fuse:Fuse_1206_3216Metric"
+		(layer "F.Cu")
+		(uuid "19f596ab-8975-4d86-9ffb-255cebcb360e")
+		(at 124.6 97.6 180)
+		(descr "Fuse SMD 1206 (3216 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: http://www.tortai-tech.com/upload/download/2011102023233369053.pdf), generated with kicad-footprint-generator")
+		(tags "fuse")
+		(property "Reference" "F1"
+			(at 0 -1.83 180)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c0ec06e6-928a-4a8c-bba4-2e646b9b986f")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Value" "5A T"
+			(at 0 1.83 180)
+			(layer "F.Fab")
+			(uuid "b23f8b06-7d99-46ef-9368-ecfd5d1c697f")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 180)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "4522313d-4f9e-4456-a189-73f28a1bffea")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 180)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "dc117c3b-ad0b-4efb-9d26-54f1363c8676")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" "C3163312"
+			(at 0 0 180)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "10969bac-bf69-4da5-b63b-5cd6d9baf493")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "0685T5000-01"
+			(at 0 0 180)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c845c57d-1633-4684-8994-5d2d8af6eda5")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Bel Fuse"
+			(at 0 0 180)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "6a5b1827-4ed2-4469-a80f-e6946924c320")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Pop" "INJECTION"
+			(at 0 0 180)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "528de807-04f9-4935-b5d7-97f1acf3a390")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Note" "fitted on injection bridges only"
+			(at 0 0 180)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "a416e697-ce69-45b5-a8fb-495dfc1d5961")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(path "/2ebe181a-bf28-5973-970e-5a30dc7b7cc6")
+		(attr smd)
+		(fp_line
+			(start -0.602064 0.91)
+			(end 0.602064 0.91)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "bf9e0cea-09f0-485d-8e7c-e2ca4ecd9856")
+		)
+		(fp_line
+			(start -0.602064 -0.91)
+			(end 0.602064 -0.91)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "0cc6ca72-dfe0-4ac7-b294-d59c24b932f8")
+		)
+		(fp_line
+			(start 2.28 1.13)
+			(end -2.28 1.13)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "c7b7b32f-7a04-434f-bd80-2fa87c203e8a")
+		)
+		(fp_line
+			(start 2.28 -1.13)
+			(end 2.28 1.13)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "70ece786-1835-4084-b267-684bd0844aaa")
+		)
+		(fp_line
+			(start -2.28 1.13)
+			(end -2.28 -1.13)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "62545603-06fc-4616-8bb8-eabfd7abdcd7")
+		)
+		(fp_line
+			(start -2.28 -1.13)
+			(end 2.28 -1.13)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "d4a9c3fd-4c60-4c16-b51a-cedbb0e5c2a2")
+		)
+		(fp_line
+			(start 1.6 0.8)
+			(end -1.6 0.8)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "f126332e-dd8e-40db-bca8-24f0cb4b19a5")
+		)
+		(fp_line
+			(start 1.6 -0.8)
+			(end 1.6 0.8)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "061b7544-326b-4515-ae73-1cc610272b09")
+		)
+		(fp_line
+			(start -1.6 0.8)
+			(end -1.6 -0.8)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "d8f59cef-1655-47d6-8dc9-08b0dd78d6d2")
+		)
+		(fp_line
+			(start -1.6 -0.8)
+			(end 1.6 -0.8)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "13176e4d-204a-454f-8f9a-7c204b78d4b3")
+		)
+		(fp_text user "${REFERENCE}"
+			(at 0 0 180)
+			(layer "F.Fab")
+			(uuid "67f83850-749e-4971-b112-f93e19045570")
+			(effects
+				(font
+					(size 0.8 0.8)
+					(thickness 0.12)
+				)
+			)
+		)
+		(pad "1" smd roundrect
+			(at -1.4 0 180)
+			(size 1.25 1.75)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(roundrect_rratio 0.2)
+			(net 2 "/+24V_IN")
+			(uuid "ac9349d5-ab63-4cd3-b58e-e20c73d9905d")
+		)
+		(pad "2" smd roundrect
+			(at 1.4 0 180)
+			(size 1.25 1.75)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(roundrect_rratio 0.2)
+			(net 1 "+24V")
+			(uuid "9d6c6bd0-012a-4f16-b88c-cd6047b94161")
+		)
+		(embedded_fonts no)
+		(model "${KICAD9_3DMODEL_DIR}/Fuse.3dshapes/Fuse_1206_3216Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "ModularLight:Spring_BW0019CG"
+		(layer "F.Cu")
+		(uuid "1c051dca-2b61-494c-9775-246c8b5c9408")
+		(at 97.5 93.65)
+		(descr "BAT Wireless BW0019CG-L3.5W1.5H4.3 SMT antenna spring (LCSC C2826517; BW0019BG-L3.5W1.5H3.8 C2826516 fits). Drawing 681-0019C-3: body 3.5 x 1.5 mm, free height 4.3, working height 3.0-3.5, land 2.10 x 1.50 at the contact end. ORIGIN = BODY CENTRE; CONTACT POINT (dome) = (0, +0.85), 0.90 +-0.15 mm from the contact end. The contact end (free end of the cantilever) points +y: place +y toward the wall so a panel sliding toward the wall rides over the spring from its root bend. The root bend overhangs the board (y -1.75..-0.35) at 0.33 mm.")
+		(tags "spring contact antenna BW0019 seam bridge")
+		(property "Reference" "SA5"
+			(at 0 -2.4 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5a5a2910-9daa-4e7f-bf32-46986fab6008")
+			(effects
+				(font
+					(size 0.6 0.6)
+					(thickness 0.09)
+				)
+			)
+		)
+		(property "Value" "BW0019CG"
+			(at 0 2.6 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "b6cbf44b-1e61-4869-bea3-ec581fb57873")
+			(effects
+				(font
+					(size 0.5 0.5)
+					(thickness 0.075)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "f23ae8ab-1ffa-4e12-b5d5-e6de5cd27510")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "e651cdfe-1cc8-488f-9018-324e279e20ad")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" "C2826517"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "238f2076-4e95-4beb-86e2-8a261077ab7c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "BW0019CG-L3.5W1.5H4.3"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "37e0d168-aeea-460d-8297-4a195da3bc6c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "BAT Wireless"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "701803d4-6f2b-4495-9167-c6ba4f04f0a9")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Pop" "ALL"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "76178bd3-675b-4961-a97a-23a1e0790c58")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Note" "meets panel A X5"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ed067ac7-516d-4c39-aa34-0d951faecb1f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(path "/3bed11b4-79b2-5337-829d-7a2f47631e4a")
+		(attr smd)
+		(fp_line
+			(start -0.95 -1.9)
+			(end 0.95 -1.9)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "792fb5a9-510c-47b2-9d20-b8cc6340850a")
+		)
+		(fp_rect
+			(start -1 -2)
+			(end 1 2)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.CrtYd")
+			(uuid "cba2b8ed-41d7-462b-8fce-7baf4abbe004")
+		)
+		(fp_line
+			(start -0.5 0.85)
+			(end 0.5 0.85)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "4bc0b098-b829-4ddc-8c50-498cf3bb386e")
+		)
+		(fp_line
+			(start 0 0.35)
+			(end 0 1.35)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "fd88f435-5d17-4433-b0a2-86467da06c6f")
+		)
+		(fp_rect
+			(start -0.75 -1.75)
+			(end 0.75 1.75)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.Fab")
+			(uuid "e230edc9-be45-415f-a503-043b2ef9728e")
+		)
+		(fp_text user "contact"
+			(at 0.9 0.85 0)
+			(layer "F.Fab")
+			(uuid "9e0f9191-658e-439d-b55c-098dbb7684fb")
+			(effects
+				(font
+					(size 0.3 0.3)
+					(thickness 0.045)
+				)
+				(justify left)
+			)
+		)
+		(pad "1" smd rect
+			(at 0 0.7)
+			(size 1.5 2.1)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(net 4 "/CANL")
+			(uuid "d10d4094-8726-480f-b8f3-623156685bbb")
+		)
+		(embedded_fonts no)
+		(model "${KIPRJMOD}/../lib/3dmodels/Spring_BW0019CG.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "ModularLight:Spring_BW0019CG"
+		(layer "F.Cu")
+		(uuid "30924260-2a2e-49a6-8f58-111fbc276474")
+		(at 82.5 93.65)
+		(descr "BAT Wireless BW0019CG-L3.5W1.5H4.3 SMT antenna spring (LCSC C2826517; BW0019BG-L3.5W1.5H3.8 C2826516 fits). Drawing 681-0019C-3: body 3.5 x 1.5 mm, free height 4.3, working height 3.0-3.5, land 2.10 x 1.50 at the contact end. ORIGIN = BODY CENTRE; CONTACT POINT (dome) = (0, +0.85), 0.90 +-0.15 mm from the contact end. The contact end (free end of the cantilever) points +y: place +y toward the wall so a panel sliding toward the wall rides over the spring from its root bend. The root bend overhangs the board (y -1.75..-0.35) at 0.33 mm.")
+		(tags "spring contact antenna BW0019 seam bridge")
+		(property "Reference" "SA2"
+			(at 0 -2.4 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "bd2bfb9d-ab86-46d1-be07-fb3499d9fe90")
+			(effects
+				(font
+					(size 0.6 0.6)
+					(thickness 0.09)
+				)
+			)
+		)
+		(property "Value" "BW0019CG"
+			(at 0 2.6 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "36d77dd0-ddad-4302-9943-17d0a9f70653")
+			(effects
+				(font
+					(size 0.5 0.5)
+					(thickness 0.075)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "d77ecb9a-3715-46ec-ba8e-a351f30121af")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "3df95a72-56cb-4089-9e33-082a6bb7b1ae")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" "C2826517"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "0667b9c7-0561-44ce-845a-1a4834434214")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "BW0019CG-L3.5W1.5H4.3"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3d2d468c-fd75-404e-9734-f858fb2eaee9")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "BAT Wireless"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "e792f24a-824a-4af2-a447-4caaf74895dc")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Pop" "ALL"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d1e233d0-5def-4e98-8702-fd91b9a50e5e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Note" "meets panel A X2"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "76ae73ff-4915-4622-b6c9-2bb748b54a17")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(path "/8b59c56e-7483-59e9-8e88-223d9f1e1026")
+		(attr smd)
+		(fp_line
+			(start -0.95 -1.9)
+			(end 0.95 -1.9)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "19ab26e2-3fe9-4bf0-9a30-48f883db527f")
+		)
+		(fp_rect
+			(start -1 -2)
+			(end 1 2)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.CrtYd")
+			(uuid "c47612cd-cebd-4640-bbdb-2cd1f27c0c1e")
+		)
+		(fp_line
+			(start -0.5 0.85)
+			(end 0.5 0.85)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "092075c8-84a6-4146-b10b-eaffb686844d")
+		)
+		(fp_line
+			(start 0 0.35)
+			(end 0 1.35)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "efb63a7f-90d1-402b-80bc-087f335f45ee")
+		)
+		(fp_rect
+			(start -0.75 -1.75)
+			(end 0.75 1.75)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.Fab")
+			(uuid "8e751621-d3a0-4c11-b8fa-cf54ae2aab72")
+		)
+		(fp_text user "contact"
+			(at 0.9 0.85 0)
+			(layer "F.Fab")
+			(uuid "5087574d-59ad-4225-adc6-44d8021ee73a")
+			(effects
+				(font
+					(size 0.3 0.3)
+					(thickness 0.045)
+				)
+				(justify left)
+			)
+		)
+		(pad "1" smd rect
+			(at 0 0.7)
+			(size 1.5 2.1)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(net 1 "+24V")
+			(uuid "ad90ecfe-d034-419f-8384-a3a434279f18")
+		)
+		(embedded_fonts no)
+		(model "${KIPRJMOD}/../lib/3dmodels/Spring_BW0019CG.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "ModularLight:Spring_BW0019CG"
+		(layer "F.Cu")
+		(uuid "375202d8-e33c-46a2-b935-ff28ae360e78")
+		(at 92.5 93.65)
+		(descr "BAT Wireless BW0019CG-L3.5W1.5H4.3 SMT antenna spring (LCSC C2826517; BW0019BG-L3.5W1.5H3.8 C2826516 fits). Drawing 681-0019C-3: body 3.5 x 1.5 mm, free height 4.3, working height 3.0-3.5, land 2.10 x 1.50 at the contact end. ORIGIN = BODY CENTRE; CONTACT POINT (dome) = (0, +0.85), 0.90 +-0.15 mm from the contact end. The contact end (free end of the cantilever) points +y: place +y toward the wall so a panel sliding toward the wall rides over the spring from its root bend. The root bend overhangs the board (y -1.75..-0.35) at 0.33 mm.")
+		(tags "spring contact antenna BW0019 seam bridge")
+		(property "Reference" "SA4"
+			(at 0 -2.4 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "24b31b6f-8e05-453e-a882-606473fcff8b")
+			(effects
+				(font
+					(size 0.6 0.6)
+					(thickness 0.09)
+				)
+			)
+		)
+		(property "Value" "BW0019CG"
+			(at 0 2.6 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "bd3e5a44-1f20-4d5d-8143-28f17ea25266")
+			(effects
+				(font
+					(size 0.5 0.5)
+					(thickness 0.075)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "8a358393-71e1-4711-8723-0dc044d4c475")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "49986b2d-2c8a-471a-a667-9f352a3c85c2")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" "C2826517"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "89d3a248-6692-4bc8-9051-5d0b7e21159d")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "BW0019CG-L3.5W1.5H4.3"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3c96f654-4533-41c1-a8cd-6a47b7880db0")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "BAT Wireless"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "11a010ea-43aa-420a-aa69-98b4b2a5e5a0")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Pop" "ALL"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3e264890-6a25-4e42-a4cf-b26691a8aedc")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Note" "meets panel A X4"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "276eb6a1-5e3c-451b-a6b9-c8751a9f598d")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(path "/8d69efd4-f432-5a55-b28c-2cf2f2be31ac")
+		(attr smd)
+		(fp_line
+			(start -0.95 -1.9)
+			(end 0.95 -1.9)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "6a42be95-2e91-41d1-831f-a817bb5cdad6")
+		)
+		(fp_rect
+			(start -1 -2)
+			(end 1 2)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.CrtYd")
+			(uuid "1cd3192b-0c50-4b4b-9bde-b11056e0579a")
+		)
+		(fp_line
+			(start -0.5 0.85)
+			(end 0.5 0.85)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "3928c01e-2fdc-45b8-b3fe-d38422979c53")
+		)
+		(fp_line
+			(start 0 0.35)
+			(end 0 1.35)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "918ca0f1-4c46-474d-a4e2-3d4caf39a7ed")
+		)
+		(fp_rect
+			(start -0.75 -1.75)
+			(end 0.75 1.75)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.Fab")
+			(uuid "55cc2f9f-53a0-4af5-b96a-6b641a5d1d91")
+		)
+		(fp_text user "contact"
+			(at 0.9 0.85 0)
+			(layer "F.Fab")
+			(uuid "c793a115-bdde-46a9-a18f-7bab8198d5d1")
+			(effects
+				(font
+					(size 0.3 0.3)
+					(thickness 0.045)
+				)
+				(justify left)
+			)
+		)
+		(pad "1" smd rect
+			(at 0 0.7)
+			(size 1.5 2.1)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(net 3 "/CANH")
+			(uuid "d73023e4-b1e3-4835-a8ac-28a7101ed41d")
+		)
+		(embedded_fonts no)
+		(model "${KIPRJMOD}/../lib/3dmodels/Spring_BW0019CG.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "ModularLight:Spring_BW0019CG"
+		(layer "F.Cu")
+		(uuid "6692db58-1e9c-40c2-b177-eebff9dff038")
+		(at 117.5 93.65)
+		(descr "BAT Wireless BW0019CG-L3.5W1.5H4.3 SMT antenna spring (LCSC C2826517; BW0019BG-L3.5W1.5H3.8 C2826516 fits). Drawing 681-0019C-3: body 3.5 x 1.5 mm, free height 4.3, working height 3.0-3.5, land 2.10 x 1.50 at the contact end. ORIGIN = BODY CENTRE; CONTACT POINT (dome) = (0, +0.85), 0.90 +-0.15 mm from the contact end. The contact end (free end of the cantilever) points +y: place +y toward the wall so a panel sliding toward the wall rides over the spring from its root bend. The root bend overhangs the board (y -1.75..-0.35) at 0.33 mm.")
+		(tags "spring contact antenna BW0019 seam bridge")
+		(property "Reference" "SA9"
+			(at 0 -2.4 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "bfcd04fc-9d8f-4282-b2ba-f7f5f1b4369b")
+			(effects
+				(font
+					(size 0.6 0.6)
+					(thickness 0.09)
+				)
+			)
+		)
+		(property "Value" "BW0019CG"
+			(at 0 2.6 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "25cf3547-9f95-43f5-a4fb-d22024cbcacb")
+			(effects
+				(font
+					(size 0.5 0.5)
+					(thickness 0.075)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "abe5c168-4b48-43e4-8cf8-75ac82f5710e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "d2634ad2-5af9-4eb9-8927-f84c7b31553e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" "C2826517"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f6e1f913-42db-4a90-87be-08a5de5d9508")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "BW0019CG-L3.5W1.5H4.3"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "4982a96c-4c78-48af-a311-6adbcea6f088")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "BAT Wireless"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "da252c70-55b0-4cfd-a7e4-f8f7e4b894b2")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Pop" "ALL"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "53ebc223-5d5b-4686-a3aa-e86080c1f2b3")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Note" "meets panel A X9"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "819139ff-9eaa-4dec-9374-4d94b278e12e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(path "/673fee63-6f61-5f20-b023-7ef28008d14a")
+		(attr smd)
+		(fp_line
+			(start -0.95 -1.9)
+			(end 0.95 -1.9)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "8d351ed3-5bfe-4050-8499-ca27ea256f37")
+		)
+		(fp_rect
+			(start -1 -2)
+			(end 1 2)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.CrtYd")
+			(uuid "901f5b77-96f2-4b5e-8a67-960e2cb18d4a")
+		)
+		(fp_line
+			(start -0.5 0.85)
+			(end 0.5 0.85)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "2636ed9c-f9d6-4ba8-bcfe-b3c905095648")
+		)
+		(fp_line
+			(start 0 0.35)
+			(end 0 1.35)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "0e438400-190d-47c5-b595-511344343e84")
+		)
+		(fp_rect
+			(start -0.75 -1.75)
+			(end 0.75 1.75)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.Fab")
+			(uuid "ee0fe91d-5344-4ed6-9eef-2164db706861")
+		)
+		(fp_text user "contact"
+			(at 0.9 0.85 0)
+			(layer "F.Fab")
+			(uuid "01b06b69-b7ea-4fd2-b77b-88f940db9921")
+			(effects
+				(font
+					(size 0.3 0.3)
+					(thickness 0.045)
+				)
+				(justify left)
+			)
+		)
+		(pad "1" smd rect
+			(at 0 0.7)
+			(size 1.5 2.1)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(net 1 "+24V")
+			(uuid "e92ccf3f-ac92-4a38-90cf-19d3f394b1f7")
+		)
+		(embedded_fonts no)
+		(model "${KIPRJMOD}/../lib/3dmodels/Spring_BW0019CG.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "ModularLight:Spring_BW0019CG"
+		(layer "F.Cu")
+		(uuid "9ce20bb3-5dfa-440d-876b-8ab4569ac838")
+		(at 112.5 93.65)
+		(descr "BAT Wireless BW0019CG-L3.5W1.5H4.3 SMT antenna spring (LCSC C2826517; BW0019BG-L3.5W1.5H3.8 C2826516 fits). Drawing 681-0019C-3: body 3.5 x 1.5 mm, free height 4.3, working height 3.0-3.5, land 2.10 x 1.50 at the contact end. ORIGIN = BODY CENTRE; CONTACT POINT (dome) = (0, +0.85), 0.90 +-0.15 mm from the contact end. The contact end (free end of the cantilever) points +y: place +y toward the wall so a panel sliding toward the wall rides over the spring from its root bend. The root bend overhangs the board (y -1.75..-0.35) at 0.33 mm.")
+		(tags "spring contact antenna BW0019 seam bridge")
+		(property "Reference" "SA8"
+			(at 0 -2.4 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ad28f6c9-c0a1-4dbc-848f-0011fb4d86cc")
+			(effects
+				(font
+					(size 0.6 0.6)
+					(thickness 0.09)
+				)
+			)
+		)
+		(property "Value" "BW0019CG"
+			(at 0 2.6 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "8e1392c8-dfaa-4e7e-aeb4-e13c6385e1f6")
+			(effects
+				(font
+					(size 0.5 0.5)
+					(thickness 0.075)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "1735b6d6-fea0-4f0e-954d-d22216c9de6e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "8e1580cf-3a70-4eb5-b268-127c87bf36bd")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" "C2826517"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "23398813-5d46-4c45-9db5-f368f009b9bf")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "BW0019CG-L3.5W1.5H4.3"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "98e52a38-eb2c-455b-b4c7-e71f23dc0722")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "BAT Wireless"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "803996df-739c-4e98-8497-5d86aecbc8f1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Pop" "ALL"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ba5454e5-8352-4fe9-bb03-13053b011dd3")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Note" "meets panel A X8"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b9ea0c7a-5a55-4dde-80ce-2b538912924a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(path "/159be94a-26cc-5864-a0d7-1779a20be1bc")
+		(attr smd)
+		(fp_line
+			(start -0.95 -1.9)
+			(end 0.95 -1.9)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "55b8ded9-14dd-405b-b730-2745ea4a5165")
+		)
+		(fp_rect
+			(start -1 -2)
+			(end 1 2)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.CrtYd")
+			(uuid "65fae734-b08d-42bf-b4a5-ec302c28b283")
+		)
+		(fp_line
+			(start -0.5 0.85)
+			(end 0.5 0.85)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "97e4fa7a-7906-472e-be48-672267a42e4b")
+		)
+		(fp_line
+			(start 0 0.35)
+			(end 0 1.35)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "2ff30401-aa30-48de-81a9-c23cc3817753")
+		)
+		(fp_rect
+			(start -0.75 -1.75)
+			(end 0.75 1.75)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.Fab")
+			(uuid "8b7dd4fa-5f12-46fb-b3b9-8b8ae0f538c7")
+		)
+		(fp_text user "contact"
+			(at 0.9 0.85 0)
+			(layer "F.Fab")
+			(uuid "3e9e51ab-9927-4f3d-9790-c3e6e18a1bbe")
+			(effects
+				(font
+					(size 0.3 0.3)
+					(thickness 0.045)
+				)
+				(justify left)
+			)
+		)
+		(pad "1" smd rect
+			(at 0 0.7)
+			(size 1.5 2.1)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(net 7 "/SPARE")
+			(uuid "06150c03-ff98-424a-9176-6ac4740e0adc")
+		)
+		(embedded_fonts no)
+		(model "${KIPRJMOD}/../lib/3dmodels/Spring_BW0019CG.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "ModularLight:Spring_BW0019CG"
+		(layer "F.Cu")
+		(uuid "9fd10ab5-9946-4057-9cee-8a44fc1b3d75")
+		(at 77.5 93.65)
+		(descr "BAT Wireless BW0019CG-L3.5W1.5H4.3 SMT antenna spring (LCSC C2826517; BW0019BG-L3.5W1.5H3.8 C2826516 fits). Drawing 681-0019C-3: body 3.5 x 1.5 mm, free height 4.3, working height 3.0-3.5, land 2.10 x 1.50 at the contact end. ORIGIN = BODY CENTRE; CONTACT POINT (dome) = (0, +0.85), 0.90 +-0.15 mm from the contact end. The contact end (free end of the cantilever) points +y: place +y toward the wall so a panel sliding toward the wall rides over the spring from its root bend. The root bend overhangs the board (y -1.75..-0.35) at 0.33 mm.")
+		(tags "spring contact antenna BW0019 seam bridge")
+		(property "Reference" "SA1"
+			(at 0 -2.4 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d81ff284-5b03-4315-a196-4a66dc6a31ce")
+			(effects
+				(font
+					(size 0.6 0.6)
+					(thickness 0.09)
+				)
+			)
+		)
+		(property "Value" "BW0019CG"
+			(at 0 2.6 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "906096cb-e3e9-48de-a615-7f69c8ccd198")
+			(effects
+				(font
+					(size 0.5 0.5)
+					(thickness 0.075)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "9cab9db8-75fa-400b-8479-01fe399bac2e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "cf11e844-6b37-4d58-9c7b-b193c43f28e2")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" "C2826517"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "63a7be15-1c11-43e4-ba7e-12eb59535727")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "BW0019CG-L3.5W1.5H4.3"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "2811e53d-c1ff-4a40-98b9-fb8bd48cfcbe")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "BAT Wireless"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "4d9f7a55-aed5-4312-8195-ee0f0ce11ef0")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Pop" "ALL"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "4a876e4a-9f82-4a52-82ba-cb3144b626e8")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Note" "meets panel A X1"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "311ae5b1-4b23-41b7-807e-7e468134c26a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(path "/320c685a-7f1f-532f-97fb-e8d588064a72")
+		(attr smd)
+		(fp_line
+			(start -0.95 -1.9)
+			(end 0.95 -1.9)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "f56b4c3c-710b-42ac-94b8-189a301ae488")
+		)
+		(fp_rect
+			(start -1 -2)
+			(end 1 2)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.CrtYd")
+			(uuid "a3cf0206-00a7-4325-bc27-bbff53a707f4")
+		)
+		(fp_line
+			(start -0.5 0.85)
+			(end 0.5 0.85)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "c1e89ab6-1058-4b95-8c78-9b389d352389")
+		)
+		(fp_line
+			(start 0 0.35)
+			(end 0 1.35)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "d95ee99e-8c13-4977-9760-7c9d4392c47e")
+		)
+		(fp_rect
+			(start -0.75 -1.75)
+			(end 0.75 1.75)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.Fab")
+			(uuid "297529b3-8dc2-47f1-baa7-a4e8081348ed")
+		)
+		(fp_text user "contact"
+			(at 0.9 0.85 0)
+			(layer "F.Fab")
+			(uuid "e0ddad1e-9075-4218-b19a-708036c6790f")
+			(effects
+				(font
+					(size 0.3 0.3)
+					(thickness 0.045)
+				)
+				(justify left)
+			)
+		)
+		(pad "1" smd rect
+			(at 0 0.7)
+			(size 1.5 2.1)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(net 8 "GND")
+			(uuid "08b0f604-dece-407d-8736-e5c9715f0619")
+		)
+		(embedded_fonts no)
+		(model "${KIPRJMOD}/../lib/3dmodels/Spring_BW0019CG.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "ModularLight:Spring_BW0019CG"
+		(layer "F.Cu")
+		(uuid "b174aeb3-5672-44fe-b0d9-6b564b1d0688")
+		(at 102.5 93.65)
+		(descr "BAT Wireless BW0019CG-L3.5W1.5H4.3 SMT antenna spring (LCSC C2826517; BW0019BG-L3.5W1.5H3.8 C2826516 fits). Drawing 681-0019C-3: body 3.5 x 1.5 mm, free height 4.3, working height 3.0-3.5, land 2.10 x 1.50 at the contact end. ORIGIN = BODY CENTRE; CONTACT POINT (dome) = (0, +0.85), 0.90 +-0.15 mm from the contact end. The contact end (free end of the cantilever) points +y: place +y toward the wall so a panel sliding toward the wall rides over the spring from its root bend. The root bend overhangs the board (y -1.75..-0.35) at 0.33 mm.")
+		(tags "spring contact antenna BW0019 seam bridge")
+		(property "Reference" "SA6"
+			(at 0 -2.4 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "db3601d4-565d-4d86-bd7f-c7c3a06fca04")
+			(effects
+				(font
+					(size 0.6 0.6)
+					(thickness 0.09)
+				)
+			)
+		)
+		(property "Value" "BW0019CG"
+			(at 0 2.6 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "38dd62ab-8ff6-4dd7-b18a-6ce45d6c7c89")
+			(effects
+				(font
+					(size 0.5 0.5)
+					(thickness 0.075)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "542b5fd6-715b-4195-a3dd-604a75d58861")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "2445ef90-0e90-4899-a1f0-bd68db59b719")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" "C2826517"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "7cb4d925-1fbb-4529-a37e-9acd74b1ef71")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "BW0019CG-L3.5W1.5H4.3"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "a4db9104-ac5d-448e-bbc0-43e017424064")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "BAT Wireless"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "86029065-eb3d-4644-9adc-65446d40fd58")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Pop" "ALL"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b9f9e91d-0d3e-4733-b37a-6c8074218b3a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Note" "meets panel A X6"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f4c185d9-f373-42ff-be41-e4f66bacb3f2")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(path "/17407c7a-9421-526a-bfdd-c43c0257d16d")
+		(attr smd)
+		(fp_line
+			(start -0.95 -1.9)
+			(end 0.95 -1.9)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "91f8ad55-886a-45d2-821c-bff3675544d7")
+		)
+		(fp_rect
+			(start -1 -2)
+			(end 1 2)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.CrtYd")
+			(uuid "b4b96de7-eaa6-4414-8029-1ed72daa7520")
+		)
+		(fp_line
+			(start -0.5 0.85)
+			(end 0.5 0.85)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "d9ce8b74-4ab6-4c26-a2b9-c76f4aac9366")
+		)
+		(fp_line
+			(start 0 0.35)
+			(end 0 1.35)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "b2cc9fcc-fb37-493d-960b-c0fd0a5fe305")
+		)
+		(fp_rect
+			(start -0.75 -1.75)
+			(end 0.75 1.75)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.Fab")
+			(uuid "876affb0-c536-4634-ab40-7f0a3e7a5b0e")
+		)
+		(fp_text user "contact"
+			(at 0.9 0.85 0)
+			(layer "F.Fab")
+			(uuid "1b8e90d7-a906-49ac-ae0f-d712341d538d")
+			(effects
+				(font
+					(size 0.3 0.3)
+					(thickness 0.045)
+				)
+				(justify left)
+			)
+		)
+		(pad "1" smd rect
+			(at 0 0.7)
+			(size 1.5 2.1)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(net 5 "/DRV_A_SNS_B")
+			(uuid "fbd2dbd9-0827-4823-8a76-6af31885aa96")
+		)
+		(embedded_fonts no)
+		(model "${KIPRJMOD}/../lib/3dmodels/Spring_BW0019CG.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "ModularLight:Spring_BW0019CG"
+		(layer "F.Cu")
+		(uuid "bb0442a4-437c-4ffc-bdd9-767948c1c4fe")
+		(at 122.5 93.65)
+		(descr "BAT Wireless BW0019CG-L3.5W1.5H4.3 SMT antenna spring (LCSC C2826517; BW0019BG-L3.5W1.5H3.8 C2826516 fits). Drawing 681-0019C-3: body 3.5 x 1.5 mm, free height 4.3, working height 3.0-3.5, land 2.10 x 1.50 at the contact end. ORIGIN = BODY CENTRE; CONTACT POINT (dome) = (0, +0.85), 0.90 +-0.15 mm from the contact end. The contact end (free end of the cantilever) points +y: place +y toward the wall so a panel sliding toward the wall rides over the spring from its root bend. The root bend overhangs the board (y -1.75..-0.35) at 0.33 mm.")
+		(tags "spring contact antenna BW0019 seam bridge")
+		(property "Reference" "SA10"
+			(at 0 -2.4 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5cbe1438-043d-4050-89ef-c33cf295431a")
+			(effects
+				(font
+					(size 0.6 0.6)
+					(thickness 0.09)
+				)
+			)
+		)
+		(property "Value" "BW0019CG"
+			(at 0 2.6 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "155639d0-7ca1-449b-a936-e1b12ad6ff1f")
+			(effects
+				(font
+					(size 0.5 0.5)
+					(thickness 0.075)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "4d72556b-cd79-46b4-83d1-7b9e5a4fe5c0")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "e3430154-e5d4-41f1-a8d4-e237468f6d55")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" "C2826517"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "0c5429e7-4f6b-4c19-90a0-47d31bd8ccec")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "BW0019CG-L3.5W1.5H4.3"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "2721a933-3855-46bc-98cc-b80de7a53fd6")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "BAT Wireless"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b15a404e-d37c-44fc-b0dd-0bb10bd9f0fe")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Pop" "ALL"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "57966fb6-0331-4e74-8a1a-c9b55385c4e1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Note" "meets panel A X10"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5e1cbd0a-59a4-42ff-af5b-1d790648609e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(path "/64722db8-75a5-5421-8f27-57e2ce4fe308")
+		(attr smd)
+		(fp_line
+			(start -0.95 -1.9)
+			(end 0.95 -1.9)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "455c0e59-5f2c-43e8-b432-5d955934295f")
+		)
+		(fp_rect
+			(start -1 -2)
+			(end 1 2)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.CrtYd")
+			(uuid "2764f067-4cac-4b9d-a354-64c5f33afecb")
+		)
+		(fp_line
+			(start -0.5 0.85)
+			(end 0.5 0.85)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "b7ee2d12-da5a-48c9-81fa-46d7cee0e736")
+		)
+		(fp_line
+			(start 0 0.35)
+			(end 0 1.35)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "a0f140d6-c2b8-4dea-9437-e878e56bc6ec")
+		)
+		(fp_rect
+			(start -0.75 -1.75)
+			(end 0.75 1.75)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.Fab")
+			(uuid "3cd019f4-8b69-43ca-a7d8-42cc9e274690")
+		)
+		(fp_text user "contact"
+			(at 0.9 0.85 0)
+			(layer "F.Fab")
+			(uuid "5d8a76bb-2e9e-47e3-bdfc-300e54ffb3d2")
+			(effects
+				(font
+					(size 0.3 0.3)
+					(thickness 0.045)
+				)
+				(justify left)
+			)
+		)
+		(pad "1" smd rect
+			(at 0 0.7)
+			(size 1.5 2.1)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(net 8 "GND")
+			(uuid "7f410109-4021-4881-b368-69d47bfbf9e1")
+		)
+		(embedded_fonts no)
+		(model "${KIPRJMOD}/../lib/3dmodels/Spring_BW0019CG.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "Connector_Wire:SolderWire-0.75sqmm_1x01_D1.25mm_OD2.3mm"
+		(layer "F.Cu")
+		(uuid "c3759e95-1847-4fbe-9af4-f74bab71a931")
+		(at 73.6 94)
+		(descr "Soldered wire connection, for a single 0.75 mm² wire, basic insulation, conductor diameter 1.25mm, outer diameter 2.3mm, size source Multi-Contact FLEXI-E 0.75 (https://www.staubli.com/content/dam/ecs/catalogs-brochures/TM/CAB-Main-11014119-en.pdf#page=9), bend radius 3 times outer diameter, generated with kicad-footprint-generator")
+		(tags "connector wire 0.75sqmm")
+		(property "Reference" "J2"
+			(at 0 -2.5 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ace3c275-27c6-4f8b-8615-8917eb6fc66b")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Value" "GND IN"
+			(at 0 2.5 0)
+			(layer "F.Fab")
+			(uuid "1486f83e-b4d7-49bd-87d9-28247dc9448b")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "8db3687f-2dbd-4689-ab6f-c3d72ac43add")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "5dda76f7-0ce3-49aa-865b-c4002c4ce024")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" ""
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "210b159b-9191-4c9f-8cf4-ca4ba0fa19da")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" ""
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "18bd7c7e-072e-4565-aefc-88f6194a2b55")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" ""
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "60a478d2-767e-4456-8150-d27490924567")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Pop" "INJECTION"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "a5325e85-d1a1-407c-88fa-b6e76dd12f29")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(path "/cb57e43e-b93f-5736-9b66-c225eaff6f45")
+		(attr exclude_from_pos_files)
+		(fp_line
+			(start -1.9 -1.8)
+			(end -1.9 1.8)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "a624e0b5-1fe8-4f38-bf7b-35948563ab31")
+		)
+		(fp_line
+			(start -1.9 1.8)
+			(end 1.9 1.8)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "86cf64b9-f818-4b64-81d3-61dd361a5141")
+		)
+		(fp_line
+			(start 1.9 -1.8)
+			(end -1.9 -1.8)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "c3200639-4663-4c49-824b-b5a5a802adfd")
+		)
+		(fp_line
+			(start 1.9 1.8)
+			(end 1.9 -1.8)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "369a6f8c-8325-4359-adad-9b1fb9ac1020")
+		)
+		(fp_circle
+			(center 0 0)
+			(end 1.15 0)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.Fab")
+			(uuid "3e113f4d-b842-433a-9bbc-91c6b008ac74")
+		)
+		(fp_text user "${REFERENCE}"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(uuid "3e14abf1-2434-4369-a81f-b3600137a218")
+			(effects
+				(font
+					(size 0.57 0.57)
+					(thickness 0.09)
+				)
+			)
+		)
+		(pad "1" thru_hole roundrect
+			(at 0 0)
+			(size 2.6 2.6)
+			(drill 1.6)
+			(layers "*.Cu" "*.Mask")
+			(remove_unused_layers no)
+			(roundrect_rratio 0.096154)
+			(net 8 "GND")
+			(uuid "06cbc758-4a46-4597-a76f-a44b220b6ee4")
+		)
+		(embedded_fonts no)
+		(model "${KICAD9_3DMODEL_DIR}/Connector_Wire.3dshapes/SolderWire-0.75sqmm_1x01_D1.25mm_OD2.3mm.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "ModularLight:Spring_BW0019CG"
+		(layer "F.Cu")
+		(uuid "c9c72c13-6ade-41df-a199-57d25131a3a8")
+		(at 107.5 93.65)
+		(descr "BAT Wireless BW0019CG-L3.5W1.5H4.3 SMT antenna spring (LCSC C2826517; BW0019BG-L3.5W1.5H3.8 C2826516 fits). Drawing 681-0019C-3: body 3.5 x 1.5 mm, free height 4.3, working height 3.0-3.5, land 2.10 x 1.50 at the contact end. ORIGIN = BODY CENTRE; CONTACT POINT (dome) = (0, +0.85), 0.90 +-0.15 mm from the contact end. The contact end (free end of the cantilever) points +y: place +y toward the wall so a panel sliding toward the wall rides over the spring from its root bend. The root bend overhangs the board (y -1.75..-0.35) at 0.33 mm.")
+		(tags "spring contact antenna BW0019 seam bridge")
+		(property "Reference" "SA7"
+			(at 0 -2.4 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d16cb5dc-5bee-417d-b69a-12e08ef7a796")
+			(effects
+				(font
+					(size 0.6 0.6)
+					(thickness 0.09)
+				)
+			)
+		)
+		(property "Value" "BW0019CG"
+			(at 0 2.6 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "f1602b77-2181-40bd-ac02-0d98745bdb5a")
+			(effects
+				(font
+					(size 0.5 0.5)
+					(thickness 0.075)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "877272e1-b8f7-4f87-aedb-d556e9a073aa")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "9294ed44-5141-4403-9a12-728518ed60c2")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" "C2826517"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "42b84a41-9633-46ed-aac2-86a4de4e67ae")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "BW0019CG-L3.5W1.5H4.3"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "44db297f-d478-4629-b5b9-abc7bea67fd7")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "BAT Wireless"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "1afe7aee-7aa0-4e98-92be-f0dfd75ab1a8")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Pop" "ALL"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c0631737-ea94-4fb5-ac9d-69d3761b511d")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Note" "meets panel A X7"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5b5a946c-bee4-4c74-bc2e-9fd87453f4d5")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(path "/78f385b7-bde3-5da2-8fa5-bde66f4d1c1f")
+		(attr smd)
+		(fp_line
+			(start -0.95 -1.9)
+			(end 0.95 -1.9)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "dc0a59be-f4c0-4ddd-87eb-cb407710f30f")
+		)
+		(fp_rect
+			(start -1 -2)
+			(end 1 2)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.CrtYd")
+			(uuid "fec21c8c-11cf-484f-bc8e-e67869b77bac")
+		)
+		(fp_line
+			(start -0.5 0.85)
+			(end 0.5 0.85)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "de7bd765-2d5a-49fe-a02c-633940f19e3e")
+		)
+		(fp_line
+			(start 0 0.35)
+			(end 0 1.35)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "e1e54a8d-e6b1-45c8-b549-6d430a87b7aa")
+		)
+		(fp_rect
+			(start -0.75 -1.75)
+			(end 0.75 1.75)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.Fab")
+			(uuid "8208b565-eade-4927-9b8a-661bcd6cdcb8")
+		)
+		(fp_text user "contact"
+			(at 0.9 0.85 0)
+			(layer "F.Fab")
+			(uuid "5e8e322f-7708-4d4e-98db-cb8b7ba525d1")
+			(effects
+				(font
+					(size 0.3 0.3)
+					(thickness 0.045)
+				)
+				(justify left)
+			)
+		)
+		(pad "1" smd rect
+			(at 0 0.7)
+			(size 1.5 2.1)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(net 6 "/SNS_A_DRV_B")
+			(uuid "56f7541d-0b05-467d-9d71-f6ccc3375789")
+		)
+		(embedded_fonts no)
+		(model "${KIPRJMOD}/../lib/3dmodels/Spring_BW0019CG.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "ModularLight:Spring_BW0019CG"
+		(layer "B.Cu")
+		(uuid "010c2a0e-a1b4-4399-ac9c-1dd7f5999090")
+		(at 92.5 93.65 180)
+		(descr "BAT Wireless BW0019CG-L3.5W1.5H4.3 SMT antenna spring (LCSC C2826517; BW0019BG-L3.5W1.5H3.8 C2826516 fits). Drawing 681-0019C-3: body 3.5 x 1.5 mm, free height 4.3, working height 3.0-3.5, land 2.10 x 1.50 at the contact end. ORIGIN = BODY CENTRE; CONTACT POINT (dome) = (0, +0.85), 0.90 +-0.15 mm from the contact end. The contact end (free end of the cantilever) points +y: place +y toward the wall so a panel sliding toward the wall rides over the spring from its root bend. The root bend overhangs the board (y -1.75..-0.35) at 0.33 mm.")
+		(tags "spring contact antenna BW0019 seam bridge")
+		(property "Reference" "SB7"
+			(at 0 2.4 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "9c24deca-ac73-438e-b65a-67fb0bd07f97")
+			(effects
+				(font
+					(size 0.6 0.6)
+					(thickness 0.09)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Value" "BW0019CG"
+			(at 0 -2.6 0)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "6d9bdfe4-9f9a-433a-b816-a7a959399c81")
+			(effects
+				(font
+					(size 0.5 0.5)
+					(thickness 0.075)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "90d742a1-8bb0-4441-8af8-cbf6ec7e2708")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "dad726ae-8e79-4d91-ae0c-8d784ce0f2df")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "LCSC" "C2826517"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "fbdde8bb-f0c5-4d22-a0d0-b590b0e03f0c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "MPN" "BW0019CG-L3.5W1.5H4.3"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "c0586ad2-e275-46e1-8ed7-fe4dd75238b3")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Manufacturer" "BAT Wireless"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "d75c44cc-4a55-4a76-b135-d571878a4bfb")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Pop" "ALL"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "b44bfa59-c42e-48f5-9b70-2f4fbea6596f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Note" "meets panel B X7"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "2edfaba5-58b2-4315-8b27-8dc5fd3a0eb7")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(path "/f16685f2-b9dd-55df-b9ee-10a7745b73c5")
+		(attr smd)
+		(fp_line
+			(start -0.95 1.9)
+			(end 0.95 1.9)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "e1ad6a43-bc3b-4dde-88ab-f939872e308f")
+		)
+		(fp_rect
+			(start -1 2)
+			(end 1 -2)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "B.CrtYd")
+			(uuid "3d138494-23c1-408d-90c0-4c9da16bf555")
+		)
+		(fp_line
+			(start 0 -0.35)
+			(end 0 -1.35)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "240f128c-c6a9-442f-bdc6-f9d9f5a43159")
+		)
+		(fp_line
+			(start -0.5 -0.85)
+			(end 0.5 -0.85)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "b494331d-dc66-4eca-8df3-2bbe2ee8a9da")
+		)
+		(fp_rect
+			(start -0.75 1.75)
+			(end 0.75 -1.75)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "B.Fab")
+			(uuid "031f5bac-5ee2-4650-b437-9b1c7f6d302f")
+		)
+		(fp_text user "contact"
+			(at 0.9 -0.85 0)
+			(layer "B.Fab")
+			(uuid "d16952a2-6251-4069-a6b8-3e2450537e15")
+			(effects
+				(font
+					(size 0.3 0.3)
+					(thickness 0.045)
+				)
+				(justify left mirror)
+			)
+		)
+		(pad "1" smd rect
+			(at 0 -0.7 180)
+			(size 1.5 2.1)
+			(layers "B.Cu" "B.Mask" "B.Paste")
+			(net 5 "/DRV_A_SNS_B")
+			(uuid "10a9e9cd-3d1b-439e-80c2-eb17edbd11f2")
+		)
+		(embedded_fonts no)
+		(model "${KIPRJMOD}/../lib/3dmodels/Spring_BW0019CG.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "ModularLight:Spring_BW0019CG"
+		(layer "B.Cu")
+		(uuid "3a459f19-1657-41db-8b44-4d999f1e51df")
+		(at 107.5 93.65 180)
+		(descr "BAT Wireless BW0019CG-L3.5W1.5H4.3 SMT antenna spring (LCSC C2826517; BW0019BG-L3.5W1.5H3.8 C2826516 fits). Drawing 681-0019C-3: body 3.5 x 1.5 mm, free height 4.3, working height 3.0-3.5, land 2.10 x 1.50 at the contact end. ORIGIN = BODY CENTRE; CONTACT POINT (dome) = (0, +0.85), 0.90 +-0.15 mm from the contact end. The contact end (free end of the cantilever) points +y: place +y toward the wall so a panel sliding toward the wall rides over the spring from its root bend. The root bend overhangs the board (y -1.75..-0.35) at 0.33 mm.")
+		(tags "spring contact antenna BW0019 seam bridge")
+		(property "Reference" "SB4"
+			(at 0 2.4 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "55045cc3-ae9e-45e4-86d4-6fe8dc6aec8a")
+			(effects
+				(font
+					(size 0.6 0.6)
+					(thickness 0.09)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Value" "BW0019CG"
+			(at 0 -2.6 0)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "3d3022a2-4be0-4619-9ddc-be7d17e7d8cd")
+			(effects
+				(font
+					(size 0.5 0.5)
+					(thickness 0.075)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "f100d698-e746-43b3-a943-bf08ea177001")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "3d52127e-31a0-4a65-be93-1ae048883f5f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "LCSC" "C2826517"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "fc5604e4-c477-452e-8f2b-7f91d60c4e8d")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "MPN" "BW0019CG-L3.5W1.5H4.3"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "82de2dfb-332d-4f66-b16e-e66aa4c8b1d3")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Manufacturer" "BAT Wireless"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "56f76f72-f8ca-43e3-8aef-c0ea0398496f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Pop" "ALL"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "cd465b33-bb82-432d-84cc-ef481f40b7cf")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Note" "meets panel B X4"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "41556c33-3e37-4c52-a3f1-94e201822d4d")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(path "/a326c2ec-0117-5358-a228-ac06040a9141")
+		(attr smd)
+		(fp_line
+			(start -0.95 1.9)
+			(end 0.95 1.9)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "02eeb9d3-e69d-4c0e-b62a-082b98f136be")
+		)
+		(fp_rect
+			(start -1 2)
+			(end 1 -2)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "B.CrtYd")
+			(uuid "4f34bc83-0b6d-4bcc-8ae8-c918965c63bb")
+		)
+		(fp_line
+			(start 0 -0.35)
+			(end 0 -1.35)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "ea1d6076-87b5-4565-aab3-b48344a8333a")
+		)
+		(fp_line
+			(start -0.5 -0.85)
+			(end 0.5 -0.85)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "addcdf39-9fa0-4d37-ac30-7aae1b70ece0")
+		)
+		(fp_rect
+			(start -0.75 1.75)
+			(end 0.75 -1.75)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "B.Fab")
+			(uuid "f9fbde9d-a6bc-4bb7-8678-684cc6dbaf83")
+		)
+		(fp_text user "contact"
+			(at 0.9 -0.85 0)
+			(layer "B.Fab")
+			(uuid "c5861343-3c71-4230-8420-3487858521bc")
+			(effects
+				(font
+					(size 0.3 0.3)
+					(thickness 0.045)
+				)
+				(justify left mirror)
+			)
+		)
+		(pad "1" smd rect
+			(at 0 -0.7 180)
+			(size 1.5 2.1)
+			(layers "B.Cu" "B.Mask" "B.Paste")
+			(net 3 "/CANH")
+			(uuid "ec79b620-3a0d-49e8-b076-b9a9977ba9ea")
+		)
+		(embedded_fonts no)
+		(model "${KIPRJMOD}/../lib/3dmodels/Spring_BW0019CG.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "ModularLight:Spring_BW0019CG"
+		(layer "B.Cu")
+		(uuid "6e67d139-57cf-42ca-b489-0ca58e3dc64f")
+		(at 112.5 93.65 180)
+		(descr "BAT Wireless BW0019CG-L3.5W1.5H4.3 SMT antenna spring (LCSC C2826517; BW0019BG-L3.5W1.5H3.8 C2826516 fits). Drawing 681-0019C-3: body 3.5 x 1.5 mm, free height 4.3, working height 3.0-3.5, land 2.10 x 1.50 at the contact end. ORIGIN = BODY CENTRE; CONTACT POINT (dome) = (0, +0.85), 0.90 +-0.15 mm from the contact end. The contact end (free end of the cantilever) points +y: place +y toward the wall so a panel sliding toward the wall rides over the spring from its root bend. The root bend overhangs the board (y -1.75..-0.35) at 0.33 mm.")
+		(tags "spring contact antenna BW0019 seam bridge")
+		(property "Reference" "SB3"
+			(at 0 2.4 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "42c27843-0f83-47ef-81f9-c56c72c5943f")
+			(effects
+				(font
+					(size 0.6 0.6)
+					(thickness 0.09)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Value" "BW0019CG"
+			(at 0 -2.6 0)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "8a3b2f38-3626-4ebe-8348-0068c5a02c14")
+			(effects
+				(font
+					(size 0.5 0.5)
+					(thickness 0.075)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "345cb564-4697-4894-b5f3-8fa3a2a5450b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "adcac5d3-fb3d-4114-85c2-a660fc355c34")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "LCSC" "C2826517"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "8492f755-90d9-4c71-bb08-05cde83e0dda")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "MPN" "BW0019CG-L3.5W1.5H4.3"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "88eb3169-5963-4844-a69f-b776f68cc6bb")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Manufacturer" "BAT Wireless"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "c089a9b4-1ccf-48e5-a6e1-bd2b7bcdfe89")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Pop" "ALL"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "1e6f2edc-a4c0-4a82-81c0-f1a304a38d0d")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Note" "meets panel B X3"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "7b875cbe-0d1e-41de-9b67-c185698e8fcf")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(path "/281364df-73c8-5878-9791-ddf6c9b4d951")
+		(attr smd)
+		(fp_line
+			(start -0.95 1.9)
+			(end 0.95 1.9)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "7d5a5121-fbc4-431d-ba64-5118acadd2b3")
+		)
+		(fp_rect
+			(start -1 2)
+			(end 1 -2)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "B.CrtYd")
+			(uuid "ebef5677-c642-4f82-80b6-806afcfe6221")
+		)
+		(fp_line
+			(start 0 -0.35)
+			(end 0 -1.35)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "a1504571-575b-440b-8d32-c3cfa66e31fe")
+		)
+		(fp_line
+			(start -0.5 -0.85)
+			(end 0.5 -0.85)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "7f77ea10-058a-427a-929b-5bb2cdb30218")
+		)
+		(fp_rect
+			(start -0.75 1.75)
+			(end 0.75 -1.75)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "B.Fab")
+			(uuid "6575c521-fc32-4052-9564-d6c4854ef86b")
+		)
+		(fp_text user "contact"
+			(at 0.9 -0.85 0)
+			(layer "B.Fab")
+			(uuid "cfc96e41-6e7f-4a15-ae2d-3cbdc5706277")
+			(effects
+				(font
+					(size 0.3 0.3)
+					(thickness 0.045)
+				)
+				(justify left mirror)
+			)
+		)
+		(pad "1" smd rect
+			(at 0 -0.7 180)
+			(size 1.5 2.1)
+			(layers "B.Cu" "B.Mask" "B.Paste")
+			(net 8 "GND")
+			(uuid "80252381-7139-45db-a50f-f68db723b873")
+		)
+		(embedded_fonts no)
+		(model "${KIPRJMOD}/../lib/3dmodels/Spring_BW0019CG.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "ModularLight:Spring_BW0019CG"
+		(layer "B.Cu")
+		(uuid "81b9715d-a4dd-4e74-8a55-86f6e5640346")
+		(at 97.5 93.65 180)
+		(descr "BAT Wireless BW0019CG-L3.5W1.5H4.3 SMT antenna spring (LCSC C2826517; BW0019BG-L3.5W1.5H3.8 C2826516 fits). Drawing 681-0019C-3: body 3.5 x 1.5 mm, free height 4.3, working height 3.0-3.5, land 2.10 x 1.50 at the contact end. ORIGIN = BODY CENTRE; CONTACT POINT (dome) = (0, +0.85), 0.90 +-0.15 mm from the contact end. The contact end (free end of the cantilever) points +y: place +y toward the wall so a panel sliding toward the wall rides over the spring from its root bend. The root bend overhangs the board (y -1.75..-0.35) at 0.33 mm.")
+		(tags "spring contact antenna BW0019 seam bridge")
+		(property "Reference" "SB6"
+			(at 0 2.4 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "3275fc95-4433-41a9-842f-277dae0211db")
+			(effects
+				(font
+					(size 0.6 0.6)
+					(thickness 0.09)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Value" "BW0019CG"
+			(at 0 -2.6 0)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "a5436ca8-3ec1-4eab-962d-7785fb7b2e44")
+			(effects
+				(font
+					(size 0.5 0.5)
+					(thickness 0.075)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "358c841c-29d9-407c-a517-fdfea386a96d")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "85888b05-a85d-480e-a606-569c13795e88")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "LCSC" "C2826517"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "39d70dfa-1919-4e3a-9ecd-4266fc200111")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "MPN" "BW0019CG-L3.5W1.5H4.3"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "923b8f8f-e1f5-4f83-8424-c5aa5bf7aaf5")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Manufacturer" "BAT Wireless"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "b2b2082c-2c44-4087-934b-57e8c5a69c70")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Pop" "ALL"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "cec1119e-13a8-4277-aa2d-d535ea330593")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Note" "meets panel B X6"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "039831e3-ab4a-4728-9d17-0803f11e011c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(path "/585b7e4e-397e-586c-a31b-d5e2050c59eb")
+		(attr smd)
+		(fp_line
+			(start -0.95 1.9)
+			(end 0.95 1.9)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "5424ef7a-0a7e-4712-8f12-945c43a7daba")
+		)
+		(fp_rect
+			(start -1 2)
+			(end 1 -2)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "B.CrtYd")
+			(uuid "86f170ac-88b4-428f-a9e7-4ffb4ff967bf")
+		)
+		(fp_line
+			(start 0 -0.35)
+			(end 0 -1.35)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "c4b275c6-a59f-45b4-a961-dc30be6cff5c")
+		)
+		(fp_line
+			(start -0.5 -0.85)
+			(end 0.5 -0.85)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "f0cff90a-b7ee-47bc-8838-cd71dc9ffa47")
+		)
+		(fp_rect
+			(start -0.75 1.75)
+			(end 0.75 -1.75)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "B.Fab")
+			(uuid "f6cf5ee9-8e84-4726-81bb-774f16267fa4")
+		)
+		(fp_text user "contact"
+			(at 0.9 -0.85 0)
+			(layer "B.Fab")
+			(uuid "4d1b395e-795c-4b35-99cf-4dffe75d7c7c")
+			(effects
+				(font
+					(size 0.3 0.3)
+					(thickness 0.045)
+				)
+				(justify left mirror)
+			)
+		)
+		(pad "1" smd rect
+			(at 0 -0.7 180)
+			(size 1.5 2.1)
+			(layers "B.Cu" "B.Mask" "B.Paste")
+			(net 6 "/SNS_A_DRV_B")
+			(uuid "2e0e17f4-9edd-445f-a230-2616b826c7cc")
+		)
+		(embedded_fonts no)
+		(model "${KIPRJMOD}/../lib/3dmodels/Spring_BW0019CG.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "ModularLight:Spring_BW0019CG"
+		(layer "B.Cu")
+		(uuid "94ba0833-aeef-4a83-abfc-892eeaadeae4")
+		(at 82.5 93.65 180)
+		(descr "BAT Wireless BW0019CG-L3.5W1.5H4.3 SMT antenna spring (LCSC C2826517; BW0019BG-L3.5W1.5H3.8 C2826516 fits). Drawing 681-0019C-3: body 3.5 x 1.5 mm, free height 4.3, working height 3.0-3.5, land 2.10 x 1.50 at the contact end. ORIGIN = BODY CENTRE; CONTACT POINT (dome) = (0, +0.85), 0.90 +-0.15 mm from the contact end. The contact end (free end of the cantilever) points +y: place +y toward the wall so a panel sliding toward the wall rides over the spring from its root bend. The root bend overhangs the board (y -1.75..-0.35) at 0.33 mm.")
+		(tags "spring contact antenna BW0019 seam bridge")
+		(property "Reference" "SB9"
+			(at 0 2.4 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "99df7d7b-1ee4-4bf4-97e8-ea93e2af6bab")
+			(effects
+				(font
+					(size 0.6 0.6)
+					(thickness 0.09)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Value" "BW0019CG"
+			(at 0 -2.6 0)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "26d9c456-e3e6-412f-9713-6338d715bd3f")
+			(effects
+				(font
+					(size 0.5 0.5)
+					(thickness 0.075)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "0ce579c8-21a5-4f07-9e44-6928b7fcd577")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "8883391b-03fe-40ff-a3d8-185b5f3bf7c6")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "LCSC" "C2826517"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "d87f22f8-5d05-4d1d-bbbc-adf212745911")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "MPN" "BW0019CG-L3.5W1.5H4.3"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "bf0ee6b2-7723-40a4-be72-a6e64dec06be")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Manufacturer" "BAT Wireless"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "50c09b82-e0b9-43e5-9428-fad006e4ee21")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Pop" "ALL"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "9aa7bd8f-d647-414a-b045-3d958415f000")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Note" "meets panel B X9"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "460e42a4-d5fa-4a52-8a8c-6bcc6695a9de")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(path "/7ef2859e-5d74-54c3-8be8-e15b580ddbf2")
+		(attr smd)
+		(fp_line
+			(start -0.95 1.9)
+			(end 0.95 1.9)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "d3c7ebc3-8a35-48cd-8053-2f3d87e66987")
+		)
+		(fp_rect
+			(start -1 2)
+			(end 1 -2)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "B.CrtYd")
+			(uuid "79519d50-8644-4ef6-bcad-8600e4d9869e")
+		)
+		(fp_line
+			(start 0 -0.35)
+			(end 0 -1.35)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "3b584260-2c58-429f-aaa8-b28768416d11")
+		)
+		(fp_line
+			(start -0.5 -0.85)
+			(end 0.5 -0.85)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "d6f1f778-03bf-41b4-a852-7730e60372da")
+		)
+		(fp_rect
+			(start -0.75 1.75)
+			(end 0.75 -1.75)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "B.Fab")
+			(uuid "e79873d7-3819-41c3-85f0-6ba041d01f66")
+		)
+		(fp_text user "contact"
+			(at 0.9 -0.85 0)
+			(layer "B.Fab")
+			(uuid "22708546-f10c-4c73-9d41-d48e10b27da7")
+			(effects
+				(font
+					(size 0.3 0.3)
+					(thickness 0.045)
+				)
+				(justify left mirror)
+			)
+		)
+		(pad "1" smd rect
+			(at 0 -0.7 180)
+			(size 1.5 2.1)
+			(layers "B.Cu" "B.Mask" "B.Paste")
+			(net 1 "+24V")
+			(uuid "da32bf19-a1c8-42e3-b781-40aafeb93030")
+		)
+		(embedded_fonts no)
+		(model "${KIPRJMOD}/../lib/3dmodels/Spring_BW0019CG.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "ModularLight:Spring_BW0019CG"
+		(layer "B.Cu")
+		(uuid "96f5abc8-92d4-4578-a251-430cf97d51dd")
+		(at 87.5 93.65 180)
+		(descr "BAT Wireless BW0019CG-L3.5W1.5H4.3 SMT antenna spring (LCSC C2826517; BW0019BG-L3.5W1.5H3.8 C2826516 fits). Drawing 681-0019C-3: body 3.5 x 1.5 mm, free height 4.3, working height 3.0-3.5, land 2.10 x 1.50 at the contact end. ORIGIN = BODY CENTRE; CONTACT POINT (dome) = (0, +0.85), 0.90 +-0.15 mm from the contact end. The contact end (free end of the cantilever) points +y: place +y toward the wall so a panel sliding toward the wall rides over the spring from its root bend. The root bend overhangs the board (y -1.75..-0.35) at 0.33 mm.")
+		(tags "spring contact antenna BW0019 seam bridge")
+		(property "Reference" "SB8"
+			(at 0 2.4 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "066e8355-1f13-4bad-a042-5a116e482bb8")
+			(effects
+				(font
+					(size 0.6 0.6)
+					(thickness 0.09)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Value" "BW0019CG"
+			(at 0 -2.6 0)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "33193d0b-5928-45b1-a8a4-293646929dd7")
+			(effects
+				(font
+					(size 0.5 0.5)
+					(thickness 0.075)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "189dd671-5578-4bb2-b211-05e221a13076")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "47ba856e-eb26-4378-8d9b-9c89b74eed2b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "LCSC" "C2826517"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "6ea8ee6c-8572-431b-b19f-09da1ea00a03")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "MPN" "BW0019CG-L3.5W1.5H4.3"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "3c192693-5260-42f0-8d95-708dad23804b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Manufacturer" "BAT Wireless"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "e9054689-e056-4ba1-987b-1b1c5c118d54")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Pop" "ALL"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "dfa7fef4-a28e-499f-b2d0-0233db3b7ce3")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Note" "meets panel B X8"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "6728a54b-ca14-4df4-b489-79d7431b0cc9")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(path "/ef97e2a2-55f8-5568-a325-c8ecd1bf04bc")
+		(attr smd)
+		(fp_line
+			(start -0.95 1.9)
+			(end 0.95 1.9)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "63436c99-8330-4539-8ecf-544b927a5084")
+		)
+		(fp_rect
+			(start -1 2)
+			(end 1 -2)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "B.CrtYd")
+			(uuid "238bd1b1-a32a-4346-b9f2-fb51a8934e10")
+		)
+		(fp_line
+			(start 0 -0.35)
+			(end 0 -1.35)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "ff4d60cd-8511-4f55-b67e-b4623f678b41")
+		)
+		(fp_line
+			(start -0.5 -0.85)
+			(end 0.5 -0.85)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "97687694-7750-463d-a4f9-22e3969e5207")
+		)
+		(fp_rect
+			(start -0.75 1.75)
+			(end 0.75 -1.75)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "B.Fab")
+			(uuid "02548fc5-6cf9-425c-8a32-de8a5a3d88b4")
+		)
+		(fp_text user "contact"
+			(at 0.9 -0.85 0)
+			(layer "B.Fab")
+			(uuid "c4d8b06e-b3ed-4391-b30e-56a7428e3edf")
+			(effects
+				(font
+					(size 0.3 0.3)
+					(thickness 0.045)
+				)
+				(justify left mirror)
+			)
+		)
+		(pad "1" smd rect
+			(at 0 -0.7 180)
+			(size 1.5 2.1)
+			(layers "B.Cu" "B.Mask" "B.Paste")
+			(net 7 "/SPARE")
+			(uuid "bc872859-d8ce-4c02-a21b-d550c508dcb5")
+		)
+		(embedded_fonts no)
+		(model "${KIPRJMOD}/../lib/3dmodels/Spring_BW0019CG.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "ModularLight:Spring_BW0019CG"
+		(layer "B.Cu")
+		(uuid "abf62f17-73ef-4808-9e13-c0033ef85eba")
+		(at 122.5 93.65 180)
+		(descr "BAT Wireless BW0019CG-L3.5W1.5H4.3 SMT antenna spring (LCSC C2826517; BW0019BG-L3.5W1.5H3.8 C2826516 fits). Drawing 681-0019C-3: body 3.5 x 1.5 mm, free height 4.3, working height 3.0-3.5, land 2.10 x 1.50 at the contact end. ORIGIN = BODY CENTRE; CONTACT POINT (dome) = (0, +0.85), 0.90 +-0.15 mm from the contact end. The contact end (free end of the cantilever) points +y: place +y toward the wall so a panel sliding toward the wall rides over the spring from its root bend. The root bend overhangs the board (y -1.75..-0.35) at 0.33 mm.")
+		(tags "spring contact antenna BW0019 seam bridge")
+		(property "Reference" "SB1"
+			(at 0 2.4 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "b7656986-60b4-4ceb-9426-42a84a9add29")
+			(effects
+				(font
+					(size 0.6 0.6)
+					(thickness 0.09)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Value" "BW0019CG"
+			(at 0 -2.6 0)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "988a4c2e-8b04-4861-8c72-b9440abb513f")
+			(effects
+				(font
+					(size 0.5 0.5)
+					(thickness 0.075)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "699cfbb3-2ea6-42d1-9c8e-ee2dc51fb984")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "74271baa-a02f-4a76-ae39-1a050bead0df")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "LCSC" "C2826517"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "c01b64a7-f030-47b0-bf48-d1ff34f7adbf")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "MPN" "BW0019CG-L3.5W1.5H4.3"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "0d684c80-feee-4ca1-92e3-cb00eb8cff9c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Manufacturer" "BAT Wireless"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "de7d77a0-cd4f-436e-b28a-01a979499de2")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Pop" "ALL"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "0d7dadf1-6c50-4209-9a56-d40907af180e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Note" "meets panel B X1"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "648067d8-d52c-4bae-89d7-fa64f7658db4")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(path "/ef7ecf9c-a3c9-5587-827c-0ce5a761c2d6")
+		(attr smd)
+		(fp_line
+			(start -0.95 1.9)
+			(end 0.95 1.9)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "21f4a2d9-08cb-4afd-b5cf-fc993b939859")
+		)
+		(fp_rect
+			(start -1 2)
+			(end 1 -2)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "B.CrtYd")
+			(uuid "9bf3b884-a158-4efa-8986-bddff8c6823f")
+		)
+		(fp_line
+			(start 0 -0.35)
+			(end 0 -1.35)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "c3109e0b-f2fe-46de-9ebe-3ccdde5fa0d6")
+		)
+		(fp_line
+			(start -0.5 -0.85)
+			(end 0.5 -0.85)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "390d1767-61de-4f89-a7cf-33abc249e344")
+		)
+		(fp_rect
+			(start -0.75 1.75)
+			(end 0.75 -1.75)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "B.Fab")
+			(uuid "1f899307-b7da-4c8b-8082-508ed41a2fc6")
+		)
+		(fp_text user "contact"
+			(at 0.9 -0.85 0)
+			(layer "B.Fab")
+			(uuid "c803903a-531e-4293-b199-f9187a2f2223")
+			(effects
+				(font
+					(size 0.3 0.3)
+					(thickness 0.045)
+				)
+				(justify left mirror)
+			)
+		)
+		(pad "1" smd rect
+			(at 0 -0.7 180)
+			(size 1.5 2.1)
+			(layers "B.Cu" "B.Mask" "B.Paste")
+			(net 8 "GND")
+			(uuid "e01cf002-bcda-4766-bf03-3708412125d8")
+		)
+		(embedded_fonts no)
+		(model "${KIPRJMOD}/../lib/3dmodels/Spring_BW0019CG.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "ModularLight:Spring_BW0019CG"
+		(layer "B.Cu")
+		(uuid "b26a9780-3e2e-47a0-9f59-f890b8858e9c")
+		(at 117.5 93.65 180)
+		(descr "BAT Wireless BW0019CG-L3.5W1.5H4.3 SMT antenna spring (LCSC C2826517; BW0019BG-L3.5W1.5H3.8 C2826516 fits). Drawing 681-0019C-3: body 3.5 x 1.5 mm, free height 4.3, working height 3.0-3.5, land 2.10 x 1.50 at the contact end. ORIGIN = BODY CENTRE; CONTACT POINT (dome) = (0, +0.85), 0.90 +-0.15 mm from the contact end. The contact end (free end of the cantilever) points +y: place +y toward the wall so a panel sliding toward the wall rides over the spring from its root bend. The root bend overhangs the board (y -1.75..-0.35) at 0.33 mm.")
+		(tags "spring contact antenna BW0019 seam bridge")
+		(property "Reference" "SB2"
+			(at 0 2.4 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "ef255560-88aa-4de4-bd53-5c968e1f7853")
+			(effects
+				(font
+					(size 0.6 0.6)
+					(thickness 0.09)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Value" "BW0019CG"
+			(at 0 -2.6 0)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "50ecff58-4442-4c0a-92dc-cda3fb594667")
+			(effects
+				(font
+					(size 0.5 0.5)
+					(thickness 0.075)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "6f42d531-ca29-4061-824b-9be24f722793")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "5ca80f03-4f50-4cbb-8a25-91bc963f8605")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "LCSC" "C2826517"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "09677318-2d5c-449e-b54a-d3949e2f1e8a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "MPN" "BW0019CG-L3.5W1.5H4.3"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "4aef4dd5-534f-415b-8982-da5e6f897ae9")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Manufacturer" "BAT Wireless"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "00f8fd52-7139-494a-9a89-fd499d6442d4")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Pop" "ALL"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "28a1fee4-1d40-4303-bbff-92f8af800d6d")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Note" "meets panel B X2"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "3f6d0fae-b37a-41ee-8875-8cf5625ed27a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(path "/fb71c004-894d-5efc-af5f-b2d1c69069ac")
+		(attr smd)
+		(fp_line
+			(start -0.95 1.9)
+			(end 0.95 1.9)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "4fd109d1-a45e-479b-8ff4-268cf5a4fa56")
+		)
+		(fp_rect
+			(start -1 2)
+			(end 1 -2)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "B.CrtYd")
+			(uuid "370fbf31-9808-4faf-a4fb-eed0fd1371bc")
+		)
+		(fp_line
+			(start 0 -0.35)
+			(end 0 -1.35)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "b6b53fbb-515d-439b-9601-5ba6ae7b278e")
+		)
+		(fp_line
+			(start -0.5 -0.85)
+			(end 0.5 -0.85)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "c4176a17-b6dc-4e83-9751-e31ca2932901")
+		)
+		(fp_rect
+			(start -0.75 1.75)
+			(end 0.75 -1.75)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "B.Fab")
+			(uuid "188d6010-6b99-4893-95c0-e3d2e2981c8b")
+		)
+		(fp_text user "contact"
+			(at 0.9 -0.85 0)
+			(layer "B.Fab")
+			(uuid "94e5173d-b945-4773-bca8-f3fc4bbf9228")
+			(effects
+				(font
+					(size 0.3 0.3)
+					(thickness 0.045)
+				)
+				(justify left mirror)
+			)
+		)
+		(pad "1" smd rect
+			(at 0 -0.7 180)
+			(size 1.5 2.1)
+			(layers "B.Cu" "B.Mask" "B.Paste")
+			(net 1 "+24V")
+			(uuid "bd3b8916-321e-4787-a11d-b56330a7d5ef")
+		)
+		(embedded_fonts no)
+		(model "${KIPRJMOD}/../lib/3dmodels/Spring_BW0019CG.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "ModularLight:Spring_BW0019CG"
+		(layer "B.Cu")
+		(uuid "c538617d-2548-4c0d-a965-851c864162a7")
+		(at 102.5 93.65 180)
+		(descr "BAT Wireless BW0019CG-L3.5W1.5H4.3 SMT antenna spring (LCSC C2826517; BW0019BG-L3.5W1.5H3.8 C2826516 fits). Drawing 681-0019C-3: body 3.5 x 1.5 mm, free height 4.3, working height 3.0-3.5, land 2.10 x 1.50 at the contact end. ORIGIN = BODY CENTRE; CONTACT POINT (dome) = (0, +0.85), 0.90 +-0.15 mm from the contact end. The contact end (free end of the cantilever) points +y: place +y toward the wall so a panel sliding toward the wall rides over the spring from its root bend. The root bend overhangs the board (y -1.75..-0.35) at 0.33 mm.")
+		(tags "spring contact antenna BW0019 seam bridge")
+		(property "Reference" "SB5"
+			(at 0 2.4 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "327beee5-ce8d-4c6c-be00-afdacaabad72")
+			(effects
+				(font
+					(size 0.6 0.6)
+					(thickness 0.09)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Value" "BW0019CG"
+			(at 0 -2.6 0)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "246a5f5a-9556-4e93-8002-3efd25ab3046")
+			(effects
+				(font
+					(size 0.5 0.5)
+					(thickness 0.075)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "9bd14b5f-41bf-46e1-ba8f-1efb2dd1fea6")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "d138391d-6ff0-45b4-a80c-1c19e19d2552")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "LCSC" "C2826517"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "e34edc3d-d02d-47c5-91ac-dc2430587916")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "MPN" "BW0019CG-L3.5W1.5H4.3"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "e8aacc4d-09a2-4523-bba9-391d026182e0")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Manufacturer" "BAT Wireless"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "67123f2a-605f-471f-946f-ef7d6fefddf0")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Pop" "ALL"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "7712792f-4c2c-46fd-9e80-5ddf24d512ea")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Note" "meets panel B X5"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "0485e607-0bb1-44cb-b68b-1abf78023c98")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(path "/afd29007-46c1-536d-ab0c-3bbb507caaf0")
+		(attr smd)
+		(fp_line
+			(start -0.95 1.9)
+			(end 0.95 1.9)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "bafb3df4-2f9c-4b9f-b9c7-64de6bf3dacd")
+		)
+		(fp_rect
+			(start -1 2)
+			(end 1 -2)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "B.CrtYd")
+			(uuid "3172bb9c-ffff-402a-b825-6d234582ea0a")
+		)
+		(fp_line
+			(start 0 -0.35)
+			(end 0 -1.35)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "d5faf623-51ab-4eb4-91b5-84a08154c14b")
+		)
+		(fp_line
+			(start -0.5 -0.85)
+			(end 0.5 -0.85)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "9cb793d6-191b-483a-8290-ed1f90739119")
+		)
+		(fp_rect
+			(start -0.75 1.75)
+			(end 0.75 -1.75)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "B.Fab")
+			(uuid "a1c8d7ea-a07b-4d52-82a8-324a5dc09523")
+		)
+		(fp_text user "contact"
+			(at 0.9 -0.85 0)
+			(layer "B.Fab")
+			(uuid "81bee713-eeb8-4e0c-aa6a-af26192fe0ad")
+			(effects
+				(font
+					(size 0.3 0.3)
+					(thickness 0.045)
+				)
+				(justify left mirror)
+			)
+		)
+		(pad "1" smd rect
+			(at 0 -0.7 180)
+			(size 1.5 2.1)
+			(layers "B.Cu" "B.Mask" "B.Paste")
+			(net 4 "/CANL")
+			(uuid "b7eab61f-0868-4ad4-9ace-12f2716bc1a3")
+		)
+		(embedded_fonts no)
+		(model "${KIPRJMOD}/../lib/3dmodels/Spring_BW0019CG.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "ModularLight:Spring_BW0019CG"
+		(layer "B.Cu")
+		(uuid "df81b33b-1251-449a-9a9e-e1eec6f01f5c")
+		(at 77.5 93.65 180)
+		(descr "BAT Wireless BW0019CG-L3.5W1.5H4.3 SMT antenna spring (LCSC C2826517; BW0019BG-L3.5W1.5H3.8 C2826516 fits). Drawing 681-0019C-3: body 3.5 x 1.5 mm, free height 4.3, working height 3.0-3.5, land 2.10 x 1.50 at the contact end. ORIGIN = BODY CENTRE; CONTACT POINT (dome) = (0, +0.85), 0.90 +-0.15 mm from the contact end. The contact end (free end of the cantilever) points +y: place +y toward the wall so a panel sliding toward the wall rides over the spring from its root bend. The root bend overhangs the board (y -1.75..-0.35) at 0.33 mm.")
+		(tags "spring contact antenna BW0019 seam bridge")
+		(property "Reference" "SB10"
+			(at 0 2.4 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "1ae2c2d3-d249-41b5-9ffb-35364c8d3cbd")
+			(effects
+				(font
+					(size 0.6 0.6)
+					(thickness 0.09)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Value" "BW0019CG"
+			(at 0 -2.6 0)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "a87dfddc-4552-4330-8f6f-ee960284224c")
+			(effects
+				(font
+					(size 0.5 0.5)
+					(thickness 0.075)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "3c8ed8c9-a5c8-4b18-9041-1dba7fd4f9a5")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "59936ca8-b662-43ed-8568-6a6b5f16a5f9")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "LCSC" "C2826517"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "8de32481-9a57-4008-8c7b-ff07d0cd2c87")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "MPN" "BW0019CG-L3.5W1.5H4.3"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "a5ae76f3-2a8a-4923-9a2c-228d998d9719")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Manufacturer" "BAT Wireless"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "7586ff03-44ba-4705-bc19-91625a61027a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Pop" "ALL"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "a41925d7-001b-4d18-92a0-203e558df1ee")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Note" "meets panel B X10"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "6a53186a-7398-4424-b350-0d6971fd1723")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(path "/252be8e8-6070-592c-a16f-c109f73dd967")
+		(attr smd)
+		(fp_line
+			(start -0.95 1.9)
+			(end 0.95 1.9)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "c665ee1f-4dde-4603-afd4-13bfa3da510a")
+		)
+		(fp_rect
+			(start -1 2)
+			(end 1 -2)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "B.CrtYd")
+			(uuid "11a54c70-86d0-4dc5-8e08-bb85c749dbf9")
+		)
+		(fp_line
+			(start 0 -0.35)
+			(end 0 -1.35)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "a9caaab6-8c77-4876-8d65-17fa18ca315c")
+		)
+		(fp_line
+			(start -0.5 -0.85)
+			(end 0.5 -0.85)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "B.Fab")
+			(uuid "7ca3d812-2d2e-41d0-b140-83e6b5d1af30")
+		)
+		(fp_rect
+			(start -0.75 1.75)
+			(end 0.75 -1.75)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "B.Fab")
+			(uuid "7b03820f-983f-4db7-93ad-765e0e521e82")
+		)
+		(fp_text user "contact"
+			(at 0.9 -0.85 0)
+			(layer "B.Fab")
+			(uuid "4a8c8315-aa2e-4a8d-b179-e825a805128b")
+			(effects
+				(font
+					(size 0.3 0.3)
+					(thickness 0.045)
+				)
+				(justify left mirror)
+			)
+		)
+		(pad "1" smd rect
+			(at 0 -0.7 180)
+			(size 1.5 2.1)
+			(layers "B.Cu" "B.Mask" "B.Paste")
+			(net 8 "GND")
+			(uuid "098ee173-718e-4f62-8ea0-4b92ca0fab91")
+		)
+		(embedded_fonts no)
+		(model "${KIPRJMOD}/../lib/3dmodels/Spring_BW0019CG.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(gr_line
+		(start 128 100)
+		(end 128 91)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "31cd41d6-5c62-41c9-a1fb-52897fe4326f")
+	)
+	(gr_line
+		(start 72 91)
+		(end 72 100)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "36fcf5be-bf8e-45dc-9105-7726acd8b0d6")
+	)
+	(gr_line
+		(start 128 91)
+		(end 72 91)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "b8e42610-b306-4616-8b92-c1765ea4bdcf")
+	)
+	(gr_line
+		(start 72 100)
+		(end 128 100)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "e3c3a25a-dda1-4c5b-b48e-4d9486c59b98")
+	)
+	(gr_text "SEAM BRIDGE 56 x 9 x 0.8 ENIG. Face A = F.Cu. Bottom edge = panel z -2.0."
+		(at 100 89 0)
+		(layer "Cmts.User")
+		(uuid "3d67d4fb-b072-44d2-b4c2-02695103a638")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(segment
+		(start 117.5 98)
+		(end 122 98)
+		(width 1.2)
+		(locked yes)
+		(layer "F.Cu")
+		(net 1)
+		(uuid "0abe6e8c-a227-4b22-b2c6-9d33c4699597")
+	)
+	(segment
+		(start 122 98)
+		(end 123.2 97.6)
+		(width 1.2)
+		(locked yes)
+		(layer "F.Cu")
+		(net 1)
+		(uuid "5826531c-b6bd-490e-83f9-d72252320a64")
+	)
+	(segment
+		(start 82.5 95.1)
+		(end 82.5 98.2)
+		(width 0.8)
+		(locked yes)
+		(layer "F.Cu")
+		(net 1)
+		(uuid "64cbd58f-6cce-4775-9294-2356810d1cc4")
+	)
+	(segment
+		(start 117.5 95.1)
+		(end 117.5 98.2)
+		(width 0.8)
+		(locked yes)
+		(layer "F.Cu")
+		(net 1)
+		(uuid "7db04c18-9a60-4230-abdf-03f15626d70d")
+	)
+	(segment
+		(start 82.5 98.2)
+		(end 117.5 98.2)
+		(width 0.8)
+		(locked yes)
+		(layer "F.Cu")
+		(net 1)
+		(uuid "be0a9c27-7028-4a00-9f69-60a7db82d0f6")
+	)
+	(via
+		(at 82.5 97)
+		(size 0.6)
+		(drill 0.3)
+		(layers "F.Cu" "B.Cu")
+		(locked yes)
+		(net 1)
+		(uuid "1135bbee-ba4f-4332-bc7f-d6d60e99cada")
+	)
+	(via
+		(at 82.5 96.2)
+		(size 0.6)
+		(drill 0.3)
+		(layers "F.Cu" "B.Cu")
+		(locked yes)
+		(net 1)
+		(uuid "1177730c-d37a-4982-af77-cfdede167e90")
+	)
+	(via
+		(at 117.5 96.2)
+		(size 0.6)
+		(drill 0.3)
+		(layers "F.Cu" "B.Cu")
+		(locked yes)
+		(net 1)
+		(uuid "4937399d-2740-4baa-b023-55efb5bcf2a6")
+	)
+	(via
+		(at 117.5 97)
+		(size 0.6)
+		(drill 0.3)
+		(layers "F.Cu" "B.Cu")
+		(locked yes)
+		(net 1)
+		(uuid "cc480f15-8c33-4a62-b04e-b913cfa80e3c")
+	)
+	(segment
+		(start 82.5 95.1)
+		(end 82.5 98.2)
+		(width 0.8)
+		(locked yes)
+		(layer "B.Cu")
+		(net 1)
+		(uuid "a2255521-e7cb-4f12-a76b-a5963a56b9d2")
+	)
+	(segment
+		(start 117.5 98.2)
+		(end 82.5 98.2)
+		(width 0.8)
+		(locked yes)
+		(layer "B.Cu")
+		(net 1)
+		(uuid "e34bba2c-772a-434c-a6fc-2783bec6f918")
+	)
+	(segment
+		(start 117.5 95.1)
+		(end 117.5 98.2)
+		(width 0.8)
+		(locked yes)
+		(layer "B.Cu")
+		(net 1)
+		(uuid "f277c038-72b5-45ef-9773-28096009f8ca")
+	)
+	(segment
+		(start 126.4 96.6)
+		(end 126.4 94)
+		(width 0.8)
+		(locked yes)
+		(layer "F.Cu")
+		(net 2)
+		(uuid "2cd1a1ed-8e73-4774-a532-d0c46bb016e0")
+	)
+	(segment
+		(start 126 97.6)
+		(end 126.4 96.6)
+		(width 0.8)
+		(locked yes)
+		(layer "F.Cu")
+		(net 2)
+		(uuid "7d915185-0f61-4066-92fd-157642be90ce")
+	)
+	(segment
+		(start 92.5 95.1)
+		(end 92.5 97.1)
+		(width 0.25)
+		(locked yes)
+		(layer "F.Cu")
+		(net 3)
+		(uuid "7f45077e-4b8a-437a-8f91-7895da231361")
+	)
+	(segment
+		(start 92.5 97.1)
+		(end 100 97.1)
+		(width 0.25)
+		(locked yes)
+		(layer "F.Cu")
+		(net 3)
+		(uuid "a29f0ac6-b2fc-44fb-82ee-c2690ce383c6")
+	)
+	(via
+		(at 100 97.1)
+		(size 0.6)
+		(drill 0.3)
+		(layers "F.Cu" "B.Cu")
+		(locked yes)
+		(net 3)
+		(uuid "c858ea0e-4a88-4bfd-96ca-c809df1f5fd7")
+	)
+	(segment
+		(start 107.5 95.1)
+		(end 107.5 97.1)
+		(width 0.25)
+		(locked yes)
+		(layer "B.Cu")
+		(net 3)
+		(uuid "28f84bd9-92d5-4ed6-82e3-82af22fdf107")
+	)
+	(segment
+		(start 107.5 97.1)
+		(end 100 97.1)
+		(width 0.25)
+		(locked yes)
+		(layer "B.Cu")
+		(net 3)
+		(uuid "bcb0bf92-7687-478f-ab51-585ac47d5f2a")
+	)
+	(segment
+		(start 97.5 94.4)
+		(end 100 94.4)
+		(width 0.25)
+		(locked yes)
+		(layer "F.Cu")
+		(net 4)
+		(uuid "2786c9be-b8b0-4af6-a23e-6ac73692bf5b")
+	)
+	(via
+		(at 100 94.4)
+		(size 0.6)
+		(drill 0.3)
+		(layers "F.Cu" "B.Cu")
+		(locked yes)
+		(net 4)
+		(uuid "3541d1a0-ceb7-4450-8702-ab1527a5c8b7")
+	)
+	(segment
+		(start 102.5 94.4)
+		(end 100 94.4)
+		(width 0.25)
+		(locked yes)
+		(layer "B.Cu")
+		(net 4)
+		(uuid "c6d5875d-7d16-42a8-913a-8db210ebfa38")
+	)
+	(segment
+		(start 102.5 94.4)
+		(end 105 94.4)
+		(width 0.25)
+		(locked yes)
+		(layer "F.Cu")
+		(net 5)
+		(uuid "8a8764cb-3f4c-4bc2-b3ca-d5ab6e718580")
+	)
+	(via
+		(at 105 94.4)
+		(size 0.6)
+		(drill 0.3)
+		(layers "F.Cu" "B.Cu")
+		(locked yes)
+		(net 5)
+		(uuid "3b73b091-c443-4287-83ef-39976d5bd258")
+	)
+	(segment
+		(start 92.5 91.45)
+		(end 105 91.45)
+		(width 0.25)
+		(locked yes)
+		(layer "B.Cu")
+		(net 5)
+		(uuid "28727905-2394-4dbb-b0a9-2be4d133e024")
+	)
+	(segment
+		(start 105 91.45)
+		(end 105 94.4)
+		(width 0.25)
+		(locked yes)
+		(layer "B.Cu")
+		(net 5)
+		(uuid "8cffd4db-bdb1-408c-979c-b80c3e688913")
+	)
+	(segment
+		(start 92.5 93.5)
+		(end 92.5 91.45)
+		(width 0.25)
+		(locked yes)
+		(layer "B.Cu")
+		(net 5)
+		(uuid "ac758669-b21d-42db-9f3f-89a327ac76c7")
+	)
+	(segment
+		(start 95 91.45)
+		(end 95 94.4)
+		(width 0.25)
+		(locked yes)
+		(layer "F.Cu")
+		(net 6)
+		(uuid "6ce991f1-25aa-4430-b7a6-35eda96800b4")
+	)
+	(segment
+		(start 107.5 91.45)
+		(end 95 91.45)
+		(width 0.25)
+		(locked yes)
+		(layer "F.Cu")
+		(net 6)
+		(uuid "838ed448-49fb-43b8-88dd-134a4ce02c3e")
+	)
+	(segment
+		(start 107.5 93.5)
+		(end 107.5 91.45)
+		(width 0.25)
+		(locked yes)
+		(layer "F.Cu")
+		(net 6)
+		(uuid "94f5a6d3-774c-4117-aadb-8c68ab1a91c3")
+	)
+	(via
+		(at 95 94.4)
+		(size 0.6)
+		(drill 0.3)
+		(layers "F.Cu" "B.Cu")
+		(locked yes)
+		(net 6)
+		(uuid "86724f9c-f091-401b-a770-49e35bfa8097")
+	)
+	(segment
+		(start 97.5 94.4)
+		(end 95 94.4)
+		(width 0.25)
+		(locked yes)
+		(layer "B.Cu")
+		(net 6)
+		(uuid "c04297ba-e2f8-4e50-a477-dfa26e8deef3")
+	)
+	(segment
+		(start 112.5 96.2)
+		(end 100 96.2)
+		(width 0.25)
+		(locked yes)
+		(layer "F.Cu")
+		(net 7)
+		(uuid "1924b1e3-3d1d-4109-9849-c602866e1b4f")
+	)
+	(segment
+		(start 112.5 95.1)
+		(end 112.5 96.2)
+		(width 0.25)
+		(locked yes)
+		(layer "F.Cu")
+		(net 7)
+		(uuid "b8a8665c-5b37-4ea7-a211-84d47bd96370")
+	)
+	(via
+		(at 100 96.2)
+		(size 0.6)
+		(drill 0.3)
+		(layers "F.Cu" "B.Cu")
+		(locked yes)
+		(net 7)
+		(uuid "da1cc341-1f1e-4dc0-b333-e12ebce698a1")
+	)
+	(segment
+		(start 87.5 95.1)
+		(end 87.5 96.2)
+		(width 0.25)
+		(locked yes)
+		(layer "B.Cu")
+		(net 7)
+		(uuid "548723c7-c4e0-4f4e-a617-a97a054be4b0")
+	)
+	(segment
+		(start 87.5 96.2)
+		(end 100 96.2)
+		(width 0.25)
+		(locked yes)
+		(layer "B.Cu")
+		(net 7)
+		(uuid "adb5ea9e-3426-4b30-bf77-bbee1ad40c25")
+	)
+	(segment
+		(start 77 99.25)
+		(end 123 99.25)
+		(width 0.7)
+		(locked yes)
+		(layer "F.Cu")
+		(net 8)
+		(uuid "3743e930-5c83-4500-a2ed-a0f6d494a200")
+	)
+	(segment
+		(start 87.5 91.45)
+		(end 77.5 91.45)
+		(width 0.3)
+		(locked yes)
+		(layer "F.Cu")
+		(net 8)
+		(uuid "3c51dac6-065e-4ed6-99c3-fc19b8d31528")
+	)
+	(segment
+		(start 122.5 94.4)
+		(end 124 94.4)
+		(width 0.6)
+		(locked yes)
+		(layer "F.Cu")
+		(net 8)
+		(uuid "451b260f-f90a-472a-b0e1-95f40f2a3338")
+	)
+	(segment
+		(start 76 94.4)
+		(end 73.6 94)
+		(width 0.8)
+		(locked yes)
+		(layer "F.Cu")
+		(net 8)
+		(uuid "511a3fcf-a639-430c-bb41-6be40c1b4a7b")
+	)
+	(segment
+		(start 77.5 95.1)
+		(end 77.5 99)
+		(width 1)
+		(locked yes)
+		(layer "F.Cu")
+		(net 8)
+		(uuid "67941b02-0437-4cfb-96ee-13f6de4e5b10")
+	)
+	(segment
+		(start 87.5 93.5)
+		(end 87.5 91.45)
+		(width 0.3)
+		(locked yes)
+		(layer "F.Cu")
+		(net 8)
+		(uuid "6a88f8eb-10d3-4103-83dc-8a9b016126f4")
+	)
+	(segment
+		(start 77.5 91.45)
+		(end 77.5 93.5)
+		(width 0.3)
+		(locked yes)
+		(layer "F.Cu")
+		(net 8)
+		(uuid "8335a4b0-d2ba-49fe-8f8c-39a2b4375d94")
+	)
+	(segment
+		(start 77.5 94.4)
+		(end 76 94.4)
+		(width 0.6)
+		(locked yes)
+		(layer "F.Cu")
+		(net 8)
+		(uuid "a4e63083-dcee-4ddc-a814-016aff14cc48")
+	)
+	(via
+		(at 122.1 99.25)
+		(size 0.6)
+		(drill 0.3)
+		(layers "F.Cu" "B.Cu")
+		(locked yes)
+		(net 8)
+		(uuid "05db3afe-19ae-43b1-ac88-e11037e8ee64")
+	)
+	(via
+		(at 77.9 99.25)
+		(size 0.6)
+		(drill 0.3)
+		(layers "F.Cu" "B.Cu")
+		(locked yes)
+		(net 8)
+		(uuid "2296f7a3-8a3a-4f7a-978f-34dc420b723d")
+	)
+	(via
+		(at 76 94.4)
+		(size 0.6)
+		(drill 0.3)
+		(layers "F.Cu" "B.Cu")
+		(locked yes)
+		(net 8)
+		(uuid "356749d6-24be-4b83-b36b-73f7c6ae9303")
+	)
+	(via
+		(at 122.9 99.25)
+		(size 0.6)
+		(drill 0.3)
+		(layers "F.Cu" "B.Cu")
+		(locked yes)
+		(net 8)
+		(uuid "3c0f5271-f295-48e3-a253-03dc5f4f3ce0")
+	)
+	(via
+		(at 77.1 99.25)
+		(size 0.6)
+		(drill 0.3)
+		(layers "F.Cu" "B.Cu")
+		(locked yes)
+		(net 8)
+		(uuid "d4800ea3-989a-4e3f-aabd-054af38b2b9a")
+	)
+	(via
+		(at 124 94.4)
+		(size 0.6)
+		(drill 0.3)
+		(layers "F.Cu" "B.Cu")
+		(locked yes)
+		(net 8)
+		(uuid "d6b69257-40ba-4fa8-8cc2-3ee4deb3d122")
+	)
+	(segment
+		(start 112.5 91.45)
+		(end 122.5 91.45)
+		(width 0.3)
+		(locked yes)
+		(layer "B.Cu")
+		(net 8)
+		(uuid "29525ea6-2341-427e-9123-52af4ba95d11")
+	)
+	(segment
+		(start 122.5 91.45)
+		(end 122.5 93.5)
+		(width 0.3)
+		(locked yes)
+		(layer "B.Cu")
+		(net 8)
+		(uuid "47211ebe-16d7-4d8c-a884-e5193b815520")
+	)
+	(segment
+		(start 122.5 95.1)
+		(end 122.5 99)
+		(width 1)
+		(locked yes)
+		(layer "B.Cu")
+		(net 8)
+		(uuid "62f8ef6b-7f7a-40a3-a598-86050ec5d9e8")
+	)
+	(segment
+		(start 122.5 94.4)
+		(end 124 94.4)
+		(width 0.6)
+		(locked yes)
+		(layer "B.Cu")
+		(net 8)
+		(uuid "8c439f43-56ad-4e9b-9baf-e763bedf6268")
+	)
+	(segment
+		(start 112.5 93.5)
+		(end 112.5 91.45)
+		(width 0.3)
+		(locked yes)
+		(layer "B.Cu")
+		(net 8)
+		(uuid "97202347-f53d-4e8c-a48e-cb2e3a7a1b4e")
+	)
+	(segment
+		(start 123 99.25)
+		(end 77 99.25)
+		(width 0.7)
+		(locked yes)
+		(layer "B.Cu")
+		(net 8)
+		(uuid "bb0d2a6a-0066-48be-afbf-90192f1bbd4c")
+	)
+	(segment
+		(start 77.5 94.4)
+		(end 76 94.4)
+		(width 0.6)
+		(locked yes)
+		(layer "B.Cu")
+		(net 8)
+		(uuid "f0c75001-4488-4eaa-9551-02ab7bdd3fc8")
+	)
+	(embedded_fonts no)
+)

@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Light Panels Explainers</title>
+<style>
+:root{--bg:#f3f5f8;--ink:#17202e;--muted:#5b6678;--line:#d3d9e3;--surface:#fff}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0f131a;--ink:#e6eaf1;--muted:#9aa4b6;--line:#2b3444;--surface:#161c26}}
+:root[data-theme="dark"]{--bg:#0f131a;--ink:#e6eaf1;--muted:#9aa4b6;--line:#2b3444;--surface:#161c26}
+body{background:var(--bg);color:var(--ink);font-family:system-ui,"Segoe UI",sans-serif;margin:0;padding:48px 16px;line-height:1.6}
+main{max-width:640px;margin:0 auto}
+a.card{display:block;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px 20px;margin:12px 0;color:var(--ink);text-decoration:none}
+a.card span{display:block;color:var(--muted);font-size:15px}
+</style>
+</head>
+<body>
+<main>
+<h1>Modular Smart Light Panels</h1>
+<p>The explainer was split into two pages on 2026-11-21.</p>
+<a class="card" href="design-reference.html"><b>Design reference</b><span>The finished technical design: boards as laid out, contacts, corners, controller, ID circuit, power.</span></a>
+<a class="card" href="planning.html"><b>Planning</b><span>Everything still conceptual: planned mechanics, firmware, software, cost, gaps and the path to a product.</span></a>
+</main>
+</body>
+</html>

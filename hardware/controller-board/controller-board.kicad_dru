@@ -1,0 +1,19 @@
+(version 1)
+
+# J1 joint pads run to the trapezoid base by design: the fillet to the code-0 edge board's J4 forms there
+# (SCHEMATIC-NOTES 6.2, footprint ControllerJoint_ControllerEdge). Everything else keeps >= 0.3 mm.
+(rule "J1 joint pads at the base edge"
+  (severity ignore)
+  (constraint edge_clearance (min 0mm))
+  (condition "A.Type == 'Pad' && A.memberOfFootprint('J1')"))
+
+# SPEC 2 / decision 0011: +24V copper may only sit next to GND or 24 V-tolerant nets. Everything else
+# keeps >= 1.0 mm, which leaves room for the GND pour (0.25 clearance + 0.25 min width) to fill between.
+(rule "+24V neighbours: GND or 24 V-tolerant only"
+  (constraint clearance (min 1.0mm))
+  (condition "A.NetClass == 'HV24' && B.NetName != 'GND' && B.NetName != '/CANH' && B.NetName != '/CANL' && B.NetName != '/SPARE' && B.NetName != '/SENSE' && B.NetName != '/DRIVE' && B.NetName != '/BUCK_SW' && B.NetName != '/BUCK_BOOT' && B.NetName != 'unconnected-(U5-EN-Pad3)' && B.NetName != '+24V' && B.NetName != '/+24V_IN'"))
+
+# Buck switch node: the TI layout rules (SCHEMATIC-NOTES 12) keep it away from the crystal and the ADC node.
+(rule "SW node away from crystal / ADC"
+  (constraint clearance (min 10mm))
+  (condition "A.NetName == '/BUCK_SW' && (B.NetName == '/OSC_IN' || B.NetName == '/OSC_OUT' || B.NetName == '/SENSE_ADC')"))

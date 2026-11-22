@@ -1,0 +1,4 @@
+(fp_lib_table
+	(version 7)
+	(lib (name "ModularLight") (type "KiCad") (uri "${KIPRJMOD}/../../lib/footprints/ModularLight.pretty") (options "") (descr "Modular Smart Light Panels project footprints"))
+)
