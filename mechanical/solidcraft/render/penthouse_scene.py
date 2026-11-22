@@ -104,26 +104,60 @@ def mnode(op, a=None, b=None, c=None):
     return m.outputs[0]
 
 
+# Effects (EFFECT=name). fac picks the palette colour per panel: "wave" travels through 3D space, "height" is a gradient
+# up the walls, "random" gives each panel its own colour. Strength pulses with a slow sine (breath = depth; bph = how much
+# each panel's phase is random).
+RAINBOW = [(0.0, (1.0, 0.1, 0.1)), (0.17, (1.0, 0.75, 0.0)), (0.33, (0.2, 1.0, 0.1)), (0.5, (0.0, 0.9, 1.0)),
+           (0.67, (0.15, 0.2, 1.0)), (0.83, (0.85, 0.1, 1.0)), (1.0, (1.0, 0.1, 0.1))]
+EFFECTS = {
+    "wave":     dict(pal=[(0.0, (1.0, 0.08, 0.55)), (0.2, (0.55, 0.15, 1.0)), (0.4, (0.05, 0.55, 1.0)), (0.6, (0.0, 0.95, 0.75)),
+                          (0.8, (1.0, 0.55, 0.08)), (1.0, (1.0, 0.08, 0.55))],
+                     mode="wave", dir=(0.55, 0.45, 0.70), k=0.55, speed=0.09, rnd=0.0, breath=0.22, bph=0.0, glow=1.8),
+    "aurora":   dict(pal=[(0.0, (0.0, 0.9, 0.45)), (0.3, (0.0, 0.75, 0.9)), (0.55, (0.4, 0.15, 1.0)), (0.8, (0.0, 0.95, 0.6)),
+                          (1.0, (0.0, 0.9, 0.45))],
+                     mode="wave", dir=(0.9, 0.6, 0.35), k=0.35, speed=0.05, rnd=0.08, breath=0.3, bph=0.3, glow=1.6),
+    "sunset":   dict(pal=[(0.0, (1.0, 0.5, 0.05)), (0.35, (1.0, 0.22, 0.12)), (0.65, (0.85, 0.05, 0.45)), (1.0, (0.35, 0.05, 0.8))],
+                     mode="height", z0=1.0, z1=6.5, rnd=0.08, breath=0.1, bph=0.5, glow=1.3),
+    "ocean":    dict(pal=[(0.0, (0.0, 0.2, 1.0)), (0.33, (0.0, 0.65, 1.0)), (0.66, (0.0, 0.95, 0.85)), (1.0, (0.0, 0.2, 1.0))],
+                     mode="wave", dir=(0.3, 0.95, 0.2), k=0.8, speed=0.12, rnd=0.05, breath=0.25, bph=0.2, glow=1.7),
+    "confetti": dict(pal=RAINBOW, mode="random", rnd=1.0, speed=0.0, breath=0.0, bph=0.0, glow=1.7),
+    "warm":     dict(pal=[(0.0, (1.0, 0.6, 0.3)), (1.0, (1.0, 0.66, 0.38))], mode="random", rnd=1.0, speed=0.0, breath=0.0,
+                     bph=0.0, glow=0.9),
+    "fire":     dict(pal=[(0.0, (1.0, 0.04, 0.0)), (0.45, (1.0, 0.28, 0.0)), (0.75, (1.0, 0.6, 0.05)), (1.0, (1.0, 0.04, 0.0))],
+                     mode="random", rnd=1.0, speed=0.15, breath=0.35, bph=1.0, glow=1.4),
+}
+EFFECT = os.environ.get("EFFECT", "wave")
+E = EFFECTS[EFFECT]
+rnd_out = info.outputs["Random"]
 dot = N.new("ShaderNodeVectorMath")
 dot.operation = "DOT_PRODUCT"
-dot.inputs[1].default_value = (0.55, 0.45, 0.70)    # wave direction through the room: across the walls and upward
+dot.inputs[1].default_value = E.get("dir", (0.55, 0.45, 0.70))
 Lk.new(info.outputs["Location"], dot.inputs[0])
-WAVE_K = float(os.environ.get("WAVE_K", "0.55"))
-phase = mnode("FRACT", mnode("SUBTRACT", mnode("MULTIPLY", dot.outputs["Value"], WAVE_K), mnode("MULTIPLY", tnode.outputs[0], 0.09)))
+if E["mode"] == "wave":
+    fac = mnode("FRACT", mnode("ADD", mnode("SUBTRACT", mnode("MULTIPLY", dot.outputs["Value"], float(os.environ.get("WAVE_K", E["k"]))),
+                                            mnode("MULTIPLY", tnode.outputs[0], E["speed"])), mnode("MULTIPLY", rnd_out, E["rnd"])))
+elif E["mode"] == "height":
+    sep = N.new("ShaderNodeSeparateXYZ")
+    Lk.new(info.outputs["Location"], sep.inputs[0])
+    h = mnode("DIVIDE", mnode("SUBTRACT", sep.outputs["Z"], E["z0"]), E["z1"] - E["z0"])
+    fac = mnode("ADD", h, mnode("MULTIPLY", mnode("SUBTRACT", rnd_out, 0.5), E["rnd"]))
+    fac = mnode("MINIMUM", mnode("MAXIMUM", fac, 0.0), 1.0)
+else:
+    fac = mnode("FRACT", mnode("ADD", mnode("MULTIPLY", rnd_out, E["rnd"]), mnode("MULTIPLY", tnode.outputs[0], E["speed"])))
 ramp = N.new("ShaderNodeValToRGB")
 cr = ramp.color_ramp
 cr.interpolation = "B_SPLINE"
-pal = [(0.0, (1.0, 0.08, 0.55)), (0.2, (0.55, 0.15, 1.0)), (0.4, (0.05, 0.55, 1.0)), (0.6, (0.0, 0.95, 0.75)),
-       (0.8, (1.0, 0.55, 0.08)), (1.0, (1.0, 0.08, 0.55))]
+pal = E["pal"]
 cr.elements[0].position, cr.elements[0].color = pal[0][0], (*pal[0][1], 1)
 cr.elements[1].position, cr.elements[1].color = pal[-1][0], (*pal[-1][1], 1)
 for pos, col in pal[1:-1]:
     cr.elements.new(pos).color = (*col, 1)
-Lk.new(phase, ramp.inputs["Fac"])
+Lk.new(fac, ramp.inputs["Fac"])
 Lk.new(ramp.outputs["Color"], bsdf.inputs["Emission Color"])
-breath = mnode("MULTIPLY_ADD", mnode("SINE", mnode("ADD", mnode("MULTIPLY", tnode.outputs[0], 2 * math.pi * 0.22),
-                                                  mnode("MULTIPLY", dot.outputs["Value"], 4.0))), 0.22, 0.78)
-GLOW = float(os.environ.get("GLOW", "1.8"))
+arg = mnode("ADD", mnode("ADD", mnode("MULTIPLY", tnode.outputs[0], 2 * math.pi * 0.22), mnode("MULTIPLY", dot.outputs["Value"], 4.0)),
+            mnode("MULTIPLY", rnd_out, 2 * math.pi * E["bph"]))
+breath = mnode("MULTIPLY_ADD", mnode("SINE", arg), E["breath"], 1.0 - E["breath"])
+GLOW = float(os.environ.get("GLOW", E["glow"]))
 Lk.new(mnode("MULTIPLY", breath, GLOW), bsdf.inputs["Emission Strength"])
 for me in (HEX_FILM, TRI_FILM):
     me.materials.clear()
@@ -173,6 +207,17 @@ def bare_wall(w, u, v):
     if not hit or ob.name != obj or nor.dot(n) < 0.95:
         return False
     return abs((p - loc).length - 0.3) < 0.02
+
+
+CLEAR = float(os.environ.get("CLEAR", "0.06"))     # gap kept round paintings, the TV, shelves, furniture (m)
+
+
+def no_obstacle(w, u, v):
+    """True unless something other than the wall stands in front of it at (u, v). Off the wall's edge counts as clear."""
+    obj, o, U, n, _, _ = WALLS[w]
+    p = wall_point(w, u, v) + n * 0.3
+    hit, loc, nor, idx, ob, _ = scene.ray_cast(dg, p, -n, distance=0.4)
+    return not hit or ob.name == obj or (p - loc).length > 0.3 - 0.003
 
 
 # The wide camera looks at the kitchen wall past the mezzanine floor's edge, which cuts across it: panels there must be
@@ -238,7 +283,10 @@ def cell_ok(w, c, cache):
     ok = all(u0 <= p.x <= u1 and z0 <= p.y <= z1 for p in pts)
     if ok:   # sample the corners (pulled 8 mm in) and the centre
         smp = [p + (ctr - p).normalized() * 0.008 for p in pts] + [ctr]
-        ok = all(bare_wall(w, q.x, q.y) for q in smp) and (w not in SEEN_FROM or all(in_view(w, q.x, q.y + 0.25) for q in smp))   # 0.25 m clear of the mezzanine edge in view
+        # clearance ring: corners and edge midpoints pushed CLEAR outward must not have an object in front of the wall
+        mids = [(pts[i] + pts[(i + 1) % 3]) / 2 for i in range(3)]
+        ring = [q + (q - ctr).normalized() * CLEAR for q in pts + mids] + [p + (ctr - p).normalized() * 0.008 for p in mids]
+        ok = all(bare_wall(w, q.x, q.y) for q in smp) and all(no_obstacle(w, q.x, q.y) for q in ring) and (w not in SEEN_FROM or all(in_view(w, q.x, q.y + 0.25) for q in smp))   # 0.25 m clear of the mezzanine edge in view
     cache[c] = ok
     return ok
 
@@ -352,15 +400,24 @@ if SHOT == "wide":                     # the scene's Camera.008, slow push-in fo
         cam.keyframe_insert("location", frame=NUM)
         cam.keyframe_insert("rotation_euler", frame=NUM)
         ease(cam)
-else:                                  # close-up: the outside corner where the ribbon wraps onto the stair-side wall
+else:
+    # close / vcorner: the outside corner where the ribbon wraps onto the stair-side wall (vcorner is the 9:16 version);
+    # vwall: the painting wall, floor to ceiling; vinside: the inside corner where the ribbon turns from the TV wall onto the painting wall (both 9:16)
     corner = Vector((-0.68, -4.77, 0))
-    target = bpy.data.objects.new("Close-up target", None)
+    SHOTS = {
+        "close":    dict(target=(-0.78, -4.35, 1.72), lens=32, dof=True),
+        "vcorner":  dict(target=(-0.80, -4.45, 1.95), lens=24, dof=True),
+        "vwall":    dict(target=(-3.2, -4.77, 2.05), lens=18, dof=False, loc=(-2.55, -8.0, 1.5)),
+        "vinside":  dict(target=(-6.35, -5.35, 2.15), lens=20, dof=False, loc=(-3.7, -8.2, 1.5)),
+    }
+    S = SHOTS[SHOT]
+    target = bpy.data.objects.new("Shot target", None)
     scene.collection.objects.link(target)
-    target.location = (-0.78, -4.35, 1.72)
-    cd = bpy.data.cameras.new("Close-up")
-    cd.lens, cd.sensor_width = 32, 36
-    cd.dof.use_dof, cd.dof.focus_object, cd.dof.aperture_fstop = True, target, float(os.environ.get("FSTOP", "4"))
-    cam = bpy.data.objects.new("Close-up", cd)
+    target.location = S["target"]
+    cd = bpy.data.cameras.new(SHOT)
+    cd.lens, cd.sensor_width, cd.sensor_fit = S["lens"], 36, "AUTO"
+    cd.dof.use_dof, cd.dof.focus_object, cd.dof.aperture_fstop = S["dof"], target, float(os.environ.get("FSTOP", "4"))
+    cam = bpy.data.objects.new(SHOT, cd)
     scene.collection.objects.link(cam)
     tc = cam.constraints.new("TRACK_TO")
     tc.target, tc.track_axis, tc.up_axis = target, "TRACK_NEGATIVE_Z", "UP_Y"
@@ -368,14 +425,16 @@ else:                                  # close-up: the outside corner where the 
     def orbit(az_deg, r, z):
         a = math.radians(az_deg)
         return corner + Vector((r * math.cos(a), r * math.sin(a), z))
-    if MODE == "video":                # a slow arc round the corner, from the painting wall's side to the stair wall's
+    if "loc" in S:
+        cam.location = S["loc"]
+    elif MODE == "video":              # a slow arc round the corner, from the painting wall's side to the stair wall's
         cam.location = orbit(-64, 2.0, 1.62)
         cam.keyframe_insert("location", frame=1)
         cam.location = orbit(-26, 1.75, 1.82)
         cam.keyframe_insert("location", frame=NUM)
         ease(cam)
     else:
-        cam.location = orbit(-45, 1.85, 1.7)
+        cam.location = orbit(-45, 1.95 if SHOT == "vcorner" else 1.85, 1.65 if SHOT == "vcorner" else 1.7)
 scene.camera = cam
 if MODE != "video":
     scene.frame_set(int(FPS * float(os.environ.get("T", "3.2"))))

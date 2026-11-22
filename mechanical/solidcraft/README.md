@@ -16,7 +16,7 @@
 | `frame.sc` | Frame (crown) | Cap down | See below |
 | `bridge_clip.sc` | Bridge clip, universal 59 × 20 mm | Bottom down | See below |
 | `edge_cover.sc` | Edge cover for free cluster edges | Bottom down | See below |
-| `diffuser.sc` | Bezel | Upside down: pins up, bezel face on the bed | See below |
+| `diffuser.sc` | Bezel | Upside down: flange up, bezel face on the bed | See below |
 | `edge_board_standin.sc` | Printable stand-in edge board (fit tests): board block with the LED and part envelopes; Triangle / Square / Hexagon configurations, `stl/edge_board_standin_<shape>.stl` | Exterior (flat) face down | Envelopes only, no copper. R3 is the 0402 at z 7.2 (V6.9.2), so nothing sticks out below z 6.8 |
 | `bridge_standin.sc` | Printable stand-in seam bridge (fit tests): 56 × 9 × 0.8 board, panel z −2…7; `stl/bridge_standin_board.stl` (board only) and `stl/bridge_standin_springs.stl` (+ 20 spring envelopes, x ±2.5…±22.5 on both faces, z 2.6–6.1) | Board: flat. With springs: upside down, top edge on the bed (the envelopes' 20° faces are then the overhangs); add a brim | Springs are rigid envelopes 2.9 mm high, 0.2 short of the pads at d 3.5, so they show position without jamming the seam. Standard bridge (no F1, no wire pads) |
 | `panel_assembly.sc` | Mixed cluster: hexagons A and B (controller sides facing), a square on A, triangle T1 on A, and T2 on T1 (controller sides facing). 22 edge boards, 5 controllers, 4 bridges and 4 clips; bezels on B, S and T2 | — | The printed parts are linked to their files in the matching configuration. The boards are the full rev A STEP models with copper, from `boards/with-copper/` (user, 2026-11-21; the pads may z-fight slightly with the board face in the viewport). Copper-free copies stay in `boards/` (`gen_assembly.py --no-copper`). The assembly also carries white printed parts and bezels with film on every panel. Renders and animations are done in Blender (`render/`). Built by `gen_assembly.py` (panel centres, rotations and seams) |
@@ -40,7 +40,7 @@
 - **Corners:** closed (user, 2026-11-21). The wall, the groove and the lip run all the way round. The board ring is soldered **before** it goes into the frame. An L-shaped relief, 1.2 mm deep, in the wall's inner face around each corner (the last 3.5 mm of each board, z 7.5–12.9) clears the solder on the corner power pads.
 - **Inner lip:** one mitred segment per side, so it closes into a ring at any corner angle.
 - **Snap legs:** 2 per side. The hooks reach **1.2 mm** under the back-plate tab (`hook_tip`), latching on the plane `latch_z` (z −2.3) with a 25° latch face and a 35° lead-in (`lead_slope`); the legs end at z −4.16, above the back plane (`leg_bot` follows from these). Section: `png/section_seam_hook.png`.
-- **Pins:** one corner pin hole per corner.
+- **Flange step:** a step cut into the outer top edge for the bezel's flange (`rebate_w` = flange + 0.15 mm, down to `rebate_bot` = 3 mm below the cap top). Its floor slopes at 20° from horizontal (`rebate_slope`): the 70° overhang limit, since the frame prints cap-down (user, 2026-11-22). One detent dimple per side at mid-side (`det_*`, 45° faces).
 - **Corner solder reliefs:** one mitred cut per side, ending on the corner bisector, so neighbouring reliefs meet exactly at any corner angle (straight boxes crossed at the triangle's 60° corners).
 
 ### Bridge clip
@@ -59,8 +59,9 @@
 ### Bezel
 
 - **Ring:** matches the frame cap.
-- **Pins:** tight-fit pins into the frame's corner holes.
-- **Film:** clamped between the frame cap and the bezel. Modelled in `diffuser.sc` as a second body `Film` (0.2 mm, `film_inset` 0.5 mm inside the outer edge, pin holes + `pin_clear` 0.2 mm), shown semi-transparent; per-shape outlines in `step/film_<shape>.step`. The bezel STL/STEP exports contain the bezel only.
+- **Flange (L-section):** 1 mm × 3 mm (`fl_t`, `fl_h`) down the outer edge, flush with the frame's outer face in its step. It stiffens the 2 mm bezel, which bowed on the first test print (user, 2026-11-22).
+- **Detents:** one bump per side on the flange's inner face (0.45 mm, 10 mm long, 45° faces) snaps into the frame's dimple; PETG flexes enough, so no pins or arms.
+- **Film:** clamped between the frame cap and the bezel. Modelled in `diffuser.sc` as a second body `Film` (0.2 mm, `film_inset` 1.5 mm inside the outer edge so it ends inside the flange; no pin holes), shown semi-transparent; per-shape outlines in `step/film_<shape>.step`. The bezel STL/STEP exports contain the bezel only.
 - **No riser** (user, 2026-11-21). The frame's cap and exterior wall are one continuous part.
 
 ## Rules used
@@ -97,5 +98,6 @@ From decision 0013:
    - Tune the snap interference (`tooth_h`, `latch_slope`, the hook overlap) and the tight fits.
    - Check the 0.3 mm gap between the cross-bar and the SMA diode D5.
 6. **Debug access:** the cross-bar covers the controller's debug test pads. Flash the controller with the pogo jig before the back plate goes on; after that, update over CAN.
-7. **Film template:** regenerate the cut template for the new corner pins at r = 96.3 mm.
+7. **Film template:** regenerate the cut template from `step/film_<shape>.step` (1.5 mm inset, plain polygon, no pin holes).
 8. **Clip snap force:** arms now 1.8 × 15.5 mm (about 3× the stiffness of the first arms), teeth 0.7 mm; check insertion force and retention on the test print (`arm_w`, `arm_root_x`, `tooth_h`).
+9. **Bezel detents:** tune `det_h` and `det_len` on the test print (snap force vs. removal).

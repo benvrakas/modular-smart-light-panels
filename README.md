@@ -10,6 +10,20 @@ Edge-lit hexagon, square and triangle light panels that snap together in any lay
 |---|---|
 | ![Close-up](docs/figures/render_closeup.jpg) | ![Maximum brightness at night](docs/figures/render_max_night.jpg) |
 
+Other effects:
+
+| Aurora | Sunset | Ocean |
+|---|---|---|
+| ![](docs/figures/render_fx_aurora.jpg) | ![](docs/figures/render_fx_sunset.jpg) | ![](docs/figures/render_fx_ocean.jpg) |
+| **Confetti** | **Warm white** | **Fire** |
+| ![](docs/figures/render_fx_confetti.jpg) | ![](docs/figures/render_fx_warm.jpg) | ![](docs/figures/render_fx_fire.jpg) |
+
+Vertical (9:16):
+
+| Outside corner | Painting wall | Inside corner |
+|---|---|---|
+| ![](docs/figures/render_vertical_corner.jpg) | ![](docs/figures/render_vertical_wall.jpg) | ![](docs/figures/render_vertical_inside.jpg) |
+
 Videos: [wide shot](mechanical/solidcraft/render/out/penthouse_panels.mp4) · [close-up](mechanical/solidcraft/render/out/penthouse_closeup.mp4).
 
 ## Where things are described

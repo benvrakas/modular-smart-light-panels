@@ -24,6 +24,15 @@ PICS = {
     "render_max_night.jpg": RO + "penthouse_max_night.png",
     "render_max_day_closeup.jpg": RO + "penthouse_max_day_closeup.png",
     "render_max_night_closeup.jpg": RO + "penthouse_max_night_closeup.png",
+    "render_fx_aurora.jpg": RO + "penthouse_fx_aurora.png",
+    "render_fx_sunset.jpg": RO + "penthouse_fx_sunset.png",
+    "render_fx_ocean.jpg": RO + "penthouse_fx_ocean.png",
+    "render_fx_confetti.jpg": RO + "penthouse_fx_confetti.png",
+    "render_fx_warm.jpg": RO + "penthouse_fx_warm.png",
+    "render_fx_fire.jpg": RO + "penthouse_fx_fire.png",
+    "render_vertical_corner.jpg": RO + "penthouse_vertical_corner.png",
+    "render_vertical_wall.jpg": RO + "penthouse_vertical_wall.png",
+    "render_vertical_inside.jpg": RO + "penthouse_vertical_inside.png",
     # SolidCraft (snap_cad.py)
     "cad_assembly_front.jpg": SC + "assembly_front.png",
     "cad_assembly_back.jpg": SC + "assembly_back.png",
@@ -62,6 +71,8 @@ def web_copy(name, rel, width=1600):
         bg.paste(im, mask=im.getchannel("A"))
         im = bg
     im = im.convert("RGB")
+    if im.height > im.width:                            # portrait renders: same pixel budget
+        width = 900
     if im.width > width:
         im = im.resize((width, round(im.height * width / im.width)), Image.LANCZOS)
     im.save(os.path.join(HERE, name), quality=85, optimize=True)
