@@ -1,7 +1,7 @@
 """JLCPCB-format BOMs (Comment, Designator, Footprint, LCSC) for the V6 boards, plus a stock check.
 
   controller-board/bom/BOM_controller-board.csv
-  edge-board/bom/BOM_edge_code0.csv ... BOM_edge_code5.csv   (one per edge-code variant)
+  edge-board/bom/BOM_edge_code0.csv ... BOM_edge_code7.csv   (one per edge-code variant, decision 0020)
   <project>/bom/stock-check.csv   JLC assembly stock (JLCPCB parts API), jlcsearch stock, LCSC store stock
 
 Run with KiCad's Python. Use --no-stock to skip the network queries.

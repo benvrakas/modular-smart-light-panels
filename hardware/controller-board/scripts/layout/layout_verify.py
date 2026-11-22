@@ -2,8 +2,8 @@
 
 usage (KiCad 9 python):  python layout_verify.py  -> prints a report (also used for LAYOUT-NOTES.md)
 
-  1 +24V neighbours (SPEC 2 / decision 0011): for every +24V / +24V_IN copper item (tracks, pads, vias), the nearest
-    copper of each other net on the same layer. Anything within 1.0 mm must be GND or a 24 V-tolerant net.
+  1 +36V neighbours (SPEC 2 / decision 0011): for every +36V / +36V_IN copper item (tracks, pads, vias), the nearest
+    copper of each other net on the same layer. Anything within 1.0 mm must be GND or a 36 V-tolerant net.
   2 SW node (SCHEMATIC-NOTES 12): distance from BUCK_SW copper to the crystal and the ADC node.
   3 Interface: J1 pad centres, test pad centres (board frame: origin = base centre, y into the board, seen from F.Cu).
 """
@@ -19,7 +19,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 PCB = os.path.normpath(os.path.join(HERE, '..', '..', 'controller-board.kicad_pcb'))
 b = pcbnew.LoadBoard(PCB)
 tm = lambda v: (pcbnew.ToMM(v.x) - 100, 100 - pcbnew.ToMM(v.y))
-HV = {'+24V', '/+24V_IN'}
+HV = {'+36V', '/+36V_IN'}
 TOL = {'GND', '/CANH', '/CANL', '/SPARE', '/SENSE', '/DRIVE', '/BUCK_SW', '/BUCK_BOOT', 'unconnected-(U5-EN-Pad3)'} | HV
 LAYERS = {pcbnew.F_Cu: 'F.Cu', pcbnew.In1_Cu: 'In1.Cu', pcbnew.In2_Cu: 'In2.Cu', pcbnew.B_Cu: 'B.Cu'}
 
@@ -50,7 +50,7 @@ def dist(s1, s2, limit=12.0):
     return pcbnew.ToMM(int(hi))
 
 
-# 1 +24V neighbours
+# 1 +36V neighbours
 nearest = {}
 for n1, l1, s1, lab1 in items:
     if n1 not in HV:
@@ -62,7 +62,7 @@ for n1, l1, s1, lab1 in items:
         key = (n2, LAYERS[l1])
         if d < nearest.get(key, (99,))[0]:
             nearest[key] = (d, lab1, lab2)
-print('1. Nearest copper to +24V / +24V_IN, per net (same layer), within 3 mm:')
+print('1. Nearest copper to +36V / +36V_IN, per net (same layer), within 3 mm:')
 bad = 0
 for (n2, lay), (d, a, c) in sorted(nearest.items(), key=lambda kv: kv[1][0]):
     if d >= 3.0:
@@ -70,7 +70,7 @@ for (n2, lay), (d, a, c) in sorted(nearest.items(), key=lambda kv: kv[1][0]):
     ok = n2 in TOL or d >= 1.0
     bad += not ok
     print(f'   {d:5.2f} mm  {n2:28s} {lay:7s} ({a} <-> {c})  {"ok" if ok else "VIOLATION"}')
-print(f'   -> {"PASS" if not bad else "FAIL"}: every net within 1.0 mm of +24V copper is GND or 24 V-tolerant')
+print(f'   -> {"PASS" if not bad else "FAIL"}: every net within 1.0 mm of +36V copper is GND or 36 V-tolerant')
 
 # 2 SW node
 print('2. BUCK_SW copper to sensitive nets:')

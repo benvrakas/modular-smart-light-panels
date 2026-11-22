@@ -23,7 +23,7 @@ Both are generated: `scripts/gen_bridge_sch.py` writes the schematics, using the
 | **Carrier slot zone** | panel z −2.0…2.2 (local 0–4.2): only masked copper (lanes) on both faces, no parts. **Exception: on injection bridges F1 (1206, 0.6 mm tall) sits at x 23.1–26.1, panel z −0.5…1.3 on face A**, so the injection carrier needs a relief there. |
 | Springs | Lands at panel z 2.6–4.7, bodies to 6.1 (courtyards 2.35–6.35, all above the slot zone); the root bend is at the top. **Contact point at panel z 3.5** (≤5.0 including tolerances; §4). |
 | Over the springs | One 0.25–0.3 mm track at panel z 6.55, under mask. |
-| Supply wire pads (injection only) | THT, Ø1.25 mm drill / 2.3 mm pad, for 18 AWG: **J1 +24V IN at (26.4, panel 4.0), J2 GND IN at (−26.4, panel 4.0)**. One wire at each end; they must leave the seam past the bridge ends (\|x\| 28–30) toward the wall, so the injection carrier needs a wire channel at both ends. |
+| Supply wire pads (injection only) | THT, Ø1.25 mm drill / 2.3 mm pad, for 18 AWG: **J1 +36V IN at (26.4, panel 4.0), J2 GND IN at (−26.4, panel 4.0)**. One wire at each end; they must leave the seam past the bridge ends (\|x\| 28–30) toward the wall, so the injection carrier needs a wire channel at both ends. |
 | Carrier holes | None. The carrier grips the bottom 4.2 mm in its slot. The end zones \|x\| 23.5–28 above the slot hold the J1/J2 pads (present on every bridge, used only on injection ones); if the carrier wants locating pegs, they can replace J1/J2 on a standard-only revision. |
 | 3D model | `hardware/lib/3dmodels/Spring_BW0019CG.step` (source `Spring_BW0019CG.sc`, SolidCraft): envelope from drawing 681-0019C-3 at the **3.05 mm installed height** (rev A seam), contact dome at the footprint's (0, +0.85). On the library footprint and on all bridge and coupon springs; DRC/parity unchanged (0/0/0). |
 | Spring force | 10 springs per face × 0.6–0.8 N ≈ 6–8 N per face, outward on each panel. On the bridge the two faces balance; at a cluster edge only one side has a panel. |
@@ -35,17 +35,17 @@ A spring at bridge position x touches panel A's pad at board x, and panel B's pa
 
 | x | −22.5 | −17.5 | −12.5 | −7.5 | −2.5 | +2.5 | +7.5 | +12.5 | +17.5 | +22.5 |
 |---|---|---|---|---|---|---|---|---|---|---|
-| Face A | SA1 GND | SA2 +24V | SA3 GND | SA4 CANH | SA5 CANL | SA6 **DRV_A_SNS_B** | SA7 **SNS_A_DRV_B** | SA8 SPARE | SA9 +24V | SA10 GND |
-| Face B | SB10 GND | SB9 +24V | SB8 SPARE | SB7 **DRV_A_SNS_B** | SB6 **SNS_A_DRV_B** | SB5 CANL | SB4 CANH | SB3 GND | SB2 +24V | SB1 GND |
+| Face A | SA1 GND | SA2 +36V | SA3 GND | SA4 CANH | SA5 CANL | SA6 **DRV_A_SNS_B** | SA7 **SNS_A_DRV_B** | SA8 SPARE | SA9 +36V | SA10 GND |
+| Face B | SB10 GND | SB9 +36V | SB8 SPARE | SB7 **DRV_A_SNS_B** | SB6 **SNS_A_DRV_B** | SB5 CANL | SB4 CANH | SB3 GND | SB2 +36V | SB1 GND |
 
 - **SENSE ↔ DRIVE cross:** panel A's DRIVE (X6) is joined to panel B's SENSE_EDGE (X7), and the other way round.
 - **180° symmetry:** rotating the bridge about the vertical axis maps face A at x to face B at −x, and the nets map onto themselves, with DRV_A_SNS_B ↔ SNS_A_DRV_B (both are "one panel's DRIVE to the other's SENSE"). The copper is generated that way, so the bridge fits either way round.
 - **Routing:**
-  - **Bottom (slot) band:** GND lane, panel z −1.25; +24V lane 0.8 mm, z −0.2, on both faces; CANH, z 0.9; SPARE, z 1.8.
+  - **Bottom (slot) band:** GND lane, panel z −1.25; +36V lane 0.8 mm, z −0.2, on both faces; CANH, z 0.9; SPARE, z 1.8.
   - **Vias:** in the spring gaps for CANL (x 0) and for the cross nets (x ±5).
   - **Over the springs:** SENSE_A/DRIVE_B, and GND from SA3 to SA1.
-  - **Ties:** the back-to-back pairs are tied by vias (+24V at ±17.5, GND at ±22.5 and ±24).
-- **Adjacency:** the bridge carries no 5 V nets, so the +24V rule is met trivially. +24V sits between GND and the CAN/SPARE tracks.
+  - **Ties:** the back-to-back pairs are tied by vias (+36V at ±17.5, GND at ±22.5 and ±24).
+- **Adjacency:** the bridge carries no 5 V nets, so the +36V rule is met trivially. +36V sits between GND and the CAN/SPARE tracks.
 
 ## 4. Why the contact point is at panel z 3.5 and the strip ends at 6.0
 
@@ -91,13 +91,13 @@ The contact patch adds ±0.45 mm.
   - **Rating:** the datasheet recommends ≤80 % of the rating continuously, so 4 A. That matches 4 × 1 A of springs.
   - **Rejected:** Littelfuse 0440005.WRA (C1972666). LCSC lists it as "fast response", and its time-lag status couldn't be confirmed.
 - **Injection current path** (≤4 A):
-  - **Face A:** J1 → F1 → 1.2 mm extension (x 17.5–23) → +24V lanes. That is 0.8 mm per face over 35 mm.
+  - **Face A:** J1 → F1 → 1.2 mm extension (x 17.5–23) → +36V lanes. That is 0.8 mm per face over 35 mm.
   - **Spring share:** SA2/SA9/SB2/SB9 share it, with back-to-back vias at ±17.5. Each spring then sees ≈1 A at 4 A total.
   - **GND return:** through J2 at the other end.
 - **Assembly:** springs on both faces, so **JLC double-sided SMT** is needed (the design requires it, SPEC 3.3).
 - **Not included:**
   - **CAN TVS footprint** (SPEC "recommended"): no room in 56 × 9 mm with the slot zone. Each controller already has NUP3105L (D4).
-  - **Isolating variant:** out of scope for rev A. It needs a +24V cut, and the back-to-back via ties at ±17.5 would have to become DNP links.
+  - **Isolating variant:** out of scope for rev A. It needs a +36V cut, and the back-to-back via ties at ±17.5 would have to become DNP links.
 
 ## 7. Spring test coupon (`coupon/`)
 

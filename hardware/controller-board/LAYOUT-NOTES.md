@@ -26,7 +26,7 @@
 
 | Pad | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
 |---|---|---|---|---|---|---|---|---|---|---|
-| Net | +24V_IN | GND | +5V_LED | LED_RETURN | LED_DATA_OUT | SPARE | CANH | CANL | SENSE | DRIVE |
+| Net | +36V_IN | GND | +5V_LED | LED_RETURN | LED_DATA_OUT | SPARE | CANH | CANL | SENSE | DRIVE |
 | x (mm) | −11.43 | −8.89 | −6.35 | −3.81 | −1.27 | +1.27 | +3.81 | +6.35 | +8.89 | +11.43 |
 
 **Pad 1 mapping (SCHEMATIC-NOTES §6.3):**
@@ -88,10 +88,10 @@ D1.5 mm pads on F.Cu. The signal pads sit on a 2.8 mm grid in the right wedge, c
 |---|---|---|---|---|---|---|---|---|
 | TP1 | SPARE | 25.0 | 4.0 | | TP8 | UART_RX | 27.8 | 9.6 |
 | TP2 | +3V3 | 27.8 | 4.0 | | TP9 | PB1 (GPIO_SPARE) | 25.0 | 12.4 |
-| TP3 | GND | 30.6 | 4.0 | | TP10 | +24V_IN (before F1) | −14.6 | 4.4 |
+| TP3 | GND | 30.6 | 4.0 | | TP10 | +36V_IN (before F1) | −14.6 | 4.4 |
 | TP4 | SWDIO | 25.0 | 6.8 | | TP11 | +5V | −8.6 | 21.8 |
 | TP5 | SWCLK | 27.8 | 6.8 | | TP12 | +5V_LED | −11.0 | 6.4 |
-| TP6 | NRST | 30.6 | 6.8 | | TP13 | +24V (after F1) | −30.6 | 3.6 |
+| TP6 | NRST | 30.6 | 6.8 | | TP13 | +36V (after F1) | −30.6 | 3.6 |
 | TP7 | UART_TX | 25.0 | 9.6 | | | | | |
 
 - The WCH-LinkE set (SWDIO, SWCLK, NRST, 3V3, GND) is TP2–TP6, within a 2.8 × 5.6 mm area.
@@ -101,32 +101,32 @@ D1.5 mm pads on F.Cu. The signal pads sit on a 2.8 mm grid in the right wedge, c
 ## 6. Placement and routing
 
 **Floor plan, left to right:**
-- **24 V input and buck** at the left (pad 1 is +24V).
+- **36 V input and buck** at the left (pad 1 is +36V).
 - **LED-rail switch and level shifter** above J1.3–J1.5.
 - **TVS diodes D4 / D6** at J1.7–J1.10.
 - **MCU, crystal and CAN transceiver** in the centre-right.
 - **Test pads** in the right wedge.
 
-**+24V adjacency (SPEC §2, decision 0011):**
-- **What stays apart:** +24V and +24V_IN copper keeps **≥ 1.0 mm from every net that is not GND or 24 V-tolerant**. This is a custom DRC rule, and the GND pour fills the gaps.
+**+36V adjacency (SPEC §2, decision 0011):**
+- **What stays apart:** +36V and +36V_IN copper keeps **≥ 1.0 mm from every net that is not GND or 36 V-tolerant**. This is a custom DRC rule, and the GND pour fills the gaps.
 - **Tolerant nets:** CANH/L, SPARE, SENSE, DRIVE, plus BUCK_SW and BUCK_BOOT, which swing to 24–29 V themselves.
 - **Exemption:** U5's open EN pin, which sits beside VIN inside the IC pinout.
 - **Independent check:** `layout_verify.py` lists the nearest copper of every net. Within 1 mm there is only GND, BOOT and EN. The nearest intolerant copper is +5V_LED at 1.63 mm, with the GND pour between, then RT at 1.85 mm. **PASS.**
-- **Layers:** +24V copper is on F.Cu only, over the In1 GND plane.
-- **Tracks:** +24V_IN runs from J1.1 to F1 at 0.6 mm wide (its only neighbour is J1.2 = GND); the +24V bus is 0.8 mm. No solder reinforcement.
+- **Layers:** +36V copper is on F.Cu only, over the In1 GND plane.
+- **Tracks:** +36V_IN runs from J1.1 to F1 at 0.6 mm wide (its only neighbour is J1.2 = GND); the +36V bus is 0.8 mm. No solder reinforcement.
 
 **Buck (SCHEMATIC-NOTES §12):**
 
 | Rule | Implementation |
 |---|---|
-| Tight input loop | U5 VIN faces down, straight onto F1.2 / the +24V bus. C17 (100 nF) is 3.2 mm from VIN with a GND via at its pad. C16 / C23 (2 × 10 µF) are on the same bus. D7's anode is ≈3 mm from the C_IN grounds. The hot loop C_IN → VIN → SW → D7 → GND is ≈6 × 8 mm, with In1 GND 0.2 mm below it. |
+| Tight input loop | U5 VIN faces down, straight onto F1.2 / the +36V bus. C17 (100 nF) is 3.2 mm from VIN with a GND via at its pad. C16 / C23 (2 × 10 µF) are on the same bus. D7's anode is ≈3 mm from the C_IN grounds. The hot loop C_IN → VIN → SW → D7 → GND is ≈6 × 8 mm, with In1 GND 0.2 mm below it. |
 | Small SW node | U5.8 → D7 cathode → L1.1 is one 1.0 mm spine, plus C18 (BOOT). All of it lies inside x −24.3 … −18.8, y 12.7 … 17.6. Freerouting kept 0.5 mm extra clearance from it. |
 | FB away from SW | FB / COMP / RT parts are on the right of U5, the side away from SW. FB is 3.0 mm from SW copper (the IC's own pin spacing). |
 | SW ≥ 10 mm from Y1 / C14 / SENSE_ADC | Measured: OSC_IN 28.8 mm, OSC_OUT 28.1 mm, SENSE_ADC 20.2 mm. A DRC rule enforces ≥ 10 mm. |
 | Solid GND | In1 is solid GND. U5's thermal pad has 8 vias plus a B.Cu spreader pad, which is unmasked copper only and stays covered by mask. Ground pads of the power parts connect solid; small passives and J1.2 (hand-soldered) use thermal reliefs. |
 
 **Routing:**
-- **Scripted:** the +24V, SW and BOOT tracks, and the loop GND vias (locked).
+- **Scripted:** the +36V, SW and BOOT tracks, and the loop GND vias (locked).
 - **Freerouting:** everything else, from a pinned session. B.Cu is typed "power", so it carries no wires.
 - **Grid A* router:** the last open connections (6 signals + 4 short +3V3 links), on F.Cu + In2.
 - **GND stitching:** 29 vias on a 2.5 mm grid where all 4 layers are GND, plus vias in any isolated F.Cu GND island.
@@ -172,7 +172,7 @@ D1.5 mm pads on F.Cu. The signal pads sit on a 2.8 mm grid in the right wedge, c
 6. **§3.2 Debug row:**
    - Record the test-pad layout: TP1–TP9 on a 2.8 mm grid in the right wedge, the SWD set in TP2–TP6.
    - The jig contacts from the wall side and needs relief for L1.
-7. **§2 rule wording:** BUCK_SW and BUCK_BOOT count as 24 V-tolerant. Implemented as a ≥ 1.0 mm DRC clearance between +24V and every other net, with the GND pour between.
+7. **§2 rule wording:** BUCK_SW and BUCK_BOOT count as 36 V-tolerant. Implemented as a ≥ 1.0 mm DRC clearance between +36V and every other net, with the GND pour between.
 8. **§3.2 Joint row:** record a drag-solder access rule: no controller part within the J1 courtyard (y < 2.9 mm over |x| < 12.6 mm), and no part taller than 1.1 mm within 3 mm of either end.
 
 No decision record is needed for items 1–8: they record layout results inside the existing decisions 0009–0011. Item 2 changes a SPEC number.
@@ -182,7 +182,7 @@ No decision record is needed for items 1–8: they record layout results inside 
 `python layout_all.py` rebuilds the board from the netlist and remakes all outputs, in about 3 minutes. Steps:
 1. `layout_rules.py`: net classes and custom DRC rules.
 2. `layout_build.py`: outline, footprints, placement table, planes.
-3. `layout_preroute.py`: +24V, SW and loop tracks.
+3. `layout_preroute.py`: +36V, SW and loop tracks.
 4. `layout_route.py`: imports the pinned Freerouting session `route_pinned.ses`; use `--rerun-route` to route again.
 5. `layout_finish.py`: pours, stitching, silkscreen.
 6. `layout_fixups.py`: open connections, found by kicad-cli DRC and routed with the grid A* router; GND islands.
@@ -190,7 +190,7 @@ No decision record is needed for items 1–8: they record layout results inside 
 8. `layout_fab.py`: fab outputs.
 
 Helpers:
-- `layout_verify.py`: the +24V / SW / interface report → `output/layout/verify.txt`.
+- `layout_verify.py`: the +36V / SW / interface report → `output/layout/verify.txt`.
 - `layout_edgebands.py`: the part-free edge bands.
 - `pads.py`, `nets.py`, `plotmap.py`: debug dumps.
 

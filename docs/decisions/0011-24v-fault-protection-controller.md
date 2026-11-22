@@ -1,6 +1,6 @@
 # 0011 — 24 V fault protection on the controller board
 
-**Date:** 2026-11-16 · **Status:** **Accepted by the coordinator** under the user's delegation to coordinate prototype work (2026-11-16). The user may override. · **Proposed by:** the schematic agent (`hardware/controller-board/SCHEMATIC-NOTES.md` §4–§5, §10) · **Changes:** SPEC §2, §3.2, §4.1, §4.2
+**Date:** 2026-11-16 · **Status:** **Accepted by the coordinator** under the user's delegation to coordinate prototype work (2026-11-16). The user may override. · **Proposed by:** the schematic agent (`hardware/controller-board/SCHEMATIC-NOTES.md` §4–§5, §10) · **Changes:** SPEC §2, §3.2, §4.1, §4.2 · **Updated for 36 V by [0019](0019-36v-bus.md)** (same circuits, re-rated parts) **and [0020](0020-eight-edge-id-codes.md)** (R11 = 1 kΩ, eight new code values), 2026-11-22.
 
 ## Context
 

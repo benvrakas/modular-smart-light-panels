@@ -79,7 +79,7 @@
 		)
 	)
 	(net 0 "")
-	(net 1 "+24V")
+	(net 1 "+36V")
 	(net 2 "+5V_LED")
 	(net 3 "/CANH")
 	(net 4 "/CANL")
@@ -998,7 +998,7 @@
 		(layer "F.Cu")
 		(uuid "563cb39f-7689-49cc-93fb-1d439e50a9a2")
 		(at 100 100)
-		(descr "Seam-bridge contact pads (SPEC V6 3.3): 10 pads on the exterior face B.Cu, 3.0 mm wide at 5.0 mm pitch, centred. X1..X10 = GND +24V GND CANH CANL DRIVE SENSE_EDGE SPARE +24V GND. Pads start 0.3 (GND) / 0.6 (+24V) / 0.9 mm (signals) from the wall edge and end at z 6.0 mm (V6; V5 was 8.0). The BW0019CG bridge spring touches at z 3.5 nominal (<= 5.0 incl. tolerances). B.Cu rule area (no pour, no vias, tracks allowed) up to z 5.3, so each pad may carry vias in its top end (z 5.4-6.0, decision 0007 method); full mask opening up to z 6.1.")
+		(descr "Seam-bridge contact pads (SPEC V6 3.3): 10 pads on the exterior face B.Cu, 3.0 mm wide at 5.0 mm pitch, centred. X1..X10 = GND +36V GND CANH CANL DRIVE SENSE_EDGE SPARE +36V GND. Pads start 0.3 (GND) / 0.6 (+36V) / 0.9 mm (signals) from the wall edge and end at z 6.0 mm (V6; V5 was 8.0). The BW0019CG bridge spring touches at z 3.5 nominal (<= 5.0 incl. tolerances). B.Cu rule area (no pour, no vias, tracks allowed) up to z 5.3, so each pad may carry vias in its top end (z 5.4-6.0, decision 0007 method); full mask opening up to z 6.1.")
 		(tags "edge contact spring seam bridge")
 		(property "Reference" "J1"
 			(at 0 -7.2 0)
@@ -1174,7 +1174,7 @@
 				(justify left)
 			)
 		)
-		(fp_text user "X1 GND X2 +24V X3 GND X4 CANH X5 CANL X6 DRIVE X7 SENSE_EDGE X8 SPARE X9 +24V X10 GND"
+		(fp_text user "X1 GND X2 +36V X3 GND X4 CANH X5 CANL X6 DRIVE X7 SENSE_EDGE X8 SPARE X9 +36V X10 GND"
 			(at -26 3.6 0)
 			(layer "Cmts.User")
 			(uuid "5fd28641-e619-48c7-a2af-c81bd77b0917")
@@ -1209,7 +1209,7 @@
 			(at -17.5 -3.3)
 			(size 3 5.4)
 			(layers "B.Cu" "B.Mask")
-			(net 1 "+24V")
+			(net 1 "+36V")
 			(uuid "d1a57a12-c700-439e-9d76-99af328f56e7")
 		)
 		(pad "X3" smd rect
@@ -1258,7 +1258,7 @@
 			(at 17.5 -3.3)
 			(size 3 5.4)
 			(layers "B.Cu" "B.Mask")
-			(net 1 "+24V")
+			(net 1 "+36V")
 			(uuid "b5c9cf17-0bad-403d-af14-454bf550f48b")
 		)
 		(pad "X10" smd rect
@@ -1768,7 +1768,7 @@
 		(layer "F.Cu")
 		(uuid "836e2c44-5072-4793-ab29-1a75779a5560")
 		(at 58.835 100)
-		(descr "Polygon corner joint at the left end of a V6 edge board (13 mm tall). Origin = board end (x = 0) on the wall edge (y = 0); pads extend +x. 5 SMD signal pads on the inward face (F.Cu), 2.0 x 1.3 mm at 2.5 mm pitch (1.2 mm gaps, like the 2.54 mm controller joint): from the wall edge up 1 D (z 1.5), 2 CANH (4.0), 3 CANL (6.5), 5 DRIVE (9.0), 4 SENSE (11.5); this order lets the LED data and the bus reach their pads without crossing. 3 SMD power pads on the exterior face (B.Cu), 3.0 mm wide: 6 +24V (z 0.5-3.5), 8 GND (z 6.0-8.5), 7 +5V_LED (z 11.0-12.6). GND sits between the supplies with 2.5 mm gaps, so a bead can never join +24V to +5V_LED. All pads touch the board end. Mirror of CornerJoint_R.")
+		(descr "Polygon corner joint at the left end of a V6 edge board (13 mm tall). Origin = board end (x = 0) on the wall edge (y = 0); pads extend +x. 5 SMD signal pads on the inward face (F.Cu), 2.0 x 1.3 mm at 2.5 mm pitch (1.2 mm gaps, like the 2.54 mm controller joint): from the wall edge up 1 D (z 1.5), 2 CANH (4.0), 3 CANL (6.5), 5 DRIVE (9.0), 4 SENSE (11.5); this order lets the LED data and the bus reach their pads without crossing. 3 SMD power pads on the exterior face (B.Cu), 3.0 mm wide: 6 +36V (z 0.5-3.5), 8 GND (z 6.0-8.5), 7 +5V_LED (z 11.0-12.6). GND sits between the supplies with 2.5 mm gaps, so a bead can never join +36V to +5V_LED. All pads touch the board end. Mirror of CornerJoint_R.")
 		(tags "corner joint solder bridge")
 		(property "Reference" "J2"
 			(at 3 -13.8 0)
@@ -1951,7 +1951,7 @@
 			(at 1.5 -2)
 			(size 3 3)
 			(layers "B.Cu" "B.Mask")
-			(net 1 "+24V")
+			(net 1 "+36V")
 			(uuid "4e49d357-cc38-4069-8a0b-cf46623d1957")
 		)
 		(pad "7" smd rect
@@ -3103,7 +3103,7 @@
 		(layer "F.Cu")
 		(uuid "bf2418d8-3804-455f-8124-28340653cedc")
 		(at 141.165 100)
-		(descr "Polygon corner joint at the right end of a V6 edge board (13 mm tall). Origin = board end (x = 0) on the wall edge (y = 0); pads extend -x. 5 SMD signal pads on the inward face (F.Cu), 2.0 x 1.3 mm at 2.5 mm pitch (1.2 mm gaps, like the 2.54 mm controller joint): from the wall edge up 1 D (z 1.5), 2 CANH (4.0), 3 CANL (6.5), 5 DRIVE (9.0), 4 SENSE (11.5); this order lets the LED data and the bus reach their pads without crossing. 3 SMD power pads on the exterior face (B.Cu), 3.0 mm wide: 6 +24V (z 0.5-3.5), 8 GND (z 6.0-8.5), 7 +5V_LED (z 11.0-12.6). GND sits between the supplies with 2.5 mm gaps, so a bead can never join +24V to +5V_LED. All pads touch the board end. Mirror of CornerJoint_L.")
+		(descr "Polygon corner joint at the right end of a V6 edge board (13 mm tall). Origin = board end (x = 0) on the wall edge (y = 0); pads extend -x. 5 SMD signal pads on the inward face (F.Cu), 2.0 x 1.3 mm at 2.5 mm pitch (1.2 mm gaps, like the 2.54 mm controller joint): from the wall edge up 1 D (z 1.5), 2 CANH (4.0), 3 CANL (6.5), 5 DRIVE (9.0), 4 SENSE (11.5); this order lets the LED data and the bus reach their pads without crossing. 3 SMD power pads on the exterior face (B.Cu), 3.0 mm wide: 6 +36V (z 0.5-3.5), 8 GND (z 6.0-8.5), 7 +5V_LED (z 11.0-12.6). GND sits between the supplies with 2.5 mm gaps, so a bead can never join +36V to +5V_LED. All pads touch the board end. Mirror of CornerJoint_L.")
 		(tags "corner joint solder bridge")
 		(property "Reference" "J3"
 			(at -3 -13.8 0)
@@ -3286,7 +3286,7 @@
 			(at -1.5 -2)
 			(size 3 3)
 			(layers "B.Cu" "B.Mask")
-			(net 1 "+24V")
+			(net 1 "+36V")
 			(uuid "1bf53805-1dd7-4b93-a7cd-752b20c7b30e")
 		)
 		(pad "7" smd rect
@@ -3358,7 +3358,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C21190"
+		(property "LCSC" "C22975"
 			(at 0 0 180)
 			(layer "F.SilkS")
 			(hide yes)
@@ -3370,7 +3370,7 @@
 				)
 			)
 		)
-		(property "MPN" "0603WAF1001T5E"
+		(property "MPN" "0603WAF2001T5E"
 			(at 0 0 180)
 			(layer "F.SilkS")
 			(hide yes)
@@ -3819,7 +3819,7 @@
 		(layer "F.Cu")
 		(uuid "fe4cf508-3467-45f6-ade4-0fbc4d336c54")
 		(at 100 94.75)
-		(descr "Controller joint, edge-board side (SPEC V6.2 3.2/3.5, decision 0009). 10 SMD pads on the inward face (F.Cu), 2.54 mm pitch, 1.3 x 2.85 mm. Place the origin at z 5.25 (the controller underside, z 5.0, is the y = +0.25 Dwgs line). Pads span z 2.5..5.35: 2.5 mm of exposed fillet land below the controller underside plus 0.35 mm behind its edge so solder wicks into the gap (2026-11-21; was z 3.5..5.7, only 1.5 mm exposed). Pad n meets the controller pad n: from the F.Cu side with the wall edge at the bottom, pad 1 is leftmost. Order 1..10: +24V GND +5V_LED LED_RETURN LED_DATA_OUT SPARE CANH CANL SENSE DRIVE. Pasted so reflow pre-tins them.")
+		(descr "Controller joint, edge-board side (SPEC V6.2 3.2/3.5, decision 0009). 10 SMD pads on the inward face (F.Cu), 2.54 mm pitch, 1.3 x 2.85 mm. Place the origin at z 5.25 (the controller underside, z 5.0, is the y = +0.25 Dwgs line). Pads span z 2.5..5.35: 2.5 mm of exposed fillet land below the controller underside plus 0.35 mm behind its edge so solder wicks into the gap (2026-11-21; was z 3.5..5.7, only 1.5 mm exposed). Pad n meets the controller pad n: from the F.Cu side with the wall edge at the bottom, pad 1 is leftmost. Order 1..10: +36V GND +5V_LED LED_RETURN LED_DATA_OUT SPARE CANH CANL SENSE DRIVE. Pasted so reflow pre-tins them.")
 		(tags "controller joint right angle board-to-board drag solder")
 		(property "Reference" "J4"
 			(at 0 -2.4 0)
@@ -4008,7 +4008,7 @@
 				(justify left)
 			)
 		)
-		(fp_text user "WALL EDGE IS BELOW (+y). Pad 1 = +24V (left)."
+		(fp_text user "WALL EDGE IS BELOW (+y). Pad 1 = +36V (left)."
 			(at 0 2.9 0)
 			(layer "Cmts.User")
 			(uuid "c182345a-bf7d-4908-a9f8-41030d59e014")
@@ -4023,7 +4023,7 @@
 			(at -11.43 1.325)
 			(size 1.3 2.85)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 1 "+24V")
+			(net 1 "+36V")
 			(uuid "992d334f-c3a9-4336-a56b-dc6cdd05413b")
 		)
 		(pad "2" smd rect
@@ -4110,7 +4110,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "+24V"
+		(property "Value" "+36V"
 			(at 0 -1.75 0)
 			(layer "B.Fab")
 			(uuid "87a006c6-4515-48e8-b160-ca5e44fc9700")
@@ -4242,7 +4242,7 @@
 			(at 0 0 180)
 			(size 1.5 1.5)
 			(layers "B.Cu" "B.Mask")
-			(net 1 "+24V")
+			(net 1 "+36V")
 			(uuid "69c871bd-54f8-4c7d-92a6-bbecb96200c6")
 		)
 		(embedded_fonts no)

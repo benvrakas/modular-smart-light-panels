@@ -4,7 +4,7 @@ usage:  python layout_all.py            (any Python 3; calls KiCad's bundled Pyt
 
   1 layout_rules.py     net classes + custom DRC rules (.kicad_pro / .kicad_dru)
   2 layout_build.py     new board: outline, stackup, footprints from output/controller-board.net, placement, planes
-  3 layout_preroute.py  +24V input, buck hot loop and SW node, by script (locked)
+  3 layout_preroute.py  +36V input, buck hot loop and SW node, by script (locked)
   4 layout_route.py     import the pinned Freerouting session (route_pinned.ses); --rerun-route to route again
   5 layout_finish.py    F.Cu / In2 GND pours, stitching vias, silkscreen
   6 layout_fixups.py    the few connections Freerouting left open (2-layer A*), GND island vias

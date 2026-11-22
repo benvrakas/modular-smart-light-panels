@@ -1,6 +1,6 @@
 """Write the V6 layout footprints into hardware/lib/footprints/ModularLight.pretty (WP 1.3 / 1.5).
 
-  EdgeContacts_SpringPads   strip shortened to 6.0 mm (V5: 8.0), rule area to 6.2 mm, +24V labels
+  EdgeContacts_SpringPads   strip shortened to 6.0 mm (V5: 8.0), rule area to 6.2 mm, +36V labels
   ControllerJoint_EdgeBoard pads 1.3 x 2.85 mm, row z 2.5..5.35 (2.5 mm fillet land below the controller, 2026-11-21)
   CornerJoint_L / _R        re-laid out for a 13 mm board (pad numbers unchanged)
   Spring_BW0019CG           BAT Wireless BW0019CG-L3.5W1.5H4.3 (LCSC C2826517), origin = contact point
@@ -82,14 +82,14 @@ class FP:
 STRIP_TOP = 6.0     # pad tops, z (mm above the wall edge)
 RULE_TOP = 5.3      # no-via / no-pour rule area (springs touch at z <= 5.0 incl. tolerances)
 MASK_TOP = 6.1      # gold-finger style mask opening over the whole strip
-NETS = ['GND', '+24V', 'GND', 'CANH', 'CANL', 'DRIVE', 'SENSE_EDGE', 'SPARE', '+24V', 'GND']
-START = {'GND': 0.3, '+24V': 0.6}   # mating stagger; signals 0.9
+NETS = ['GND', '+36V', 'GND', 'CANH', 'CANL', 'DRIVE', 'SENSE_EDGE', 'SPARE', '+36V', 'GND']
+START = {'GND': 0.3, '+36V': 0.6}   # mating stagger; signals 0.9
 
 
 def edge_contacts():
     fp = FP('EdgeContacts_SpringPads',
             'Seam-bridge contact pads (SPEC V6 3.3): 10 pads on the exterior face B.Cu, 3.0 mm wide at 5.0 mm pitch, '
-            'centred. X1..X10 = GND +24V GND CANH CANL DRIVE SENSE_EDGE SPARE +24V GND. Pads start 0.3 (GND) / 0.6 (+24V) / '
+            'centred. X1..X10 = GND +36V GND CANH CANL DRIVE SENSE_EDGE SPARE +36V GND. Pads start 0.3 (GND) / 0.6 (+36V) / '
             '0.9 mm (signals) from the wall edge and end at z 6.0 mm (V6; V5 was 8.0). The BW0019CG bridge spring touches '
             'at z 3.5 nominal (<= 5.0 incl. tolerances). B.Cu rule area (no pour, no vias, tracks allowed) up to z 5.3, so '
             'each pad may carry vias in its top end (z 5.4-6.0, decision 0007 method); full mask opening up to z 6.1.',
@@ -113,7 +113,7 @@ def edge_contacts():
     fp.text('dashed line: bridge spring contact point z 3.5 nominal (BW0019CG, bridge base on the wall)', -26, 2.4,
             'Cmts.User', 0.8)
     fp.text('upper dashed line z 5.3: top of the no-via area; in-pad vias allowed above it', -26, 4.8, 'Cmts.User', 0.8)
-    fp.text('X1 GND X2 +24V X3 GND X4 CANH X5 CANL X6 DRIVE X7 SENSE_EDGE X8 SPARE X9 +24V X10 GND', -26, 3.6,
+    fp.text('X1 GND X2 +36V X3 GND X4 CANH X5 CANL X6 DRIVE X7 SENSE_EDGE X8 SPARE X9 +36V X10 GND', -26, 3.6,
             'Cmts.User', 0.8)
     fp.line(-26, -RULE_TOP, 26, -RULE_TOP, 'Dwgs.User', typ='dash')
     fp.rect(-25.5, -(MASK_TOP + 0.3), 25.5, 0.1, 'B.CrtYd', width=0.05)
@@ -131,7 +131,7 @@ def controller_joint():
             '2.54 mm pitch, 1.3 x 2.85 mm. Place the origin at z 5.25 (the controller underside, z 5.0, is the y = +0.25 '
             'Dwgs line). Pads span z 2.5..5.35: 2.5 mm of exposed fillet land below the controller underside plus 0.35 mm '
             'behind its edge so solder wicks into the gap (2026-11-21; was z 3.5..5.7, only 1.5 mm exposed). Pad n meets the '
-            'controller pad n: from the F.Cu side with the wall edge at the bottom, pad 1 is leftmost. Order 1..10: +24V GND '
+            'controller pad n: from the F.Cu side with the wall edge at the bottom, pad 1 is leftmost. Order 1..10: +36V GND '
             '+5V_LED LED_RETURN LED_DATA_OUT SPARE CANH CANL SENSE DRIVE. Pasted so reflow pre-tins them.',
             'controller joint right angle board-to-board drag solder')
     fp.prop('Reference', 'REF**', 0, -2.4, 'F.SilkS', hide=True)
@@ -143,7 +143,7 @@ def controller_joint():
     fp.line(-13, -1.35, 13, -1.35, 'Dwgs.User', typ='dash')
     fp.text('controller wall-side face (z 5.0); fillet lands below this line', -13.5, 0.9, 'Cmts.User')
     fp.text('controller chamber-side face (z 6.6, 1.6 mm board)', -13.5, -2.0, 'Cmts.User')
-    fp.text('WALL EDGE IS BELOW (+y). Pad 1 = +24V (left).', 0, 2.9, 'Cmts.User', just=None)
+    fp.text('WALL EDGE IS BELOW (+y). Pad 1 = +36V (left).', 0, 2.9, 'Cmts.User', just=None)
     fp.rect(-12.33, top_y, 12.33, bot_y, 'F.Fab')
     fp.rect(-12.6, top_y - 0.25, 12.6, bot_y + 0.25, 'F.CrtYd', width=0.05)
     fp.write()
@@ -151,7 +151,7 @@ def controller_joint():
 
 # ------------------------------------------------------------------ corner joints
 SIG = [(1, 1.5), (2, 4.0), (3, 6.5), (5, 9.0), (4, 11.5)]      # pad, z centre (F.Cu, 2.0 x 1.3)
-PWR = [(6, 0.5, 3.5), (8, 6.0, 8.5), (7, 11.0, 12.6)]           # pad, z0, z1 (B.Cu, 3.0 wide): +24V, GND, +5V_LED
+PWR = [(6, 0.5, 3.5), (8, 6.0, 8.5), (7, 11.0, 12.6)]           # pad, z0, z1 (B.Cu, 3.0 wide): +36V, GND, +5V_LED
 
 
 def corner(side):
@@ -163,9 +163,9 @@ def corner(side):
             f'edge (y = 0); pads extend {"+" if s > 0 else "-"}x. 5 SMD signal pads on the inward face (F.Cu), 2.0 x 1.3 mm at '
             '2.5 mm pitch (1.2 mm gaps, like the 2.54 mm controller joint): from the wall edge up 1 D (z 1.5), 2 CANH (4.0), '
             '3 CANL (6.5), 5 DRIVE (9.0), 4 SENSE (11.5); this order lets the LED data and the bus reach their pads '
-            'without crossing. 3 SMD power pads on the exterior face (B.Cu), 3.0 mm wide: 6 +24V (z 0.5-3.5), '
+            'without crossing. 3 SMD power pads on the exterior face (B.Cu), 3.0 mm wide: 6 +36V (z 0.5-3.5), '
             '8 GND (z 6.0-8.5), 7 +5V_LED (z 11.0-12.6). GND sits between the supplies with 2.5 mm gaps, so a bead can '
-            f'never join +24V to +5V_LED. All pads touch the board end. Mirror of CornerJoint_{"R" if s > 0 else "L"}.',
+            f'never join +36V to +5V_LED. All pads touch the board end. Mirror of CornerJoint_{"R" if s > 0 else "L"}.',
             'corner joint solder bridge')
     fp.prop('Reference', 'REF**', s * 3.0, -13.8, 'F.SilkS', hide=True)
     fp.prop('Value', name, s * 3.0, 1.2, 'F.Fab', hide=True)

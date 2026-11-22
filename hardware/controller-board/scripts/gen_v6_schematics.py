@@ -1,12 +1,12 @@
 """Generate the V6 KiCad 9 schematics from one source (roadmap WP 1.1 and 1.2):
 
   hardware/controller-board/controller-board.kicad_sch   (new, decisions 0009/0010)
-  hardware/edge-board/edge-board-{hex,square,triangle}.kicad_sch (V6: +24V, joint pads, code-0 option;
+  hardware/edge-board/edge-board-{hex,square,triangle}.kicad_sch (V6: +36V, joint pads, code-0 option;
   one circuit, one schematic per board outline so each KiCad project has its own)
 
 The circuits are written below as data (one dict per part: pins -> nets). The script places the
 symbols automatically in labelled blocks, draws a short wire stub on every pin, and ends each stub in
-a net label (signals) or a power symbol (GND, +24V, +5V, +5V_LED, +3V3). Unused pins get a no-connect
+a net label (signals) or a power symbol (GND, +36V, +5V, +5V_LED, +3V3). Unused pins get a no-connect
 flag. Re-run after any change, then run ERC and check the netlist (verify_v6.py does both).
 
 Run with KiCad's Python:  "C:/Program Files/KiCad/9.0/bin/python.exe" gen_v6_schematics.py
@@ -24,7 +24,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 HW = os.path.normpath(os.path.join(HERE, '..', '..'))
 PROJECT_LIB = os.path.join(HW, 'lib', 'symbols', 'ModularLight.kicad_sym')
 DATE = '2026-11-16'
-POWER_NETS = {'GND': 'power:GND', '+24V': 'power:+24V', '+5V': 'power:+5V', '+3V3': 'power:+3V3',
+POWER_NETS = {'GND': 'power:GND', '+36V': 'power:+36V', '+5V': 'power:+5V', '+3V3': 'power:+3V3',
               '+5V_LED': 'ModularLight:+5V_LED'}
 G = 1.27  # connection grid
 
@@ -37,11 +37,12 @@ CAT = {
     # resistors 0603 1 % UNI-ROYAL unless noted
     'R0': ('Device:R', '0R', FP_R0603, 'C21189', '0603WAF0000T5E', 'UNI-ROYAL', ''),
     'R0_0402': ('Device:R', '0R', FP_R0402, 'C17168', '0402WGF0000TCE', 'UNI-ROYAL', ''),  # edge R3: fits under LED1 (z 7.2)
-    'R1k': ('Device:R', '1k', FP_R0603, 'C21190', '0603WAF1001T5E', 'UNI-ROYAL', ''),
-    'R2k7': ('Device:R', '2k7', FP_R0603, 'C13167', '0603WAF2701T5E', 'UNI-ROYAL', ''),
-    'R5k6': ('Device:R', '5k6', FP_R0603, 'C23189', '0603WAF5601T5E', 'UNI-ROYAL', ''),
-    'R12k': ('Device:R', '12k', FP_R0603, 'C22790', '0603WAF1202T5E', 'UNI-ROYAL', ''),
+    # edge ID codes 1-7 (SPEC 4.2, decision 0020): all JLC basic parts
+    'R2k': ('Device:R', '2k', FP_R0603, 'C22975', '0603WAF2001T5E', 'UNI-ROYAL', ''),
+    'R9k1': ('Device:R', '9k1', FP_R0603, 'C23260', '0603WAF9101T5E', 'UNI-ROYAL', ''),
+    'R15k': ('Device:R', '15k', FP_R0603, 'C22809', '0603WAF1502T5E', 'UNI-ROYAL', ''),
     'R27k': ('Device:R', '27k', FP_R0603, 'C22967', '0603WAF2702T5E', 'UNI-ROYAL', ''),
+    'R47k': ('Device:R', '47k', FP_R0603, 'C25819', '0603WAF4702T5E', 'UNI-ROYAL', ''),
     'R33': ('Device:R', '33R', FP_R0603, 'C23140', '0603WAF330JT5E', 'UNI-ROYAL', ''),
     'R2k2': ('Device:R', '2k2', FP_R0603, 'C4190', '0603WAF2201T5E', 'UNI-ROYAL', ''),
     'R3k3': ('Device:R', '3k3', FP_R0603, 'C22978', '0603WAF3301T5E', 'UNI-ROYAL', ''),
@@ -54,10 +55,10 @@ CAT = {
     'R53k6': ('Device:R', '53k6', FP_R0603, 'C2930115', 'FRC0603F5362TS', 'FOJAN', 'Buck FB top (TI design example)'),
     'R10k2': ('Device:R', '10k2', FP_R0603, 'C22772', '0603WAF1022T5E', 'UNI-ROYAL', 'Buck FB bottom (TI design example)'),
     'R187k': ('Device:R', '187k', FP_R0603, 'C22896', '0603WAF1873T5E', 'UNI-ROYAL', ''),
-    'R10k_0805': ('Device:R', '10k', 'Resistor_SMD:R_0805_2012Metric', 'C17414', '0805W8F1002T5E', 'UNI-ROYAL',
-                  '0805 (125 mW): 61 mW in a sustained 28 V fault'),
-    'R470_1206': ('Device:R', '470R', 'Resistor_SMD:R_1206_3216Metric', 'C4502', '1206W4F4700T5E', 'UNI-ROYAL',
-                  '1206: pulse load while DRIVE is asserted into a 24 V fault'),
+    'R10k_0805': ('Device:R', '10k', 'Resistor_SMD:R_0805_2012Metric', 'C543567', 'ERJP06F1002V', 'Panasonic',
+                  '0805 anti-surge 500 mW, 1 %: 117 mW in a sustained 37.8 V fault'),
+    'R1k_1206': ('Device:R', '1k', 'Resistor_SMD:R_1206_3216Metric', 'C4410', '1206W4F1001T5E', 'UNI-ROYAL',
+                 '1206: pulse load (1.4 W, <= 5 ms) while DRIVE is asserted into a 36 V fault'),
     # capacitors
     'C100n': ('Device:C', '100nF', FP_C0603, 'C14663', 'CC0603KRX7R9BB104', 'YAGEO', '50 V X7R'),
     'C15p': ('Device:C', '15pF', FP_C0603, 'C1644', 'CL10C150JB8NNNC', 'Samsung', 'C0G'),
@@ -66,8 +67,9 @@ CAT = {
     'C22n': ('Device:C', '22nF', FP_C0603, 'C21122', 'CL10B223KB8NNNC', 'Samsung', '50 V X7R'),
     'C100p': ('Device:C', '100pF', FP_C0603, 'C14858', 'CL10C101JB8NNNC', 'Samsung', 'C0G'),
     'C10u': ('Device:C', '10uF', 'Capacitor_SMD:C_0805_2012Metric', 'C15850', 'CL21A106KAYNNNE', 'Samsung', '25 V X5R'),
-    'C10u50': ('Device:C', '10uF/50V', 'Capacitor_SMD:C_1206_3216Metric', 'C13585', 'CL31A106KBHNNNE', 'Samsung',
-               '50 V X5R 1206 (rated above the 45 V clamp)'),
+    'C4u7_100': ('Device:C', '4.7uF/100V', 'Capacitor_SMD:C_1206_3216Metric', 'C237304', 'GRM31CC72A475KE11L',
+                 'Murata', '100 V X7S 1206 (rated above the 58.1 V clamp)'),
+    'C100n_100': ('Device:C', '100nF/100V', FP_C0603, 'C15725', 'CL10B104KC8NNNC', 'Samsung', '100 V X7R'),
     'C22u': ('Device:C', '22uF/25V', 'Capacitor_SMD:C_0805_2012Metric', 'C45783', 'CL21A226MAQNNNE', 'Samsung', '25 V X5R'),
     # semiconductors
     'CH32': ('MCU_WCH_RiscV:CH32V203F6P6', 'CH32V203F6P6', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'C3040880',
@@ -86,11 +88,11 @@ CAT = {
                'Texas Instruments', ''),
     'L22u': ('Device:L', '22uH', 'Inductor_SMD:L_Changjiang_FNR6045S', 'C168080', 'FNR6045S220MT', 'cjiang',
              '22 uH, Isat 2.2 A, 116 mOhm, 6x6x4.5 mm shielded'),
-    'SS36': ('Device:D_Schottky', 'SS36', 'Diode_SMD:D_SMA', 'C2891719', 'SS36', 'KUU', '60 V 3 A Schottky'),
+    'SS310': ('Device:D_Schottky', 'SS310', 'Diode_SMD:D_SMA', 'C15874', 'SS310', 'MDD', '100 V 3 A Schottky'),
     'PTC050': ('Device:Polyfuse', '0.5A/60V', 'Fuse:Fuse_1812_4532Metric', 'C70113', 'mSMD050-60V', 'TECHFUSE',
                'PPTC 1812: hold 0.50 A (0.35 A at 60 C), trip 1.0 A, 60 V, 100 A max'),
-    'SMAJ28A': ('Diode:SMAJ28A', 'SMAJ28A', 'Diode_SMD:D_SMA', 'C134977', 'SMAJ28A-13-F', 'Diodes Inc',
-                '28 V standoff, 45.4 V max clamp'),
+    'SMAJ36A': ('Diode:SMAJ36A', 'SMAJ36A', 'Diode_SMD:D_SMA', 'C134983', 'SMAJ36A-13-F', 'Diodes Inc',
+                '36 V standoff, 40 V min breakdown, 58.1 V max clamp'),
     'NUP3105': ('Power_Protection:NUP2105L', 'NUP3105LT1G', 'Package_TO_SOT_SMD:SOT-23', 'C22390031', 'NUP3105LT1G',
                 'DOWO', 'dual bidirectional TVS, VRWM 36 V, VBR >= 40 V, 12-16 pF; NUP2105L pinout'),
     'BAT54S': ('Diode:BAT54S', 'BAT54S', 'Package_TO_SOT_SMD:SOT-23', 'C47546', 'BAT54S,215', 'Nexperia', ''),
@@ -108,14 +110,14 @@ CAT = {
                   '', '', '', ''),
     'JOINT_EDGE': ('ModularLight:ControllerJoint', 'ControllerJoint', 'ModularLight:ControllerJoint_EdgeBoard',
                    '', '', '', ''),
-    'EDGE': ('ModularLight:EdgeContacts24V', 'EdgeContacts', 'ModularLight:EdgeContacts_SpringPads', '', '', '', ''),
-    'CORNER_L': ('ModularLight:CornerJoint24V', 'Corner IN', 'ModularLight:CornerJoint_L', '', '', '', ''),
-    'CORNER_R': ('ModularLight:CornerJoint24V', 'Corner OUT', 'ModularLight:CornerJoint_R', '', '', '', ''),
+    'EDGE': ('ModularLight:EdgeContacts36V', 'EdgeContacts', 'ModularLight:EdgeContacts_SpringPads', '', '', '', ''),
+    'CORNER_L': ('ModularLight:CornerJoint36V', 'Corner IN', 'ModularLight:CornerJoint_L', '', '', '', ''),
+    'CORNER_R': ('ModularLight:CornerJoint36V', 'Corner OUT', 'ModularLight:CornerJoint_R', '', '', '', ''),
     'FLAG': ('power:PWR_FLAG', 'PWR_FLAG', '', '', '', '', ''),
 }
 
 # R_ID per edge code (SPEC 4.2). Code 0 = 0 R and the code-0 link variant (R3 DNP).
-ID_CODES = {0: 'R0', 1: 'R1k', 2: 'R2k7', 3: 'R5k6', 4: 'R12k', 5: 'R27k'}
+ID_CODES = {0: 'R0', 1: 'R2k', 2: 'R4k7', 3: 'R9k1', 4: 'R15k', 5: 'R27k', 6: 'R47k', 7: 'R100k'}  # decision 0020
 
 NC = None
 
@@ -130,10 +132,10 @@ def controller_parts():
     B_MCU, B_CAN, B_JNT, B_BUCK, B_3V3, B_LED, B_DISC, B_TP, B_PF = (
         'MCU (CH32V203F6P6, decision 0008 pins)', 'CAN (TCAN1044V, +-58 V bus pins)',
         'Controller joint (10 pads, drag-soldered at 90 deg to the code-0 edge board)',
-        '24 V input and 5 V buck (TPS54360B, always on; TI datasheet 8.2.2 procedure)',
+        '36 V input and 5 V buck (TPS54360B, always on; TI datasheet 8.2.2 procedure)',
         '3.3 V logic supply (HT7533 from +5V) and 3V3 over-voltage shunt',
         'LED rail switch (default OFF) and LED data / loop-back',
-        'Discovery SENSE / DRIVE (24 V fault tolerant)', 'Test pads (pogo jig)', 'Power flags (ERC)')
+        'Discovery SENSE / DRIVE (36 V fault tolerant)', 'Test pads (pogo jig)', 'Power flags (ERC)')
     p = []
     a = p.append
     # MCU
@@ -158,23 +160,23 @@ def controller_parts():
     a(P('R12', 'R120', {'1': 'CANH', '2': 'CAN_TERM'}, B_CAN))
     a(P('JP1', 'JP', {'1': 'CAN_TERM', '2': 'CANL'}, B_CAN, note='open; close only on the segment far-end node'))
     # joint
-    a(P('J1', 'JOINT_CTL', {'1': '+24V_IN', '2': 'GND', '3': '+5V_LED', '4': 'LED_RETURN', '5': 'LED_DATA_OUT',
+    a(P('J1', 'JOINT_CTL', {'1': '+36V_IN', '2': 'GND', '3': '+5V_LED', '4': 'LED_RETURN', '5': 'LED_DATA_OUT',
                             '6': 'SPARE', '7': 'CANH', '8': 'CANL', '9': 'SENSE', '10': 'DRIVE'}, B_JNT))
-    a(P('R26', 'R10k', {'1': 'SPARE', '2': 'GPIO_SPARE'}, B_JNT, pop='DNP', dnp=True,
-        note='DNP option: SPARE to PB1. 10k keeps a 24 V fault at 2 mA / 58 mW'))
+    a(P('R26', 'R22k', {'1': 'SPARE', '2': 'GPIO_SPARE'}, B_JNT, pop='DNP', dnp=True,
+        note='DNP option: SPARE to PB1. 22k keeps a 37.8 V fault at 1.6 mA / 53 mW'))
     # buck
-    a(P('F1', 'PTC050', {'1': '+24V_IN', '2': '+24V'}, B_BUCK,
+    a(P('F1', 'PTC050', {'1': '+36V_IN', '2': '+36V'}, B_BUCK,
         note='per-panel PTC upstream of D5: a shorted TVS or controller trips F1, not the domain fuse'))
-    a(P('D5', 'SMAJ28A', {'1': '+24V', '2': 'GND'}, B_BUCK))
-    a(P('C16', 'C10u50', {'1': '+24V', '2': 'GND'}, B_BUCK))
-    a(P('C23', 'C10u50', {'1': '+24V', '2': 'GND'}, B_BUCK))
-    a(P('C17', 'C100n', {'1': '+24V', '2': 'GND'}, B_BUCK, note='at U5 VIN'))
-    a(P('U5', 'TPS54360B', {'1': 'BUCK_BOOT', '2': '+24V', '3': NC, '4': 'BUCK_RT', '5': 'BUCK_FB', '6': 'BUCK_COMP',
+    a(P('D5', 'SMAJ36A', {'1': '+36V', '2': 'GND'}, B_BUCK))
+    a(P('C16', 'C4u7_100', {'1': '+36V', '2': 'GND'}, B_BUCK))
+    a(P('C23', 'C4u7_100', {'1': '+36V', '2': 'GND'}, B_BUCK))
+    a(P('C17', 'C100n_100', {'1': '+36V', '2': 'GND'}, B_BUCK, note='at U5 VIN'))
+    a(P('U5', 'TPS54360B', {'1': 'BUCK_BOOT', '2': '+36V', '3': NC, '4': 'BUCK_RT', '5': 'BUCK_FB', '6': 'BUCK_COMP',
                             '7': 'GND', '8': 'BUCK_SW', '9': 'GND'}, B_BUCK,
         note='EN left open: internal pull-up enables it (always on), internal UVLO 4.3 V'))
     a(P('R19', 'R162k', {'1': 'BUCK_RT', '2': 'GND'}, B_BUCK))
     a(P('C18', 'C100n', {'1': 'BUCK_BOOT', '2': 'BUCK_SW'}, B_BUCK))
-    a(P('D7', 'SS36', {'1': 'BUCK_SW', '2': 'GND'}, B_BUCK))
+    a(P('D7', 'SS310', {'1': 'BUCK_SW', '2': 'GND'}, B_BUCK))
     a(P('L1', 'L22u', {'1': 'BUCK_SW', '2': '+5V'}, B_BUCK))
     a(P('C19', 'C22u', {'1': '+5V', '2': 'GND'}, B_BUCK))
     a(P('C20', 'C22u', {'1': '+5V', '2': 'GND'}, B_BUCK))
@@ -188,7 +190,7 @@ def controller_parts():
     a(P('C12', 'C10u', {'1': '+5V', '2': 'GND'}, B_3V3))
     a(P('C13', 'C10u', {'1': '+3V3', '2': 'GND'}, B_3V3))
     a(P('U6', 'TLV431', {'1': 'V3_SHUNT_REF', '2': '+3V3', '3': 'GND'}, B_3V3,
-        note='Sinks fault current injected into 3V3 (SENSE short to 24 V): trips at ~3.56 V'))
+        note='Sinks fault current injected into 3V3 (SENSE short to 36 V): trips at ~3.56 V'))
     a(P('R24', 'R187k', {'1': '+3V3', '2': 'V3_SHUNT_REF'}, B_3V3))
     a(P('R25', 'R100k', {'1': 'V3_SHUNT_REF', '2': 'GND'}, B_3V3))
     # LED switch + data
@@ -211,16 +213,16 @@ def controller_parts():
     a(P('D2', 'BAT54S', {'1': 'GND', '2': '+3V3', '3': 'SENSE_ADC'}, B_DISC))
     a(P('Q3', '2N7002', {'1': 'DRIVE_EN', '2': 'GND', '3': 'DRIVE_SW'}, B_DISC,
         note='open-drain DRIVE: off = Hi-Z (60 V), on = pull low'))
-    a(P('R11', 'R470_1206', {'1': 'DRIVE_SW', '2': 'DRIVE'}, B_DISC))
+    a(P('R11', 'R1k_1206', {'1': 'DRIVE_SW', '2': 'DRIVE'}, B_DISC))
     a(P('R23', 'R100k', {'1': 'DRIVE_EN', '2': 'GND'}, B_DISC))
     a(P('D6', 'NUP3105', {'1': 'SENSE', '2': 'DRIVE', '3': 'GND'}, B_DISC, note='ESD on the SENSE/DRIVE buses'))
     # test pads
     for ref, net in [('TP1', 'SPARE'), ('TP2', '+3V3'), ('TP3', 'GND'), ('TP4', 'SWDIO'), ('TP5', 'SWCLK'),
                      ('TP6', 'NRST'), ('TP7', 'UART_TX'), ('TP8', 'UART_RX'), ('TP9', 'GPIO_SPARE'),
-                     ('TP10', '+24V_IN'), ('TP11', '+5V'), ('TP12', '+5V_LED'), ('TP13', '+24V')]:
+                     ('TP10', '+36V_IN'), ('TP11', '+5V'), ('TP12', '+5V_LED'), ('TP13', '+36V')]:
         a(P(ref, 'TP', {'1': net}, B_TP, value=net))
     # power flags: nets that carry power_in pins but no power_out pin
-    for i, net in enumerate(['+24V', 'GND', '+5V', '+5V_LED'], 1):
+    for i, net in enumerate(['+36V', 'GND', '+5V', '+5V_LED'], 1):
         a(P(f'#FLG{i:02d}', 'FLAG', {'1': net}, B_PF))
     blocks = [B_MCU, B_CAN, B_JNT, B_BUCK, B_3V3, B_LED, B_DISC, B_TP, B_PF]
     return p, blocks
@@ -241,23 +243,23 @@ def passive_parts():
         a(P(r, 'C100n', {'1': '+5V_LED', '2': 'GND'}, B_LED, note='one per LED, at VDD/GND'))
     a(P('C4', 'C10u', {'1': '+5V_LED', '2': 'GND'}, B_LED))
     a(P('D1', '1N4148WS', {'2': 'SENSE', '1': 'ID_K'}, B_ID))
-    a(P('R1', 'R1k', {'1': 'ID_K', '2': 'SENSE_EDGE'}, B_ID, pop='PER-CODE', value='R_ID',
-        note='BOM variant: code 0 = 0R, 1 = 1k, 2 = 2k7, 3 = 5k6, 4 = 12k, 5 = 27k'))
+    a(P('R1', 'R2k', {'1': 'ID_K', '2': 'SENSE_EDGE'}, B_ID, pop='PER-CODE', value='R_ID',
+        note='BOM variant: code 0 = 0R, 1 = 2k, 2 = 4k7, 3 = 9k1, 4 = 15k, 5 = 27k, 6 = 47k, 7 = 100k'))
     a(P('R2', 'R0', {'1': 'ID_K', '2': 'SENSE'}, B_ID, pop='DNP', dnp=True, note='DNP: diode bypass'))
-    a(P('J1', 'EDGE', {'X1': 'GND', 'X2': '+24V', 'X3': 'GND', 'X4': 'CANH', 'X5': 'CANL', 'X6': 'DRIVE',
-                       'X7': 'SENSE_EDGE', 'X8': 'SPARE', 'X9': '+24V', 'X10': 'GND'}, B_EDGE))
-    a(P('J2', 'CORNER_L', {'1': 'D_IN', '2': 'CANH', '3': 'CANL', '4': 'SENSE', '5': 'DRIVE', '6': '+24V',
+    a(P('J1', 'EDGE', {'X1': 'GND', 'X2': '+36V', 'X3': 'GND', 'X4': 'CANH', 'X5': 'CANL', 'X6': 'DRIVE',
+                       'X7': 'SENSE_EDGE', 'X8': 'SPARE', 'X9': '+36V', 'X10': 'GND'}, B_EDGE))
+    a(P('J2', 'CORNER_L', {'1': 'D_IN', '2': 'CANH', '3': 'CANL', '4': 'SENSE', '5': 'DRIVE', '6': '+36V',
                            '7': '+5V_LED', '8': 'GND'}, B_EDGE))
-    a(P('J3', 'CORNER_R', {'1': 'D_OUT', '2': 'CANH', '3': 'CANL', '4': 'SENSE', '5': 'DRIVE', '6': '+24V',
+    a(P('J3', 'CORNER_R', {'1': 'D_OUT', '2': 'CANH', '3': 'CANL', '4': 'SENSE', '5': 'DRIVE', '6': '+36V',
                            '7': '+5V_LED', '8': 'GND'}, B_EDGE))
-    a(P('J4', 'JOINT_EDGE', {'1': '+24V', '2': 'GND', '3': '+5V_LED', '4': 'D_IN', '5': 'LED1_DI', '6': 'SPARE',
+    a(P('J4', 'JOINT_EDGE', {'1': '+36V', '2': 'GND', '3': '+5V_LED', '4': 'D_IN', '5': 'LED1_DI', '6': 'SPARE',
                              '7': 'CANH', '8': 'CANL', '9': 'SENSE', '10': 'DRIVE'}, B_JNT,
         note='used only on the code-0 board'))
     a(P('R3', 'R0_0402', {'1': 'D_IN', '2': 'LED1_DI'}, B_JNT, pop='NOT-CODE0',
-        note='code-0 link: fitted on codes 1-5, DNP on code 0'))
-    for ref, net in [('TP1', 'SPARE'), ('TP3', 'GND'), ('TP10', '+24V'), ('TP11', '+5V_LED')]:
+        note='code-0 link: fitted on codes 1-7, DNP on code 0'))
+    for ref, net in [('TP1', 'SPARE'), ('TP3', 'GND'), ('TP10', '+36V'), ('TP11', '+5V_LED')]:
         a(P(ref, 'TP', {'1': net}, B_TP, value=net))
-    for i, net in enumerate(['GND', '+5V_LED', '+24V'], 1):
+    for i, net in enumerate(['GND', '+5V_LED', '+36V'], 1):
         a(P(f'#FLG{i:02d}', 'FLAG', {'1': net}, B_PF))
     blocks = [B_LED, B_ID, B_EDGE, B_JNT, B_TP, B_PF]
     return p, blocks
@@ -461,6 +463,9 @@ class Sheet:
 
     def write(self, path, project, parts, notes):
         self.project = project
+        # emit_part appends to self.items: restore them afterwards, so writing the same sheet for several
+        # projects (hex, square, triangle) does not duplicate every part in the later files
+        saved = (list(self.items), self.pwr_n)
         body = []
         for p in parts:
             self.emit_part(p, project)
@@ -494,41 +499,44 @@ class Sheet:
         text = dump(out) + '\n'
         with open(path, 'w', encoding='utf-8', newline='\n') as f:
             f.write(text)
+        self.items, self.pwr_n = saved
         return path
 
 
 # --------------------------------------------------------------------------------------- notes
 CTRL_NOTES = """DESIGN NOTES (details and calculations: hardware/controller-board/SCHEMATIC-NOTES.md)
 1. All parts on ONE side (F.Cu = wall side). B.Cu is plain white solder mask (back reflector). Joint J1 pads on F.Cu only.
-2. Joint pin order 1..10: +24V GND +5V_LED LED_RETURN LED_DATA_OUT SPARE CANH CANL SENSE DRIVE.
-   +24V sits at the end next to GND only (a bridge to anything else would put 24 V on a 5 V or 3.3 V net);
-   DRIVE is at the far end; +5V_LED and +24V are separated by GND. Pad n meets pad n on the edge board.
-3. Buck U5: 24 V -> 5 V, fsw 600 kHz (RT 162k), L 22 uH, Cout 2 x 22 uF, FB 53k6/10k2 (5.00 V), Rc 4k7 + Cc 22 nF + Chf 100 pF.
-   EN open = always on. Everything on +24V is rated >= 50 V (SMAJ28A clamps at <= 45.4 V).
-   F1 (PTC 0.5 A hold / 1 A trip / 60 V) sits between joint pad 1 (+24V_IN) and +24V, upstream of D5:
-   a failed TVS or a controller short trips F1 instead of the domain fuse. TP10 = +24V_IN (jig feeds through F1), TP13 = +24V.
+2. Joint pin order 1..10: +36V GND +5V_LED LED_RETURN LED_DATA_OUT SPARE CANH CANL SENSE DRIVE.
+   +36V sits at the end next to GND only (a bridge to anything else would put 36 V on a 5 V or 3.3 V net);
+   DRIVE is at the far end; +5V_LED and +36V are separated by GND. Pad n meets pad n on the edge board.
+3. Buck U5: 36 V -> 5 V, fsw 600 kHz (RT 162k), L 22 uH, Cout 2 x 22 uF, FB 53k6/10k2 (5.00 V), Rc 4k7 + Cc 22 nF + Chf 100 pF.
+   EN open = always on. Everything on +36V is rated >= 60 V (SMAJ36A clamps at <= 58.1 V): Cin 2 x 4.7 uF 100 V, D7 100 V.
+   F1 (PTC 0.5 A hold / 1 A trip / 60 V) sits between joint pad 1 (+36V_IN) and +36V, upstream of D5:
+   a failed TVS or a controller short trips F1 instead of the domain fuse. TP10 = +36V_IN (jig feeds through F1), TP13 = +36V.
 4. LED rail: Q1 P-MOSFET, default OFF (R21 pull-up, R18 holds Q2 off while PA0 floats). C25 sets a ~0.9 ms soft start.
    U4 runs from +5V_LED, so LED data cannot back-power unlit LEDs.
    Firmware: blank the LEDs before switching the rail off (the off-ramp is ~3-6 ms).
-5. DRIVE: Q3 open-drain + R11 470R. With Q3 off, a sustained 24 V short on DRIVE draws no current. While Q3 pulls low into such
-   a fault, R11 takes 51 mA / 1.2 W (1.7 W at 28 V): firmware limits DRIVE assertion to <= 5 ms per discovery slot.
-6. SENSE: R9/R10 10k 0805 survive a sustained 28 V short (61 mW each). The ~4.9 mA they inject into 3V3 is sunk by the
-   U6 shunt (trips ~3.56 V; CH32V203 VDD abs max 4.0 V).
-7. CAN TVS D4 NUP3105L: 36 V standoff (> 28 V bus maximum), 60 V max clamp at 6 A, 12-16 pF. TCAN1044V bus pins: +-58 V.
+5. DRIVE: Q3 open-drain + R11 1k. With Q3 off, a sustained 36 V short on DRIVE draws no current. While Q3 pulls low into such
+   a fault, R11 takes 37 mA / 1.4 W at 37.8 V: firmware limits DRIVE assertion to <= 5 ms per discovery slot.
+6. SENSE: R9/R10 10k 0805 anti-surge (500 mW) survive a sustained 37.8 V short (117 mW each). The ~6.8 mA they inject
+   into 3V3 is sunk by the U6 shunt (trips ~3.56 V; CH32V203 VDD abs max 4.0 V).
+7. CAN TVS D4 NUP3105L: 36 V standoff, 40 V min breakdown (> 37.8 V bus maximum), 60 V max clamp at 6 A, 12-16 pF.
+   TCAN1044V bus pins: +-58 V.
 8. R26 (SPARE -> PB1) is DNP. JP1 CAN termination is open, closed only on the segment's far-end node."""
 
 PASSIVE_NOTES = """DESIGN NOTES (V6, decisions 0009/0010; details: hardware/controller-board/SCHEMATIC-NOTES.md)
-1. All edge boards are this one passive design. +12V is now +24V. The LEDs and their decoupling sit on +5V_LED, the switched rail
+1. All edge boards are this one passive design. The bus is +36V (decision 0019). The LEDs and their decoupling sit on +5V_LED, the switched rail
    made on the controller board.
 2. J4 = controller-joint pads on the inward face (F.Cu), used only on the code-0 board. Pad n meets the controller's pad n:
-   seen from each board's F.Cu side with the joint edge at the bottom (wall edge here), pad 1 (+24V) is leftmost on both.
+   seen from each board's F.Cu side with the joint edge at the bottom (wall edge here), pad 1 (+36V) is leftmost on both.
 3. Code-0 population option: J4.4 (LED_RETURN) is wired to D_IN (corner-IN D pad) and J4.5 (LED_DATA_OUT) to LED1 DIN.
    R3 (0R) joins D_IN to LED1 DIN.
-   - Codes 1-5: R3 fitted. The corner-IN data feeds LED1. J4 is unused (bare pads).
+   - Codes 1-7: R3 fitted. The corner-IN data feeds LED1. J4 is unused (bare pads).
    - Code 0: R3 DNP. LED1 is fed from the controller (J4.5), and the corner-IN data (the last LED of the panel) returns
      to the controller (J4.4).
-4. R1 (R_ID) per BOM variant: code 0 = 0R, 1 = 1k, 2 = 2k7, 3 = 5k6, 4 = 12k, 5 = 27k (SPEC 4.2). R2 DNP (diode bypass).
-5. Corner power pads keep the order +5V_LED / GND / +24V (GND between the supplies; a bead joining +24V to +5V_LED would put 24 V
+4. R1 (R_ID) per BOM variant: code 0 = 0R, 1 = 2k, 2 = 4k7, 3 = 9k1, 4 = 15k, 5 = 27k, 6 = 47k, 7 = 100k
+   (SPEC 4.2, decision 0020: up to octagons). R2 DNP (diode bypass).
+5. Corner power pads keep the order +5V_LED / GND / +36V (GND between the supplies; a bead joining +36V to +5V_LED would put 36 V
    on every LED)."""
 
 
@@ -537,7 +545,7 @@ def main():
     parts, blocks = controller_parts()
     sh = Sheet('controller', 'b6f0e2a4-5c1d-4e7a-9a63-2f1c0d6e7b10', 'A2',
                'Controller Board (4-layer, rear of panel)',
-               ['SPEC V6.1.1, decisions 0008/0009/0010. One design for every shape.',
+               ['SPEC V6.10, decisions 0008/0009/0019. One design for every shape.',
                 'Trapezoid, 60 deg sides, base <= 72 mm. Parts on F.Cu (wall side) only.',
                 'Generated by scripts/gen_v6_schematics.py: edit the script.'])
     ybot = sh.place_blocks(parts, blocks, 25.4, 20.32, 540)
@@ -546,8 +554,8 @@ def main():
     pparts, pblocks = passive_parts()
     sh2 = Sheet('passive', '31d76450-c938-4aab-b2a4-f089ddd32585', 'A3',
                 'Edge Board - PASSIVE (2-layer), V6',
-                ['SPEC V6.1.1, decisions 0009/0010. Every edge; codes 0-5 = BOM variants.',
-                 '24 V bus, LEDs on +5V_LED, controller-joint pads, code-0 option (R3).',
+                ['SPEC V6.10, decisions 0009/0019/0020. Every edge; codes 0-7 = BOM variants.',
+                 '36 V bus, LEDs on +5V_LED, controller-joint pads, code-0 option (R3).',
                  'Generated by controller-board/scripts/gen_v6_schematics.py.'])
     ybot2 = sh2.place_blocks(pparts, pblocks, 25.4, 20.32, 370)
     for shape in ('hex', 'square', 'triangle'):

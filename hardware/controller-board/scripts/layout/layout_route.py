@@ -9,7 +9,7 @@ DSN changes before routing (Freerouting cannot read KiCad's custom rules):
   - B.Cu GND plane removed from the DSN and B.Cu typed power (no wires; vias pass): the chamber face stays plain copper under
     white mask (vias may pass through it).
   - In1.Cu stays the GND plane: Freerouting fans GND pads out to it with vias.
-  - class HV24 (+24V, +24V_IN) clearance 1.0 mm and class Switch (BUCK_SW) 0.5 mm, so no autorouted track runs
+  - class HV36 (+36V, +36V_IN) clearance 1.0 mm and class Switch (BUCK_SW) 0.5 mm, so no autorouted track runs
     beside them (SPEC 2 adjacency rule; SW node kept quiet). The real DRC rules live in controller-board.kicad_dru.
   - 0.4 mm no-wire band inside every board edge (JLC copper-to-edge); J1's pads already reach the base edge.
 Work files: output/layout/route/ (route.dsn, route.ses, freerouting.log).
@@ -56,7 +56,7 @@ def set_class_clearance(text, cls, um):
     return text
 
 
-s = set_class_clearance(s, 'HV24', 1000)
+s = set_class_clearance(s, 'HV36', 1000)
 s = set_class_clearance(s, 'Switch', 500)
 
 

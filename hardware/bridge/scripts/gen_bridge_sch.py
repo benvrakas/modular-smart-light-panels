@@ -29,8 +29,8 @@ g.CAT.update({
 P = g.P
 
 # face A springs (F.Cu) touch panel A's X1..X10, face B springs (B.Cu) panel B's (SPEC 3.3)
-A_NETS = ['GND', '+24V', 'GND', 'CANH', 'CANL', 'DRV_A_SNS_B', 'SNS_A_DRV_B', 'SPARE', '+24V', 'GND']
-B_NETS = ['GND', '+24V', 'GND', 'CANH', 'CANL', 'SNS_A_DRV_B', 'DRV_A_SNS_B', 'SPARE', '+24V', 'GND']
+A_NETS = ['GND', '+36V', 'GND', 'CANH', 'CANL', 'DRV_A_SNS_B', 'SNS_A_DRV_B', 'SPARE', '+36V', 'GND']
+B_NETS = ['GND', '+36V', 'GND', 'CANH', 'CANL', 'SNS_A_DRV_B', 'DRV_A_SNS_B', 'SPARE', '+36V', 'GND']
 
 
 def bridge_parts():
@@ -41,10 +41,10 @@ def bridge_parts():
         p.append(P(f'SA{i + 1}', 'SPRING', {'1': A_NETS[i]}, BA, value='BW0019CG', note=f'meets panel A X{i + 1}'))
     for i in range(10):
         p.append(P(f'SB{i + 1}', 'SPRING', {'1': B_NETS[i]}, BB, value='BW0019CG', note=f'meets panel B X{i + 1}'))
-    p.append(P('F1', 'FUSE5T', {'1': '+24V_IN', '2': '+24V'}, BI, pop='INJECTION', note='fitted on injection bridges only'))
-    p.append(P('J1', 'WIRE', {'1': '+24V_IN'}, BI, value='+24V IN', pop='INJECTION'))
+    p.append(P('F1', 'FUSE5T', {'1': '+36V_IN', '2': '+36V'}, BI, pop='INJECTION', note='fitted on injection bridges only'))
+    p.append(P('J1', 'WIRE', {'1': '+36V_IN'}, BI, value='+36V IN', pop='INJECTION'))
     p.append(P('J2', 'WIRE', {'1': 'GND'}, BI, value='GND IN', pop='INJECTION'))
-    for i, net in enumerate(['GND', '+24V', '+24V_IN'], 1):
+    for i, net in enumerate(['GND', '+36V', '+36V_IN'], 1):
         p.append(P(f'#FLG{i:02d}', 'FLAG', {'1': net}, BF))
     return p, [BA, BB, BI, BF]
 

@@ -318,7 +318,7 @@
 		)
 		(embedded_fonts no)
 	)
-	(symbol "EdgeContacts24V"
+	(symbol "EdgeContacts36V"
 		(pin_names (offset 1.016))
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -339,19 +339,19 @@
 			(at 0 0 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(property "Description" "V6 (24 V bus, decision 0010) seam-bridge contact pads: 10 plated pads on the exterior face (B.Cu) along the wall edge (SPEC 3.3). X1..X10 = GND +24V GND CANH CANL DRIVE SENSE_EDGE SPARE +24V GND. Same footprint and pad numbers as the V5 EdgeContacts symbol; only the supply name changed."
+		(property "Description" "V6 (36 V bus, decision 0019) seam-bridge contact pads: 10 plated pads on the exterior face (B.Cu) along the wall edge (SPEC 3.3). X1..X10 = GND +36V GND CANH CANL DRIVE SENSE_EDGE SPARE +36V GND. Same footprint and pad numbers as the V5 EdgeContacts symbol; only the supply name changed."
 			(at 0 0 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(property "ki_keywords" "edge contact pad spring seam bridge 24V"
+		(property "ki_keywords" "edge contact pad spring seam bridge 36V"
 			(at 0 0 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(symbol "EdgeContacts24V_0_1"
+		(symbol "EdgeContacts36V_0_1"
 			(rectangle (start -10.16 10.16) (end 10.16 -15.24)
 				(stroke (width 0.254) (type default)) (fill (type background)))
 		)
-		(symbol "EdgeContacts24V_1_1"
+		(symbol "EdgeContacts36V_1_1"
 			(pin passive line (at -12.7 7.62 0) (length 2.54)
 				(name "CANH" (effects (font (size 1.27 1.27)))) (number "X4" (effects (font (size 1.27 1.27)))))
 			(pin passive line (at -12.7 5.08 0) (length 2.54)
@@ -365,17 +365,17 @@
 			(pin passive line (at 12.7 7.62 180) (length 2.54)
 				(name "GND" (effects (font (size 1.27 1.27)))) (number "X1" (effects (font (size 1.27 1.27)))))
 			(pin passive line (at 12.7 2.54 180) (length 2.54)
-				(name "+24V" (effects (font (size 1.27 1.27)))) (number "X2" (effects (font (size 1.27 1.27)))))
+				(name "+36V" (effects (font (size 1.27 1.27)))) (number "X2" (effects (font (size 1.27 1.27)))))
 			(pin passive line (at 12.7 -2.54 180) (length 2.54)
 				(name "GND" (effects (font (size 1.27 1.27)))) (number "X3" (effects (font (size 1.27 1.27)))))
 			(pin passive line (at 12.7 -7.62 180) (length 2.54)
-				(name "+24V" (effects (font (size 1.27 1.27)))) (number "X9" (effects (font (size 1.27 1.27)))))
+				(name "+36V" (effects (font (size 1.27 1.27)))) (number "X9" (effects (font (size 1.27 1.27)))))
 			(pin passive line (at 12.7 -12.7 180) (length 2.54)
 				(name "GND" (effects (font (size 1.27 1.27)))) (number "X10" (effects (font (size 1.27 1.27)))))
 		)
 		(embedded_fonts no)
 	)
-	(symbol "CornerJoint24V"
+	(symbol "CornerJoint36V"
 		(pin_names (offset 1.016))
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -396,19 +396,19 @@
 			(at 0 0 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(property "Description" "V6 internal polygon-corner joint (SPEC 3.4): 5 signal pads on the inward face (F.Cu: D, CANH, CANL, SENSE, DRIVE) + 3 power pads on the exterior face (B.Cu: +5V_LED, GND, +24V; GND between the supplies). Footprints CornerJoint_L (left end, corner IN) and CornerJoint_R (right end, corner OUT). Same pad numbers as the V5 CornerJoint symbol."
+		(property "Description" "V6 internal polygon-corner joint (SPEC 3.4): 5 signal pads on the inward face (F.Cu: D, CANH, CANL, SENSE, DRIVE) + 3 power pads on the exterior face (B.Cu: +5V_LED, GND, +36V; GND between the supplies). Footprints CornerJoint_L (left end, corner IN) and CornerJoint_R (right end, corner OUT). Same pad numbers as the V5 CornerJoint symbol."
 			(at 0 0 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(property "ki_keywords" "corner joint solder bridge 24V"
+		(property "ki_keywords" "corner joint solder bridge 36V"
 			(at 0 0 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(symbol "CornerJoint24V_0_1"
+		(symbol "CornerJoint36V_0_1"
 			(rectangle (start -5.08 11.43) (end 5.08 -16.51)
 				(stroke (width 0.254) (type default)) (fill (type background)))
 		)
-		(symbol "CornerJoint24V_1_1"
+		(symbol "CornerJoint36V_1_1"
 			(pin passive line (at 7.62 8.89 180) (length 2.54)
 				(name "D" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27)))))
 			(pin passive line (at 7.62 6.35 180) (length 2.54)
@@ -420,7 +420,7 @@
 			(pin passive line (at 7.62 -1.27 180) (length 2.54)
 				(name "DRIVE" (effects (font (size 1.27 1.27)))) (number "5" (effects (font (size 1.27 1.27)))))
 			(pin passive line (at 7.62 -6.35 180) (length 2.54)
-				(name "+24V" (effects (font (size 1.27 1.27)))) (number "6" (effects (font (size 1.27 1.27)))))
+				(name "+36V" (effects (font (size 1.27 1.27)))) (number "6" (effects (font (size 1.27 1.27)))))
 			(pin passive line (at 7.62 -8.89 180) (length 2.54)
 				(name "+5V_LED" (effects (font (size 1.27 1.27)))) (number "7" (effects (font (size 1.27 1.27)))))
 			(pin passive line (at 7.62 -13.97 180) (length 2.54)
@@ -449,7 +449,7 @@
 			(at 0 0 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(property "Description" "Controller joint (V6, decision 0009): 10 pads drag-soldered at 90 deg between the controller board edge and the code-0 edge board's inward face; pad n meets pad n. Order 1..10: +24V GND +5V_LED LED_RETURN LED_DATA_OUT SPARE CANH CANL SENSE DRIVE (reasons in hardware/controller-board/SCHEMATIC-NOTES.md). Footprints: ControllerJoint_EdgeBoard (edge board), ControllerJoint_ControllerEdge (controller board)."
+		(property "Description" "Controller joint (V6, decision 0009): 10 pads drag-soldered at 90 deg between the controller board edge and the code-0 edge board's inward face; pad n meets pad n. Order 1..10: +36V GND +5V_LED LED_RETURN LED_DATA_OUT SPARE CANH CANL SENSE DRIVE (reasons in hardware/controller-board/SCHEMATIC-NOTES.md). Footprints: ControllerJoint_EdgeBoard (edge board), ControllerJoint_ControllerEdge (controller board)."
 			(at 0 0 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
@@ -463,7 +463,7 @@
 		)
 		(symbol "ControllerJoint_1_1"
 			(pin passive line (at 7.62 11.43 180) (length 2.54)
-				(name "+24V" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27)))))
+				(name "+36V" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27)))))
 			(pin passive line (at 7.62 8.89 180) (length 2.54)
 				(name "GND" (effects (font (size 1.27 1.27)))) (number "2" (effects (font (size 1.27 1.27)))))
 			(pin passive line (at 7.62 6.35 180) (length 2.54)

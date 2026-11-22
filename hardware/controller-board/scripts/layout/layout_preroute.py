@@ -1,7 +1,7 @@
 """Controller board: hand-defined (scripted) routes that the autorouter must not choose for us.
 
-  - +24V_IN : J1.1 -> F1.1, TP10 stub                    (HV24, 0.6 mm; only GND / tolerant neighbours)
-  - +24V    : F1.2 -> U5 VIN, C17, C16, C23, D5, TP13    (0.8 mm bus, 0.6 mm riser)
+  - +36V_IN : J1.1 -> F1.1, TP10 stub                    (HV36, 0.6 mm; only GND / tolerant neighbours)
+  - +36V    : F1.2 -> U5 VIN, C17, C16, C23, D5, TP13    (0.8 mm bus, 0.6 mm riser)
   - BUCK_SW : U5.8 -> D7 cathode, L1.1, C18.2            (1.0 mm, as short as the parts allow)
   - BOOT    : U5.1 -> C18.1
   - GND vias at the hot-loop / output-cap / TVS grounds into the In1 plane
@@ -72,16 +72,16 @@ def via(net, x, y, d=0.6, drill=0.3):
     b.Add(v)
 
 
-# +24V_IN: joint pad 1 -> F1 (left, away from J1.2 = GND, the only neighbour), TP10 on the way
-route('/+24V_IN', ['J1.1', (-11.43, 1.0), (-12.8, 1.0), (-14.26, 2.46), 'F1.1'], 0.6)
-route('/+24V_IN', [(-14.6, 2.46), 'TP10.1'], 0.6)
-# +24V: F1.2 straight up into U5 VIN; bus left along y = 6.74 to C17 / C16 / C23 / D5 / TP13
-route('+24V', ['F1.2', (-17.83, 6.74), 'U5.2'], 0.6)
-route('+24V', ['F1.2', (-21.0, 6.74), 'C17.1'], 0.8)
-route('+24V', [(-21.0, 6.74), (-23.4, 6.74), (-24.0, 6.12), 'C16.1', 'C23.1'], 0.8)
-route('+24V', ['D5.1', (-27.0, 6.12)], 0.8)
-route('+24V', ['TP13.1', 'D5.1'], 0.6)
-# BOOT: U5.1 down/left to C18.1 (BOOT sits beside VIN in the IC; both are 24 V nets)
+# +36V_IN: joint pad 1 -> F1 (left, away from J1.2 = GND, the only neighbour), TP10 on the way
+route('/+36V_IN', ['J1.1', (-11.43, 1.0), (-12.8, 1.0), (-14.26, 2.46), 'F1.1'], 0.6)
+route('/+36V_IN', [(-14.6, 2.46), 'TP10.1'], 0.6)
+# +36V: F1.2 straight up into U5 VIN; bus left along y = 6.74 to C17 / C16 / C23 / D5 / TP13
+route('+36V', ['F1.2', (-17.83, 6.74), 'U5.2'], 0.6)
+route('+36V', ['F1.2', (-21.0, 6.74), 'C17.1'], 0.8)
+route('+36V', [(-21.0, 6.74), (-23.4, 6.74), (-24.0, 6.12), 'C16.1', 'C23.1'], 0.8)
+route('+36V', ['D5.1', (-27.0, 6.12)], 0.8)
+route('+36V', ['TP13.1', 'D5.1'], 0.6)
+# BOOT: U5.1 down/left to C18.1 (BOOT sits beside VIN in the IC; both are 36 V nets)
 route('/BUCK_BOOT', ['U5.1', (-19.11, 10.2), (-20.8, 10.2), 'C18.1'], 0.3)
 # SW node: one short 1.0 mm spine D7.K -> U5.8, a branch up into L1.1, and C18.2
 route('/BUCK_SW', ['D7.1', (-19.11, 15.6), 'U5.8'], 1.0)

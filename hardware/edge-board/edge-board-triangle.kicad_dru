@@ -6,16 +6,16 @@
   (constraint edge_clearance (min 0mm))
   (condition "A.Type == 'Pad' && (A.memberOfFootprint('J2') || A.memberOfFootprint('J3'))"))
 
-# J1 GND contact pads reach 0.3 mm from the wall edge (SPEC 3.3 mating order: GND 0.3, +24V 0.6, signals 0.9).
+# J1 GND contact pads reach 0.3 mm from the wall edge (SPEC 3.3 mating order: GND 0.3, +36V 0.6, signals 0.9).
 (rule "contact pads at wall edge"
   (constraint edge_clearance (min 0.25mm))
   (condition "A.Type == 'Pad' && A.memberOfFootprint('J1')"))
 
-# +24V copper is only adjacent to GND or 24 V-tolerant nets (SPEC 2 / SCHEMATIC-NOTES 9): a short to +5V_LED,
+# +36V copper is only adjacent to GND or 36 V-tolerant nets (SPEC 2 / SCHEMATIC-NOTES 9): a short to +5V_LED,
 # LED data or LED return destroys LEDs or logic. 0.5 mm margin keeps such copper from ever being a neighbour.
-(rule "+24V vs 5 V nets"
+(rule "+36V vs 5 V nets"
   (constraint clearance (min 0.5mm))
-  (condition "A.NetName == '+24V' && (B.NetName == '+5V_LED' || B.NetName == '/D_IN' || B.NetName == '/D_OUT' || B.NetName == '/LED1_DI' || B.NetName == '/LED_D1' || B.NetName == '/LED_D2' || B.NetName == '/ID_K')"))
+  (condition "A.NetName == '+36V' && (B.NetName == '+5V_LED' || B.NetName == '/D_IN' || B.NetName == '/D_OUT' || B.NetName == '/LED1_DI' || B.NetName == '/LED_D1' || B.NetName == '/LED_D2' || B.NetName == '/ID_K')"))
 
 # R3 (0402 code-0 link) sits under LED1's DIN pad, inside the LED footprint's generous courtyard (z 6.9) but clear
 # of the LED body (0.45 mm) and pads (0.25 mm). The space above z 6.8 has no other spot both nets reach (user,

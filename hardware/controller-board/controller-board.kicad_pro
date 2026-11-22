@@ -501,7 +501,7 @@
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
-        "name": "HV24",
+        "name": "HV36",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 0,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
@@ -572,12 +572,12 @@
     "netclass_assignments": null,
     "netclass_patterns": [
       {
-        "netclass": "HV24",
-        "pattern": "+24V"
+        "netclass": "HV36",
+        "pattern": "+36V"
       },
       {
-        "netclass": "HV24",
-        "pattern": "/+24V_IN"
+        "netclass": "HV36",
+        "pattern": "/+36V_IN"
       },
       {
         "netclass": "Power",

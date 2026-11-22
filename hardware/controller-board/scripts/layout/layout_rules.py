@@ -14,11 +14,11 @@ PRJ = os.path.normpath(os.path.join(HERE, '..', '..'))
 PRO = os.path.join(PRJ, 'controller-board.kicad_pro')
 DRU = os.path.join(PRJ, 'controller-board.kicad_dru')
 
-# Nets that may sit next to +24V copper (SPEC 2, decision 0011): GND and the 24 V-tolerant nets.
+# Nets that may sit next to +36V copper (SPEC 2, decision 0011): GND and the 36 V-tolerant nets.
 # BUCK_SW / BUCK_BOOT swing to 24-29 V themselves (they are the U5 pins beside VIN).
 TOLERANT = ['GND', '/CANH', '/CANL', '/SPARE', '/SENSE', '/DRIVE', '/BUCK_SW', '/BUCK_BOOT',
             'unconnected-(U5-EN-Pad3)']  # U5 EN is open; it sits beside VIN inside the IC pinout, no copper on it
-HV = ['+24V', '/+24V_IN']
+HV = ['+36V', '/+36V_IN']
 
 with open(PRO, encoding='utf-8') as f:
     p = json.load(f)
@@ -36,12 +36,12 @@ def cls(name, track, clearance=0.2, prio=0):
 
 
 ns['classes'] = [default,
-                 cls('HV24', 0.6, prio=0),     # +24V, +24V_IN: <= 0.3 A, but short and wide (TVS / C_IN paths)
+                 cls('HV36', 0.6, prio=0),     # +36V, +36V_IN: <= 0.3 A, but short and wide (TVS / C_IN paths)
                  cls('Power', 0.5, prio=1),    # GND, +5V (1 A), +5V_LED (0.73 A)
                  cls('Supply', 0.3, prio=2),   # +3V3 (< 0.1 A)
                  cls('Switch', 0.8, prio=3)]   # BUCK_SW: hand-routed / poured, kept small
 ns['netclass_patterns'] = (
-    [{'netclass': 'HV24', 'pattern': n} for n in HV] +
+    [{'netclass': 'HV36', 'pattern': n} for n in HV] +
     [{'netclass': 'Power', 'pattern': n} for n in ('GND', '+5V', '+5V_LED')] +
     [{'netclass': 'Supply', 'pattern': '+3V3'}, {'netclass': 'Switch', 'pattern': '/BUCK_SW'}])
 ns['netclass_assignments'] = None
@@ -72,11 +72,11 @@ with open(DRU, 'w', encoding='utf-8', newline='\n') as f:
   (constraint edge_clearance (min 0mm))
   (condition "A.Type == 'Pad' && A.memberOfFootprint('J1')"))
 
-# SPEC 2 / decision 0011: +24V copper may only sit next to GND or 24 V-tolerant nets. Everything else
+# SPEC 2 / decision 0011: +36V copper may only sit next to GND or 36 V-tolerant nets. Everything else
 # keeps >= 1.0 mm, which leaves room for the GND pour (0.25 clearance + 0.25 min width) to fill between.
-(rule "+24V neighbours: GND or 24 V-tolerant only"
+(rule "+36V neighbours: GND or 36 V-tolerant only"
   (constraint clearance (min 1.0mm))
-  (condition "A.NetClass == 'HV24' && {tol}"))
+  (condition "A.NetClass == 'HV36' && {tol}"))
 
 # Buck switch node: the TI layout rules (SCHEMATIC-NOTES 12) keep it away from the crystal and the ADC node.
 (rule "SW node away from crystal / ADC"

@@ -10,8 +10,8 @@
 | Outline | **94.1 / 89.8 / 82.33 × 13.5 mm** (hexagon / square / triangle), 1.6 mm, 2-layer, 1 oz, ENIG, square-cut ends (decision 0004 at d = 3.5) |
 | **Achieved height H** | **13.5 mm** (target 10–15, aim ≈13). The 0.5 mm over 13 is the bus band; see §3. |
 | DRC (`output/drc-hex.json`; square and triangle in `drc-square.json`, `drc-triangle.json`, all severities, with schematic parity) | **0 violations, 0 unconnected, 0 parity issues** |
-| +24V adjacency check (`scripts/check_adjacency.py`) | No 5 V-side net within 1.0 mm of +24V copper, except the J4.3 +5V_LED track 0.8 mm below the J4.1 pad, which has a GND guard track between them (§4) |
-| Fab (`output/fab-hex/`, `fab-square/`, `fab-triangle/`) | Gerbers + drill (zip), `CPL_edge-board-<shape>_code0.csv` (R2, R3 left out), `CPL_edge-board-<shape>_code1-5.csv` (R2 left out), `BOM_edge_code0..5.csv` (copied from `bom/`), top/bottom renders |
+| +36V adjacency check (`scripts/check_adjacency.py`) | No 5 V-side net within 1.0 mm of +36V copper, except the J4.3 +5V_LED track 0.8 mm below the J4.1 pad, which has a GND guard track between them (§4) |
+| Fab (`output/fab-hex/`, `fab-square/`, `fab-triangle/`) | Gerbers + drill (zip), `CPL_edge-board-<shape>_code0.csv` (R2, R3 left out), `CPL_edge-board-<shape>_code1-7.csv` (R2 left out), `BOM_edge_code0..7.csv` (copied from `bom/`), top/bottom renders |
 | Copper plots | not kept; regenerate with `kicad-cli pcb export svg` if needed |
 
 Coordinates: **x** along the board from its centre, seen from the inward face (F.Cu), **z** up from the wall edge. KiCad: x = X − 100, z = 100 − Y. Fab origin = the bottom-left corner.
@@ -22,11 +22,11 @@ Coordinates: **x** along the board from its centre, seen from the inward face (F
 |---|---|---|
 | **J4 controller joint** (F.Cu) | footprint origin (0, 5.25); pads 1–10 at x = −11.43 + 2.54·(n − 1), 1.3 × 2.85 mm, **z 2.5–5.35** | Controller underside z 5.0, top z 6.6. **Changed (V6.9.2, roadmap 2.0):** the pads run z 2.5–5.35 (were 3.5–5.7; before that 3.5–7.0). 2.5 mm of fillet land below the controller underside and 0.35 mm behind its edge, so solder wicks into the gap. The gap above lets the CANH track pass between the J4 tops and LED2. The controller's J1 is unaffected. |
 | **LEDs** (F.Cu, SKC6812RGBW) | x = 0 and ±LO: **LO = 31.2 hexagon, 29.9 square, 27.4 triangle** (about L/3, evenly spaced); **centre z 9.8**, rotated 180° | Body z 7.37–12.23; pad rows z 8.2 (DIN left, VDD right) and 11.4 (GND left, DOUT right). Data flows +x. |
-| **Edge contacts X1–X10** (B.Cu) | x = −22.5 + 5·(n − 1); 3.0 mm wide; from z 0.3 (GND) / 0.6 (+24V) / 0.9 (signals) **to z 6.0** | No-via/no-pour rule area up to **z 5.3**. Mask open over the whole strip up to z 6.1. **Each pad has its vias in its top end, z 5.4–6.0** (decision 0007 method). The spring contact point must stay **≤ 5.0** including tolerances; nominal 3.5. |
-| **Corner joints** J2 (x −L/2) / J3 (x +L/2) | origin at the board end on the wall edge; all pads touch the end | **F.Cu signal pads** 2.0 (x) × 1.3 (z) mm at 2.5 mm pitch: **D 1.5, CANH 4.0, CANL 6.5, DRIVE 9.0, SENSE 11.5**. **B.Cu power pads** 3.0 mm wide: **+24V z 0.5–3.5, GND 6.0–8.5, +5V_LED 11.0–12.6** (GND between the supplies, 2.5 mm gaps). Pad numbers are unchanged (1 D, 2 CANH, 3 CANL, 4 SENSE, 5 DRIVE, 6 +24V, 7 +5V_LED, 8 GND). |
-| Test pads | TP1 SPARE (14.6, 1.6) F; TP11 +5V_LED (−LO + 0.6, 3.6) F; TP10 +24V (−(LO + 1.8), 9.6) **B**; TP3 GND (LO + 1.8, 11.4) **B** | All flat pads. They can't be reached after assembly; the boards are tested before (MECH-NOTES, accepted). |
+| **Edge contacts X1–X10** (B.Cu) | x = −22.5 + 5·(n − 1); 3.0 mm wide; from z 0.3 (GND) / 0.6 (+36V) / 0.9 (signals) **to z 6.0** | No-via/no-pour rule area up to **z 5.3**. Mask open over the whole strip up to z 6.1. **Each pad has its vias in its top end, z 5.4–6.0** (decision 0007 method). The spring contact point must stay **≤ 5.0** including tolerances; nominal 3.5. |
+| **Corner joints** J2 (x −L/2) / J3 (x +L/2) | origin at the board end on the wall edge; all pads touch the end | **F.Cu signal pads** 2.0 (x) × 1.3 (z) mm at 2.5 mm pitch: **D 1.5, CANH 4.0, CANL 6.5, DRIVE 9.0, SENSE 11.5**. **B.Cu power pads** 3.0 mm wide: **+36V z 0.5–3.5, GND 6.0–8.5, +5V_LED 11.0–12.6** (GND between the supplies, 2.5 mm gaps). Pad numbers are unchanged (1 D, 2 CANH, 3 CANL, 4 SENSE, 5 DRIVE, 6 +36V, 7 +5V_LED, 8 GND). |
+| Test pads | TP1 SPARE (14.6, 1.6) F; TP11 +5V_LED (−LO + 0.6, 3.6) F; TP10 +36V (−(LO + 1.8), 9.6) **B**; TP3 GND (LO + 1.8, 11.4) **B** | All flat pads. They can't be reached after assembly; the boards are tested before (MECH-NOTES, accepted). |
 | ID circuit | R1 (14.6, 10.7), D1 (15.6, 8.3), R2 DNP (13.8, 8.3) | In the LED2–LED3 gap (SPEC V6.2.2 request). |
-| Decoupling, data link | C1 (−15.4, 9.6), C2 (5.4, 9.6), C3 (19.8, 9.6), C4 10 µF (−20.4, 8.6); R3 **0402** (−LO − 3.45, **7.2**) just under LED1's DIN pad, fitted on codes 1..n−1 only | C1/C3 sit in the gaps between the contact hop columns (≥1.4 mm from +24V). R3 (V6.9.2): pad 2 under the DIN pad (same net), pad 1 0.24 mm clear of it, fed by the D_IN via straight below at (−(LO + 3.96), 1.9). It sits inside the LED's courtyard (to z 6.9) but 0.45 mm from its body; the `.kicad_dru` allows that overlap and R3's clipped silk. Nowhere else above z 6.8 can both D_IN and LED1_DI reach without crossing the +5V_LED low band. |
+| Decoupling, data link | C1 (−15.4, 9.6), C2 (5.4, 9.6), C3 (19.8, 9.6), C4 10 µF (−20.4, 8.6); R3 **0402** (−LO − 3.45, **7.2**) just under LED1's DIN pad, fitted on codes 1..n−1 only | C1/C3 sit in the gaps between the contact hop columns (≥1.4 mm from +36V). R3 (V6.9.2): pad 2 under the DIN pad (same net), pad 1 0.24 mm clear of it, fed by the D_IN via straight below at (−(LO + 3.96), 1.9). It sits inside the LED's courtyard (to z 6.9) but 0.45 mm from its body; the `.kicad_dru` allows that overlap and R3's clipped silk. Nowhere else above z 6.8 can both D_IN and LED1_DI reach without crossing the +5V_LED low band. |
 | Thickness | 1.6 mm | |
 
 **Keep-outs honoured** (controller LAYOUT-NOTES, MECH-NOTES §1/§4):
@@ -45,8 +45,8 @@ Coordinates: **x** along the board from its centre, seen from the inward face (F
 |---|---|---|---|
 | B.Cu | 0–6.0 | contact strip (vias in the pad tops at 5.4–6.0) | SPEC 3.3. The pad-top vias let every pad reach copper without a via row above the strip (no extra height). |
 | B.Cu | 6.45 / 7.1 / 7.75 / 8.4 | **bus lanes** b1–b4 (0.25 mm) | Left half: b1 CANH, b2 CANL. Right half: b1 CANL, b2 CANH. Both halves: b3 DRIVE, b4 SENSE. The pitch is **0.65 mm so a via fits on any lane** (the taps to J4, X4/X5 and the corners need it). X4 and X5 neck straight into b1 (the lowest lane at their x). |
-| B.Cu | 8.9–10.3 | **+24V lane 1.4 mm** | Feed-through current. Next to GND above and bus nets below (24 V-tolerant), never next to +5V_LED. |
-| B.Cu | 10.7–12.1 | **GND lane 1.4 mm** | Between +24V and +5V_LED. |
+| B.Cu | 8.9–10.3 | **+36V lane 1.4 mm** | Feed-through current. Next to GND above and bus nets below (36 V-tolerant), never next to +5V_LED. |
+| B.Cu | 10.7–12.1 | **GND lane 1.4 mm** | Between +36V and +5V_LED. |
 | B.Cu | 12.5–13.1 | **+5V_LED lane 0.6 mm** | ≤0.75 A ring current. |
 | F.Cu | 0.3–2.3 | "low band" (V6.9.2): left LED1_DI 0.5, D_IN 0.95, J4.3 +5V_LED (to LED1's VDD) 1.5, GND guard 2.05; right SPARE 1.6, DRIVE (X6 → J4.10) 2.1. Right of TP1 the C3 +5V_LED run stays at 2.6 | The only free full-length channel under J4. Compressed so the J4 pads reach down to z 2.5. |
 | F.Cu | 2.5–5.35 | J4 | |
@@ -67,18 +67,18 @@ Coordinates: **x** along the board from its centre, seen from the inward face (F
 
 | Rule | Reason | How it is met |
 |---|---|---|
-| +24V copper only next to GND or 24 V-tolerant nets (SPEC 2, decision 0011) | A short to +5V_LED, LED data or LED return destroys LEDs or logic | +24V lane between the bus (CAN/SENSE/DRIVE) and GND. Its corner leg is next to GND. The J4.1 riser is between GND risers. The +5V_LED low-band track passes 0.8 mm under the J4.1 pad with a **GND guard** (0.3 mm, from J4.2 to the X3 GND hop) between them. DRC rule `+24V vs 5 V nets` (0.5 mm) in `edge-board-passive.kicad_dru`. ID_K counts as tolerant: D1 (75 V) blocks it from SENSE, and R1 leads only to the SENSE_EDGE contact. |
+| +36V copper only next to GND or 36 V-tolerant nets (SPEC 2, decision 0011) | A short to +5V_LED, LED data or LED return destroys LEDs or logic | +36V lane between the bus (CAN/SENSE/DRIVE) and GND. Its corner leg is next to GND. The J4.1 riser is between GND risers. The +5V_LED low-band track passes 0.8 mm under the J4.1 pad with a **GND guard** (0.3 mm, from J4.2 to the X3 GND hop) between them. DRC rule `+36V vs 5 V nets` (0.5 mm) in `edge-board-passive.kicad_dru`. ID_K counts as tolerant: D1 (75 V) blocks it from SENSE, and R1 leads only to the SENSE_EDGE contact. |
 | No pour and no vias where the springs touch (SPEC 3.3) | Springs must touch only pads or bare board | Rule area z ≤ 5.3; the pad-top vias start at 5.4; spring contact ≤ 5.0. |
-| Feed-through current 2–4 A on +24V/GND | Panels in a feed path | 1.4 mm lanes: ≈33 mΩ per board, 0.13 V and 0.5 W at 4 A, ≈15 °C rise (IPC-2221, 1 oz external); ≈3.5 A at 10 °C. Corner legs 1.2 mm over ≈7 mm and 2.0 mm into the pads. |
-| Contact-pad hops (the bus band lies between the strip and the power lanes) | Spring current ≈1 A per pad | GND X1: 3 vias at each end, 1.4 mm riser. X10 and X3: 2 vias, 1.0 mm riser (X10 has 2 on every shape: the triangle's LED_D2 riser needs the room). +24V X2/X9: 2 vias at each end, 1.0 mm riser. |
+| Feed-through current 2–4 A on +36V/GND | Panels in a feed path | 1.4 mm lanes: ≈33 mΩ per board, 0.13 V and 0.5 W at 4 A, ≈15 °C rise (IPC-2221, 1 oz external); ≈3.5 A at 10 °C. Corner legs 1.2 mm over ≈7 mm and 2.0 mm into the pads. |
+| Contact-pad hops (the bus band lies between the strip and the power lanes) | Spring current ≈1 A per pad | GND X1: 3 vias at each end, 1.4 mm riser. X10 and X3: 2 vias, 1.0 mm riser (X10 has 2 on every shape: the triangle's LED_D2 riser needs the room). +36V X2/X9: 2 vias at each end, 1.0 mm riser. |
 | +5V_LED | ≤0.75 A ring, ≤0.36 A per board normally | 0.6 mm lane ≈77 mΩ per board (≈28 mV at 0.36 A). Each LED's VDD rises under its own body to a lane via; its GND has a via under the body. 100 nF per LED: C2 beside LED2; C1 and C3 in the hop gaps (8–15 mm from their LEDs), C1 tied into the J4.3 low band and C3 into LED3's riser along the right low band. C4 10 µF hangs on the J4.3 feed. |
-| LED data never on B.Cu near +24V | Same as row 1 | The LED data, +5V_LED and ID_K nets are F.Cu-only, except D_IN's B.Cu dive at |x| LO + 0.2 … LO + 3.96, z 1.9, which is far from all +24V copper. The C3 +5V_LED track runs along the right low band at z 2.6, 1.6 mm from the +17.5 +24V hop. |
-| Copper to the wall edge | Mating order (GND 0.3 / +24V 0.6 / signals 0.9) | Board rule 0.3 mm; J1 pads 0.25 (`contact pads at wall edge`). Corner pads at 0 (`corner pads at board end`). |
-| DRIVE next to +24V | Preference only (decision 0011) | DRIVE lane b3 is two lanes from +24V. |
+| LED data never on B.Cu near +36V | Same as row 1 | The LED data, +5V_LED and ID_K nets are F.Cu-only, except D_IN's B.Cu dive at |x| LO + 0.2 … LO + 3.96, z 1.9, which is far from all +36V copper. The C3 +5V_LED track runs along the right low band at z 2.6, 1.6 mm from the +17.5 +36V hop. |
+| Copper to the wall edge | Mating order (GND 0.3 / +36V 0.6 / signals 0.9) | Board rule 0.3 mm; J1 pads 0.25 (`contact pads at wall edge`). Corner pads at 0 (`corner pads at board end`). |
+| DRIVE next to +36V | Preference only (decision 0011) | DRIVE lane b3 is two lanes from +36V. |
 
 ## 5. Footprint changes (`hardware/lib/footprints/ModularLight.pretty/`, generated by `scripts/gen_footprints_v6.py`, V5 copies in `../archive/footprints-v5/`)
 
-- `EdgeContacts_SpringPads`: strip to z 6.0 (was 8.0); rule area to 5.3; mask to 6.1; `allow_soldermask_bridges`; +24V labels.
+- `EdgeContacts_SpringPads`: strip to z 6.0 (was 8.0); rule area to 5.3; mask to 6.1; `allow_soldermask_bridges`; +36V labels.
 - `ControllerJoint_EdgeBoard`: pads 1.3 × 2.85, z 2.5–5.35 (V6.9.2; were 1.3 × 2.2 at z 3.5–5.7, originally z 3.5–7.0). Origin, pitch and numbering unchanged.
 - `Spring_BW0019CG`: the generator now writes its 3D model line too, so a full regeneration keeps it.
 - `CornerJoint_L/_R`: re-laid out for 13.5 mm (§2), origin moved to the wall-edge corner, same pad numbers.
@@ -103,7 +103,7 @@ Coordinates: **x** along the board from its centre, seen from the inward face (F
 | `pcbutil.py` | shared pcbnew helpers (wx asserts disabled first) |
 | `make_project.py` | writes the design rules into a `.kicad_pro` |
 | `drcsum.py` | kicad-cli DRC (+ parity) summary in board mm |
-| `check_adjacency.py` | lists nets within N mm of +24V copper |
+| `check_adjacency.py` | lists nets within N mm of +36V copper |
 | `fab.py` | Gerbers, drill, JLC CPL per variant, renders |
 | `autoroute.py`, `route_edge.json` | Freerouting wrapper (used only for the failed 13 mm trials; kept) |
 

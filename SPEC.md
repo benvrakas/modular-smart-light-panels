@@ -1,6 +1,6 @@
 # Modular Smart Lighting System — Architectural & Design Specifications
 
-**Version:** V6.9.12 (2026-11-22) — supersedes V4. See [Changelog](#11-changelog).
+**Version:** V6.10.0 (2026-11-22) — supersedes V4. See [Changelog](#11-changelog).
 
 This file is the source of truth. Design decisions are recorded in [docs/decisions/](docs/decisions/). When a decision changes anything here, this file is updated in the same change.
 
@@ -61,39 +61,41 @@ A low-cost, edge-lit, snap-together light panel system that scales from a single
   - **No zoning rule:** lanes and the bus may run on either face at any height. Only these constraints apply, each for a stated reason:
     - **Edge contact pads on the exterior face, within the springs' contact zone (§3.3):** the seam bridge presses there.
     - **Mating order:** GND pads reach closest to the wall edge, so GND connects first when a panel slides in.
-    - **Preference:** keep DRIVE away from +24V. Since decision 0011 a DRIVE-to-24 V short is survivable (open-drain driver, 470 Ω), so this is no longer a damage rule.
-    - **+24V copper may only sit next to GND or 24 V-tolerant nets (CAN, SPARE, SENSE, DRIVE, and the buck's own SW/BOOT/EN nodes),** never next to +5V_LED, LED data or LED return: those nets reach LED or logic inputs that 24 V destroys (decision 0011). Implemented on the controller as ≥1.0 mm from +24V to any other net, with GND poured between.
+    - **Preference:** keep DRIVE away from +36V. Since decision 0011 a DRIVE-to-bus short is survivable (open-drain driver, 1 kΩ since decision 0020), so this is no longer a damage rule.
+    - **+36V copper may only sit next to GND or 36 V-tolerant nets (CAN, SPARE, SENSE, DRIVE, and the buck's own SW/BOOT/EN nodes),** never next to +5V_LED, LED data or LED return: those nets reach LED or logic inputs that 36 V destroys (decision 0011). Implemented on the controller as ≥1.0 mm from +36V to any other net, with GND poured between.
     - **LED positions:** x = 0 and ±31.2 (hexagon), ±29.9 (square), ±27.4 (triangle) from the board centre; z 9.8 on all shapes. Evenly spaced across corners (decision 0015).
     - **Board thickness 1.6 mm:** sets the seam inset and the corner geometry (decision 0004).
-  - **Current is low:** at 24 V a hexagon draws ≈0.18 A and a feed path a few amps, so plain 1 oz copper lanes are enough. No solder-bead reinforcement and no crossover jumpers.
+  - **Current is low:** at 36 V a hexagon draws ≈0.12 A and a feed path at most ≈2.8 A (one 100 W supply), so plain 1 oz copper lanes are enough. No solder-bead reinforcement and no crossover jumpers.
   - **Superseded:** decision 0005's exterior lane stack and H = 22 mm, decision 0006's active/passive split, and decision 0007's active-board-only via rule (in-pad vias are now simply allowed where useful).
 
 ## 3. Electrical Design
 
 ### 3.1 Voltage architecture
-- **24 V DC distribution** (V6.0, [decision 0010](docs/decisions/0010-24v-bus.md)), up from 12 V.
-  - It halves the bus current, which halves the current through the seam-bridge springs (their rating is still unconfirmed) and allows narrower lanes on the short edge boards.
-  - Everything connected directly to +24V is rated above the SMAJ28A's ≈45 V clamp, or sits behind a series resistor.
+- **36 V DC distribution** (V6.10, [decision 0019](docs/decisions/0019-36v-bus.md); 24 V since V6.0, [decision 0010](docs/decisions/0010-24v-bus.md); 12 V before).
+  - **Nominal 36 V; the highest steady voltage is 37.8 V (+5 %)**, so supplies must not be trimmed above it. A panel works from 27 to 37.8 V.
+  - Why 36 V: the seam-bridge springs (rating still unconfirmed) carry 1.5× the power of 24 V at the same current, ≈72 W per bridge path at ≈1 A per spring, while nearly every 24 V part still fits. 48 V was rejected: the CAN transceiver's ±58 V and the 60 V buck, PTC and MOSFET would have no margin.
+  - Everything connected directly to +36V is rated above the **SMAJ36A's 58.1 V clamp** (≥60 V), or sits behind a series resistor.
+  - **Supplies:** kits that are sold ship with a 100 W Class 2 supply (2.8 A at 36 V). A bigger supply may feed an install only through several fused injection bridges, each fused for what the springs and lanes carry (§8).
   - The LEDs run from the 5 V rail made on each panel's controller board.
 
 ### 3.2 Controller board circuitry
-Parts carried over from the V5 active edge board (decisions [0001](docs/decisions/0001-edge-board-parts.md), 0003 and 0008), changed for 24 V by [decision 0010](docs/decisions/0010-24v-bus.md). The controller board is a new 4-layer KiCad project, still to be created. Its schematic starts from the V5 active board in [hardware/archive/edge-board-v5/](hardware/archive/edge-board-v5/).
+Parts carried over from the V5 active edge board (decisions [0001](docs/decisions/0001-edge-board-parts.md), 0003 and 0008), changed for 24 V by [decision 0010](docs/decisions/0010-24v-bus.md) and for 36 V by [decision 0019](docs/decisions/0019-36v-bus.md). The controller board is a new 4-layer KiCad project, still to be created. Its schematic starts from the V5 active board in [hardware/archive/edge-board-v5/](hardware/archive/edge-board-v5/).
 
 | Function | Choice | Notes |
 |---|---|---|
 | MCU | **CH32V203F6P6** (TSSOP20) | Native CAN on PA11/PA12. In TSSOP20 only the F6 has CAN; **the F8P6 has no CAN**. The datasheet's 32 KB is the zero-wait area only; every V203 has 224 KB flash in total. 10 KB SRAM. |
 | Clock | **8 MHz crystal** (3225, 12 pF, ±10 ppm) + 2 × 15 pF | CAN bit timing needs crystal accuracy. Uses PD0/PD1. |
-| CAN transceiver | **TCAN1044VDRQ1** (C1852061, SOIC-8) | Bus pins survive **±58 V** faults, so a 24 V short on the contacts doesn't destroy it (the V5 SN65HVD230 only survives −4…16 V). VCC from the always-on +5V, VIO from 3V3. Standby pin on a GPIO; it wakes on bus traffic. |
-| Logic regulator | **HT7533-1** (SOT-89), fed from the always-on **+5V** | At 5 V in it dissipates only ≈50 mW, so the V5 68 Ω series resistor is removed. At 24 V its 30 V input limit would be too close. |
-| Protection | **SMAJ28A** (C134977) on +24V, behind a **per-panel PTC F1 upstream of it: mSMD050-60V** (TECHFUSE C70113, 1812, 0.50 A hold / 1.0 A trip, 60 V). Joint pad 1 lands on `+24V_IN`; F1 joins it to `+24V`. **CAN TVS NUP3105LT1G** (DOWO C22390031: 36 V standoff, ≤60 V at 6 A, 16 pF), also on SENSE/DRIVE. **SENSE:** R_pu and R10 both 10 kΩ 0805, BAT54S on the ADC side. **DRIVE:** open-drain 2N7002 (gate PA4, 100 k pull-down) + R11 470 Ω 1206; no DRIVE clamp. **3V3 shunt:** TLV431A trips at ≈3.56 V. | [Decision 0011](docs/decisions/0011-24v-fault-protection-controller.md). A sustained 24 V short on SENSE or DRIVE is survivable. The PTC localises a controller fault to its own panel. Every part on +24V is rated above the SMAJ28A's ≈45 V clamp. F1 holds ≥0.30 A up to 70 °C against a 0.27 A worst-case load (bus sagged to 18 V); drop ≤0.27 V (SCHEMATIC-NOTES §2.1). |
-| 5 V rail | **TPS54360B** buck (C524806), **always on** (EN open): 600 kHz (RT 162 k), **L 22 µH FNR6045S220MT** (C168080, 4.5 mm tall), C_OUT 2 × 22 µF, FB 53.6 k / 10.2 k (5.00 V), compensation 4.7 k + 22 nF ∥ 100 pF, SS36 catch diode, C_IN 2 × 10 µF 50 V + 100 nF | Load ≈0.73 A for 18 LEDs plus logic; ≈87.5 % efficient at 24 V. The 2.8 mm inductor alternative was rejected because it would saturate on a +5V short (decision 0011). The 4.5 mm height sets the back-plate pocket depth (§3.5). |
+| CAN transceiver | **TCAN1044VDRQ1** (C1852061, SOIC-8) | Bus pins survive **±58 V** faults, so a 36 V short on the contacts doesn't destroy it (the V5 SN65HVD230 only survives −4…16 V). VCC from the always-on +5V, VIO from 3V3. Standby pin on a GPIO; it wakes on bus traffic. |
+| Logic regulator | **HT7533-1** (SOT-89), fed from the always-on **+5V** | At 5 V in it dissipates only ≈50 mW, so the V5 68 Ω series resistor is removed. Its 30 V input limit rules out feeding it from the bus. |
+| Protection | **SMAJ36A** (SMAJ36A-13-F, C134983: 36 V standoff, ≥40 V breakdown, 58.1 V clamp) on +36V, behind a **per-panel PTC F1 upstream of it: mSMD050-60V** (TECHFUSE C70113, 1812, 0.50 A hold / 1.0 A trip, 60 V). Joint pad 1 lands on `+36V_IN`; F1 joins it to `+36V`. **CAN TVS NUP3105LT1G** (DOWO C22390031: 36 V standoff, ≥40 V breakdown at 1 mA, ≤60 V at 6 A, 16 pF), also on SENSE/DRIVE. **SENSE:** R_pu and R10 both 10 kΩ 0805 **anti-surge, 500 mW** (ERJ-P06F1002V, C543567), BAT54S on the ADC side. **DRIVE:** open-drain 2N7002 (gate PA4, 100 k pull-down) + **R11 1 kΩ 1206**; no DRIVE clamp. **3V3 shunt:** TLV431A trips at ≈3.56 V. | [Decisions 0011](docs/decisions/0011-24v-fault-protection-controller.md) and [0019](docs/decisions/0019-36v-bus.md). A sustained 37.8 V short on SENSE or DRIVE is survivable: 117 mW in each SENSE resistor, ≈6.8 mA sunk by the shunt; DRIVE asserted into it takes 1.4 W in R11 for ≤5 ms. The PTC localises a controller fault to its own panel. Every part on +36V is rated above the 58.1 V clamp. F1 holds ≥0.30 A up to 70 °C against a 0.18 A worst-case load (bus sagged to 27 V). |
+| 5 V rail | **TPS54360B** buck (C524806), **always on** (EN open): 600 kHz (RT 162 k), **L 22 µH FNR6045S220MT** (C168080, 4.5 mm tall), C_OUT 2 × 22 µF, FB 53.6 k / 10.2 k (5.00 V), compensation 4.7 k + 22 nF ∥ 100 pF, **SS310** catch diode (100 V), **C_IN 2 × 4.7 µF 100 V X7S 1206 + 100 nF 100 V** | Load ≈0.73 A for 18 LEDs plus logic; ≈86 % efficient at 36 V (estimate). At 37.8 V the on-time is 0.24 µs (minimum 135 ns) and the inductor ripple ≈0.36 A. The 2.8 mm inductor alternative was rejected because it would saturate on a +5V short (decision 0011). The 4.5 mm height sets the back-plate pocket depth (§3.5). |
 | LED rail switch | **AO3401A** (C15127) P-MOSFET on +5V → **+5V_LED**, driven by a 2N7002 from **PA0 (LED_EN)**. Gate network 100 k pull-up, 22 k, 22 nF gate-drain for a ≈0.9 ms soft start; default off (100 k pull-down on PA0). | Replaces the V5.3 buck-enable switching: the buck stays on for the MCU and CAN in standby. Firmware sends all-zero LED data before switching the rail off. |
 | LED level shifter | **SN74AHCT1G125** (UMW, C20617903), powered from **+5V_LED**, OE̅ to GND | SK6812 VIH ≈ 3.5 V at 5 V. Powered from the switched rail, so it can't back-power unlit LEDs; holding PA7 low while the rail is off is only recommended. |
 | CAN termination | 120 Ω + solder jumper (open) | Closed only on the controller board chosen as a segment's far end. |
 | LED data out | PA7 (SPI1_MOSI + DMA) → level shifter → 33 Ω → LED1 DIN | LED: **SKC6812RGBW-NW** (C5348912), 5 V, 32-bit GRBW, no backup data line. Warm white (-WS, C5378724) is a drop-in alternative. |
 | LED loopback in | Last LED DO (5 V logic) → **2.2 kΩ / 3.3 kΩ divider** (3.0 V) → **PA6** (TIM3_CH1 as external clock counts the returned bits, 32 per LED; V5.7 pin swap, decision 0008). | Lets firmware count the LEDs (§7.3). **PA6 is not 5 V tolerant**, so the divider is required. On the CH32V203 only FT pins take 5.5 V. The datasheet pin table (V2.8) gives PA6 (TSSOP20 pin 12) no FT mark, the same as PA0, the old loop-back pin, so it is limited to VDD + 0.3 V. PA0 now drives the LED-rail switch. |
-| Debug / programming | Pads for SWDIO, SWCLK, NRST, 3V3, GND, UART TX/RX (PA2/PA3), PB1 spare, +24V_IN (TP10, before F1), +24V (TP13, after F1), +5V, +5V_LED | For a pogo-pin jig (WCH-LinkE). Edge boards carry +24V/+5V_LED/GND test pads, so the jig can test their LEDs too. **Rev A:** TP1–TP9 in the right-hand corner area with the WCH-LinkE set in TP2–TP6; the jig needs relief for L1. Coordinates: LAYOUT-NOTES.md. |
-| Joint to the code-0 edge board | **10 pads at 2.54 mm**, in the order **+24V, GND, +5V_LED, LED_RETURN, LED_DATA_OUT, SPARE, CANH, CANL, SENSE, DRIVE**. Footprints ControllerJoint_ControllerEdge / ControllerJoint_EdgeBoard; pad n meets pad n. On the controller the pads are on its **parts side** (the wall side). Drag-soldered at 90° to the code-0 edge board's inward face. | +24V sits at the end with only GND beside it; DRIVE is at the far end; LED data is kept off +5V_LED. Order and reasons: SCHEMATIC-NOTES §6. The joint pads exist on every edge board; only the code-0 board's are used. |
+| Debug / programming | Pads for SWDIO, SWCLK, NRST, 3V3, GND, UART TX/RX (PA2/PA3), PB1 spare, +36V_IN (TP10, before F1), +36V (TP13, after F1), +5V, +5V_LED | For a pogo-pin jig (WCH-LinkE). Edge boards carry +36V/+5V_LED/GND test pads, so the jig can test their LEDs too. **Rev A:** TP1–TP9 in the right-hand corner area with the WCH-LinkE set in TP2–TP6; the jig needs relief for L1. Coordinates: LAYOUT-NOTES.md. |
+| Joint to the code-0 edge board | **10 pads at 2.54 mm**, in the order **+36V, GND, +5V_LED, LED_RETURN, LED_DATA_OUT, SPARE, CANH, CANL, SENSE, DRIVE**. Footprints ControllerJoint_ControllerEdge / ControllerJoint_EdgeBoard; pad n meets pad n. On the controller the pads are on its **parts side** (the wall side). Drag-soldered at 90° to the code-0 edge board's inward face. | +36V sits at the end with only GND beside it; DRIVE is at the far end; LED data is kept off +5V_LED. Order and reasons: SCHEMATIC-NOTES §6. The joint pads exist on every edge board; only the code-0 board's are used. |
 
 ### 3.3 Edge contacts and bridge
 
@@ -113,16 +115,16 @@ Rationale: [docs/decisions/0002-seam-bridge-cheap-springs.md](docs/decisions/000
 
 | Pad | X1 | X2 | X3 | X4 | X5 | X6 | X7 | X8 | X9 | X10 |
 |---|---|---|---|---|---|---|---|---|---|---|
-| Net | GND | +24V | GND | CANH | CANL | DRIVE | SENSE_EDGE | SPARE | +24V | GND |
+| Net | GND | +36V | GND | CANH | CANL | DRIVE | SENSE_EDGE | SPARE | +36V | GND |
 
   - **Size:** ≈3.0 mm wide at ≈5.0 mm pitch, centred on the board (≈48 mm span), giving a 1.5 mm-wide spring about ±0.7 mm lateral tolerance.
   - **Positions:** symmetric about the board centre, so spring forces balance across the bridge. The order is flexible because the bridge routes nets itself, with three rules:
-    - Keep GND outermost and +24V next in.
-    - **DRIVE (X6) must not sit next to a pad that can carry 24 V.** A DRIVE↔24 V short burns R11 and back-feeds the 3V3 rail. DRIVE therefore sits between CANL and SENSE_EDGE, away from SPARE. SENSE_EDGE next to SPARE is safe because D1 blocks it.
+    - Keep GND outermost and +36V next in.
+    - **DRIVE (X6) must not sit next to a pad that can carry 36 V.** A DRIVE↔36 V short loads R11 and the 3V3 rail. DRIVE therefore sits between CANL and SENSE_EDGE, away from SPARE. SENSE_EDGE next to SPARE is safe because D1 blocks it.
   - **Signal routing:** signal nets reach their exterior pads through vias above the strip, or in the top end of each pad ([decision 0007](docs/decisions/0007-vias-in-pads-active-board.md)'s method, now allowed on every edge board). The layout picks whichever keeps the board shortest.
-  - **Contact strip (built into the footprint):** a B.Cu rule area over the strip allows no copper pour and no vias, so the springs only ever touch pads or bare board. Tracks are allowed, so the +24V/GND pads neck out from their top ends into their lanes. The solder mask is opened over the whole strip (gold-finger style), so springs never wipe across a mask edge.
+  - **Contact strip (built into the footprint):** a B.Cu rule area over the strip allows no copper pour and no vias, so the springs only ever touch pads or bare board. Tracks are allowed, so the +36V/GND pads neck out from their top ends into their lanes. The solder mask is opened over the whole strip (gold-finger style), so springs never wipe across a mask edge.
     - **Bridge constraint:** the spring's final contact point, including tolerances, must stay below the in-pad vias. **Rev A: no-via area to z 5.3, in-pad vias at z 5.4–6.0, so the contact point must stay ≤ z 5.0** (nominal 3.5, estimated ±1.0 mm). Replaces V5.7's 6.8 mm.
-  - **Mating order:** GND pads reach to 0.3 mm from the edge, +24V to 0.6 mm, signals to 0.9 mm. The panel slides toward the wall, so GND touches its springs first and signals last. GND is outermost and +24V next, so under any tilt an outer GND pad still makes first, then +24V, then signals.
+  - **Mating order:** GND pads reach to 0.3 mm from the edge, +36V to 0.6 mm, signals to 0.9 mm. The panel slides toward the wall, so GND touches its springs first and signals last. GND is outermost and +36V next, so under any tilt an outer GND pad still makes first, then +36V, then signals.
   - **Contact zone:** **rev A pads X1–X10 at x = −22.5 + 5·(n−1), 3.0 mm wide, end at z 6.0** (they start at 0.3/0.6/0.9 per the mating order); solder mask open to z 6.1.
 - **Bridge springs:**
   - **Primary:** **BW0019CG-L3.5W1.5H4.3** (LCSC C2826517, gold-plated SUS301, 3.5 × 1.5 × 4.3 mm, ≈$0.024).
@@ -143,21 +145,21 @@ Rationale: [docs/decisions/0002-seam-bridge-cheap-springs.md](docs/decisions/000
 - **Bridge PCB variants:**
   - **Standard:** all nets connected.
   - **Injection:** adds a supply input and a fuse.
-  - **Isolating:** +24V left unconnected, with GND, CAN, and SENSE/DRIVE passed through.
+  - **Isolating:** +36V left unconnected, with GND, CAN, and SENSE/DRIVE passed through.
   - A footprint for a CAN TVS on every bridge is recommended.
 
 ### 3.4 Corner connections (internal)
 Solder bridges or wire staples carry these nets around the polygon perimeter at each internal corner:
-**+24V, +5V_LED (switched LED rail), GND, LED DIN, CANH, CANL, SENSE bus, DRIVE bus.** (V5.3: LED BIN was dropped because the RGBW LEDs have no backup data line; the +5V LED rail was added, see [decision 0003](docs/decisions/0003-rgbw-leds-5v-rail.md).)
+**+36V, +5V_LED (switched LED rail), GND, LED DIN, CANH, CANL, SENSE bus, DRIVE bus.** (V5.3: LED BIN was dropped because the RGBW LEDs have no backup data line; the +5V LED rail was added, see [decision 0003](docs/decisions/0003-rgbw-leds-5v-rail.md).)
 The LED chain starts at the code-0 board (fed by the controller board) and runs once around the polygon. The **last corner (back into the code-0 board) also carries LED RETURN**: the last LED's data output, looped back to the MCU.
 - Each board has a corner-IN joint at its left end (footprint `ModularLight:CornerJoint_L`) and a corner-OUT joint at its right end (`ModularLight:CornerJoint_R`, the mirror image). Both are placeholders until the corner hardware is designed. All pads are SMD and touch the board end.
   - **Inward face:** the five signal pads, **2.0 × 1.3 mm at 2.5 mm pitch at the board ends (x = ±47.05): D z 1.5, CANH 4.0, CANL 6.5, DRIVE 9.0, SENSE 11.5** (rev A), so one solder bead bridges each pair across the corner.
-  - **Exterior face (the outside of the polygon):** the +5V_LED, GND and +24V pads, joined across the outside corner by a bent strap or solder bridge. **Rev A: +24V z 0.5–3.5, GND 6.0–8.5, +5V_LED 11.0–12.6.** GND sits between +5V_LED and +24V with ≥2.5 mm gaps: a stray bead joining +24V to +5V_LED would put 24 V on every LED and the level shifter.
+  - **Exterior face (the outside of the polygon):** the +5V_LED, GND and +36V pads, joined across the outside corner by a bent strap or solder bridge. **Rev A: +36V z 0.5–3.5, GND 6.0–8.5, +5V_LED 11.0–12.6.** GND sits between +5V_LED and +36V with ≥2.5 mm gaps: a stray bead joining +36V to +5V_LED would put 36 V on every LED and the level shifter.
   - Corner joints are soldered with the boards held in the frame (§9); the back plate has small reliefs for the inward corner beads.
 - Because every edge board is identical, LED RETURN is simply the last board's D_OUT landing on the code-0 board's corner-IN D pad.
   - On the code-0 board, that pad goes to the controller joint (LED return in), and LED1 is fed from the controller's LED data out.
   - On every other board, the corner-IN D pad feeds LED1.
-  - **Population option:** R3 (0 Ω) runs from the corner-IN D pad to LED1 DIN, fitted on codes 1–5 and DNP on code 0. The joint's LED_RETURN pad is wired to the corner-IN D pad and its LED_DATA_OUT pad to LED1 DIN.
+  - **Population option:** R3 (0 Ω) runs from the corner-IN D pad to LED1 DIN, fitted on codes 1–7 and DNP on code 0. The joint's LED_RETURN pad is wired to the corner-IN D pad and its LED_DATA_OUT pad to LED1 DIN.
 
 ### 3.5 Board types (V6.0, [decision 0009](docs/decisions/0009-rear-controller-board.md))
 
@@ -183,31 +185,35 @@ The LED chain starts at the code-0 board (fed by the controller board) and runs 
   - outline length per shape
   - board height (once set)
   - 1.6 mm thickness
-- **Hex kit:** one panel of six 2-layer edge boards (R1 codes 0–5, as BOM variants) plus one controller board.
+- **Hex kit:** one panel of six 2-layer edge boards (R1 codes 0–5, as BOM variants) plus one controller board. Eight code variants exist (0–7, [decision 0020](docs/decisions/0020-eight-edge-id-codes.md)): a triangle uses 0–2, a square 0–3, a hexagon 0–5 and a future octagon 0–7.
 - **Assembly:** small parts on both boards are pasted and reflowed; the corner and controller joints are drag-soldered by hand.
 
 ## 4. Topology & Orientation Discovery
 
 ### 4.1 Circuit
 - **SENSE bus:** Runs around the panel. Pulled up to 3.3V through **R_pu = 10 kΩ** on the controller board and read by the MCU's ADC.
-- **DRIVE bus:** Runs around the panel. Connects directly to each edge's DRIVE contact. It is driven by an **open-drain N-MOSFET (2N7002, gate PA4) through 470 Ω** (decision 0011): **off (Hi-Z) when idle**, pulled **LOW** to signal, for ≤5 ms per discovery slot.
+- **DRIVE bus:** Runs around the panel. Connects directly to each edge's DRIVE contact. It is driven by an **open-drain N-MOSFET (2N7002, gate PA4) through R11 = 1 kΩ** (decision 0011; 1 kΩ since [decision 0020](docs/decisions/0020-eight-edge-id-codes.md)): **off (Hi-Z) when idle**, pulled **LOW** to signal, for ≤5 ms per discovery slot.
 - **Per edge:** A **diode (1N4148WS, anode on the SENSE bus) in series with an ID resistor R_k** sits between the SENSE bus and that edge's SENSE contact. It connects only to that edge board's own contact.
 - **Why the diode:** without it, a reading panel's SENSE bus reaches an *idle* neighbour's floating DRIVE bus through R_j. From there it can reach a third panel's SENSE bus and, through that panel's R, the panel that is driving. Any 4-hex rhombus contains this path, and it shifts readings across code thresholds. With the diode, every SENSE→DRIVE path conducts one way only: an idle DRIVE bus can charge up but can't sink current. A DNP 0 Ω bypass footprint (R2) allows reverting.
 - **ADC input:** 10 kΩ series + 10 nF to GND, BAT54S on the ADC side, plus a TLV431 3V3 shunt (decision 0011). Firmware samples SENSE ≥1 ms after DRIVE goes low.
 
 ### 4.2 Edge ID codes (R_pu = 10 kΩ, 1% parts, with series diode)
 
-V_ADC ≈ Vf + (3.3 V − Vf) × R_k / (10 kΩ + R_k), where Vf ≈ 0.45–0.6 V and falls slightly at the lower currents of the higher codes. **Calibrate the thresholds on hardware.**
+Eight codes, so every shape up to an octagon is covered ([decision 0020](docs/decisions/0020-eight-edge-id-codes.md)). V_ADC ≈ Vf + (3.3 V − Vf) × R / (10 kΩ + R), with R = R_k + R11 (1 kΩ) + ≈20 Ω for Q3, and Vf ≈ 0.44–0.55 V, falling at the lower currents of the higher codes. Values are JLC basic parts chosen for the widest worst-case gap: Vf ±80 mV (part spread and 0–50 °C), 1 % resistors, ADC ±15 mV ([`edge_codes.py`](hardware/controller-board/scripts/edge_codes.py)). **Calibrate the thresholds on hardware.**
 
-| Code | R_k | V_ADC (driven, ≈) |
-|---|---|---|
-| 0 (code-0 board) | 0 Ω | 0.68 V |
-| 1 | 1.0 kΩ | 0.91 V |
-| 2 | 2.7 kΩ | 1.22 V |
-| 3 | 5.6 kΩ | 1.59 V |
-| 4 | 12 kΩ | 2.08 V |
-| 5 | 27 kΩ | 2.57 V |
-| idle / no neighbor driving | — | 3.30 V |
+| Code | R_k | V_ADC (driven, ≈) | Worst-case window | Starting threshold above it |
+|---|---|---|---|---|
+| 0 (code-0 board) | 0 Ω | 0.81 V | 0.72–0.90 | 1.00 V |
+| 1 | 2.0 kΩ | 1.18 V | 1.10–1.27 | 1.37 V |
+| 2 | 4.7 kΩ | 1.54 V | 1.46–1.62 | 1.73 V |
+| 3 | 9.1 kΩ | 1.92 V | 1.85–1.99 | 2.08 V |
+| 4 | 15 kΩ | 2.23 V | 2.17–2.29 | 2.40 V |
+| 5 | 27 kΩ | 2.56 V | 2.52–2.61 | 2.69 V |
+| 6 | 47 kΩ | 2.81 V | 2.78–2.85 | 2.93 V |
+| 7 | 100 kΩ | 3.04 V | 3.02–3.07 | 3.17 V |
+| idle / no neighbor driving | — | 3.30 V | ≥3.27 | |
+
+The smallest worst-case gap between neighbouring codes is 167 mV (the V6.2–V6.9 six-code set had 41 mV between codes 0 and 1). Triangles use codes 0–2, squares 0–3, hexagons 0–5, octagons 0–7.
 
 Codes are numbered in order around the polygon, so the code also gives the edge's geometric position relative to the code-0 board.
 
@@ -251,8 +257,8 @@ Codes are numbered in order around the polygon, so the code also gives the edge'
 
 ### 7.2 Cluster controller (snap-on ESP32 module)
 - **Hardware:** An ESP32 with built-in TWAI (CAN) and Wi-Fi. ESP32-C6 preferred (TWAI, Wi-Fi 6, Thread/Zigbee for home-automation options); ESP32-C3 or S3 are acceptable. It also carries a CAN transceiver with ±58 V bus-fault protection (TCAN1044V class), a status LED, and a button.
-- **Power:** Powered from the cluster's **24 V** through a **buck converter rated above the SMAJ28A's ≈45 V clamp**. A linear regulator is not acceptable here, because Wi-Fi transmit peaks of ~300–500 mA would dissipate ~3–4 W. The controller can also be a cluster's **power injection point** (PSU input + fuse).
-- **Attachment:** Snaps onto any free outer edge of the cluster, with a one-sided row of the same top-contact springs a bridge uses (§3.3) pressing on that edge board's exterior contacts. That gives it 24V, GND, CAN, and SENSE/DRIVE, so discovery also tells it which panel and edge it is mounted on, which serves as the fallback reference orientation (§7.4).
+- **Power:** Powered from the cluster's **36 V** through a **buck converter rated above the SMAJ36A's 58.1 V clamp (≥60 V)**. A linear regulator is not acceptable here, because Wi-Fi transmit peaks of ~300–500 mA would dissipate ~3–4 W. The controller can also be a cluster's **power injection point** (PSU input + fuse).
+- **Attachment:** Snaps onto any free outer edge of the cluster, with a one-sided row of the same top-contact springs a bridge uses (§3.3) pressing on that edge board's exterior contacts. That gives it +36V, GND, CAN, and SENSE/DRIVE, so discovery also tells it which panel and edge it is mounted on, which serves as the fallback reference orientation (§7.4).
 - **Firmware:** CAN ↔ Wi-Fi bridging, discovery orchestration, the time-sync relay for its cluster, and node firmware updates over CAN. Custom firmware. WLED-compatible APIs are optional, but the WLED core is not the base (its strip/matrix model does not fit distributed rendering).
 
 ### 7.3 Node firmware (CH32V203)
@@ -289,13 +295,13 @@ Codes are numbered in order around the polygon, so the code also gives the edge'
 | ![Maximum brightness, day](docs/figures/render_max_day.jpg) | ![Maximum brightness, night](docs/figures/render_max_night.jpg) |
 
 
-- **Budget:** ≈40 mA per RGBW LED at full output on the 5 V rail (§3.2, datasheet). A hexagon with 18 LEDs draws ≈0.73 A at 5 V (≈3.7 W), or ≈4.3 W from +24V through the buck at ≈86% (≈0.18 A). 100 hexagons at full output is ≈430 W, so one 100 W Class 2 supply feeds roughly 23 hexagons.
+- **Budget:** ≈40 mA per RGBW LED at full output on the 5 V rail (§3.2, datasheet). A hexagon with 18 LEDs draws ≈0.73 A at 5 V (≈3.7 W), or ≈4.3 W from +36V through the buck at ≈86% (≈0.12 A). 100 hexagons at full output is ≈430 W, so one 100 W Class 2 supply (2.8 A at 36 V) feeds roughly 23 hexagons.
 - **Standby:** With so few LEDs, idle draw is dominated by the MCU and CAN transceiver (≈0.3–0.5 W per panel). MCU sleep and CAN transceiver standby with wake-on-bus are required. The per-panel **LED rail is switched by a P-MOSFET on the controller board** (V6.0; the 5 V buck stays on for the MCU and CAN transceiver), so LEDs draw nothing in standby; the spare contact (X8) is no longer needed for that. Domain-level supply switching remains an option for full off.
 - **Brightness limiting:** The coordinator enforces a **per-power-domain current budget**, scaling global brightness to fit each PSU. This is mandatory.
 - **Brightness normalised per shape ([decision 0017](docs/decisions/0017-brightness-normalised-to-lowest-led-density.md)):** each panel's 100 % is scaled to the shape with the fewest LEDs per area (today the hexagon), so every shape shows the same surface luminance: hexagon up to full output, square ≈53 %, triangle ≈26 %. Estimated maximum ≈1,570 cd/m² on the film.
-- **Power domains:** Each PSU feeds a domain through an **injection bridge** (a bridge PCB variant with a supply input and a **time-lag fuse**: rev A uses a Bel 0685T5000-01, LCSC C3163312, 5 A slow-blow, 63 V DC, 1206, with wire pads at both bridge ends). It must be time-lag so that a panel's own PTC (F1, §3.2) trips first and only that panel goes dark. Neighboring domains are joined by **isolating bridges**, a PCB variant with the +24V traces left unconnected. These carry GND, CAN, and SENSE/DRIVE, so PSUs never back-feed each other.
-- **Bridge current rating:** Each joint has two +24V springs and three GND springs per board. The BW0019-series spring's rating is not yet confirmed; assume ≈1 A per spring (≈2 A, ≈48 W, of +24V per bridge path) until measured. Domain size and injection spacing follow from the measured number. If that is too low, add power pads and springs (≈$0.02 each).
-- **Thermal:** Lanes are sized for the worst-case current through a panel acting as a feed path (halved at 24 V).
+- **Power domains:** Each PSU feeds a domain through one or more **injection bridges** (a bridge PCB variant with a supply input and a **time-lag fuse**: rev A uses a Bel 0685T5000-01, LCSC C3163312, 5 A slow-blow, 63 V DC, 1206, with wire pads at both bridge ends). It must be time-lag so that a panel's own PTC (F1, §3.2) trips first and only that panel goes dark. Neighboring domains are joined by **isolating bridges**, a PCB variant with the +36V traces left unconnected. These carry GND, CAN, and SENSE/DRIVE, so PSUs never back-feed each other.
+- **Bridge current rating:** Each joint has two +36V springs and three GND springs per board. The BW0019-series spring's rating is not yet confirmed; assume ≈1 A per spring (≈2 A, ≈72 W, of +36V per bridge path) until measured. A supply bigger than one bridge path carries needs several fused injection bridges (decision 0019). Domain size and injection spacing follow from the measured number. If that is too low, add power pads and springs (≈$0.02 each).
+- **Thermal:** Lanes are sized for the worst-case current through a panel acting as a feed path (a third of the 12 V current at 36 V).
 
 ## 9. Mechanical
 
@@ -339,12 +345,17 @@ See also [docs/gap-analysis.md](docs/gap-analysis.md) for the full pre-project g
 12. ~~**Exterior signal bus / H = 22 mm (decision 0005)**~~ — **Superseded (V6.0)** by decision 0009.
 13. ~~**Edge board height**~~ — **Rev A: H = 13.5 mm** (V6.5, layout DRC 0). The optics test decides whether a later revision can go lower.
 14. ~~**Controller board**~~ — **Closed (V6.3):** layout done, DRC 0, fab outputs in `hardware/controller-board/output/fab/`.
-15. ~~**24 V protection sizing**~~ — **Closed (V6.2, decision 0011).** PTC chosen in V6.2.1: mSMD050-60V.
+15. ~~**24 V protection sizing**~~ — **Closed (V6.2, decision 0011).** PTC chosen in V6.2.1: mSMD050-60V. Re-checked for 36 V in V6.10 (decision 0019).
 16. ~~**LED-rail switch**~~ — **Closed (V6.2):** AO3401A + 2N7002 from PA0, ≈0.9 ms soft start.
 17. **Heights (rev A interface):** controller side confirmed (V6.3): underside z = 5.0, top/chamber floor z = 6.6, J4 origin z = 5.25, J1/J4 pads x = ±11.43 mm. **LED centres moved to z ≈ 9.8 mm** (LED ≈7.3–12.3 mm, centred in the visible wall 6.6–13), because at 9.4 the LED bottom sat only 0.3 mm above the controller top. **Edge side confirmed (V6.5):** H = 13.5; LEDs at x −31.2/0/+31.2, centre z 9.8 (body 7.37–12.23); J4 pads 1.3 × 2.85 mm at z 2.5–5.35 since V6.9.2 (2.5 mm of fillet land below the controller; origin unchanged); contacts end z 6.0; spring contact ≤ z 5.0.
 18. **Seam inset d:** at d = 3.5 the springs compress to 3.1 mm, near their 3.0 mm minimum; d ≈ 3.8 would centre them. Rev A boards keep d = 3.5 lengths: the seam width is set by panel spacing (the printed spacing gauge), so the spring coupon decides the spacing without a board change. If a later revision changes d, re-derive L_board (decision 0004).
 
 ## 11. Changelog
+**V6.10.0 (2026-11-22)** — 36 V bus and eight edge codes (user).
+- **Bus 24 V → 36 V** ([decision 0019](docs/decisions/0019-36v-bus.md)): 1.5× the power per bridge spring at the same current. Nets `+24V`/`+24V_IN` are now `+36V`/`+36V_IN` on every board. Controller parts: SMAJ36A (58.1 V clamp), C_IN 2 × 4.7 µF 100 V, 100 nF 100 V, SS310 catch diode, SENSE resistors 10 k 0805 anti-surge 500 mW, R26 (DNP) 22 k. Same footprints; layouts unchanged; DRC with schematic parity passes on all boards. Supplies: 36 V nominal, 37.8 V maximum; sold kits use one 100 W Class 2 supply, larger supplies only through several fused injection bridges.
+- **Eight edge ID codes** ([decision 0020](docs/decisions/0020-eight-edge-id-codes.md)): R_k 0 / 2k / 4k7 / 9k1 / 15k / 27k / 47k / 100k with R11 = 1 kΩ (was 470 Ω), so octagons can be identified; the smallest worst-case gap between codes is 167 mV (was 41 mV between codes 0 and 1). Edge BOM variants code0–7; CPL variant `code1-7`.
+- Schematic generator fix: writing the same sheet for three outlines no longer duplicates parts in the square and triangle schematics (their ERC is clean again).
+
 **V6.9.12 (2026-11-22)** — from the test print (user): the frame's groove leaves 0.3 mm over the edge boards (was 0.09, which held some snap legs off their latch), raising the cap and bezel 0.21 mm; snap legs 1.6 mm thick (was 1.3) for a firmer hold.
 
 **V6.9.11 (2026-11-22)** — wall rule clarified (user): 0.75 mm applies to widths printed in XY (two 0.4 mm lines); thicknesses built up in layers can be ≈0.5 mm (decision 0013). The back-plate board seat now slopes at 25° (65° overhang, was 20°); the tab edge over the clip recess is 0.60 mm, along the print's Z.

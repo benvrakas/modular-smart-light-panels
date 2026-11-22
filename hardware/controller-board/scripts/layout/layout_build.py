@@ -47,14 +47,14 @@ def halfwidth(y):
 # ref: (x, y, rotation_deg). Rotation is KiCad's (counter-clockwise as seen from F.Cu).
 PLACE = {
     'J1': (0.0, 0.0, 0),
-    # --- 24 V input: J1.1 -> F1 -> +24V (D5 TVS, C_IN) ---------------------------------------------
-    'F1': (-18.0, 4.6, 90),      # pad1 (+24V_IN) bottom, pad2 (+24V) top, right under U5 VIN
-    'TP10': (-14.6, 4.4, 0),     # +24V_IN (before F1)
-    'D5': (-25.0, 3.4, 0),       # pad1 K (+24V) left, pad2 A (GND) right
-    'TP13': (-30.6, 3.6, 0),     # +24V (after F1)
-    'C16': (-24.6, 7.6, 90),     # 10u/50V: pad1 (+24V) bottom
+    # --- 36 V input: J1.1 -> F1 -> +36V (D5 TVS, C_IN) ---------------------------------------------
+    'F1': (-18.0, 4.6, 90),      # pad1 (+36V_IN) bottom, pad2 (+36V) top, right under U5 VIN
+    'TP10': (-14.6, 4.4, 0),     # +36V_IN (before F1)
+    'D5': (-25.0, 3.4, 0),       # pad1 K (+36V) left, pad2 A (GND) right
+    'TP13': (-30.6, 3.6, 0),     # +36V (after F1)
+    'C16': (-24.6, 7.6, 90),     # 10u/50V: pad1 (+36V) bottom
     'C23': (-27.4, 7.6, 90),
-    'C17': (-21.0, 7.8, 90),     # 100n at VIN: pad1 (+24V) bottom, pad2 GND top
+    'C17': (-21.0, 7.8, 90),     # 100n at VIN: pad1 (+36V) bottom, pad2 GND top
     # --- buck U5 (TPS54360B) -------------------------------------------------------------------------
     'U5': (-17.2, 12.4, 90),     # VIN row at the bottom (BOOT VIN EN RT), SW GND COMP FB on top
     'C18': (-20.8, 12.4, 90),    # BOOT cap: pad1 BOOT bottom, pad2 SW top
@@ -79,7 +79,7 @@ PLACE = {
     'R25': (-3.4, 13.6, 90),
     # --- LED rail switch + data (above J1 pads 3-5) ---------------------------------------------------
     'Q1': (-7.4, 5.4, 0),        # AO3401A: G top-left, S (+5V) bottom-left, D (+5V_LED) right -> J1.3 below
-    'TP12': (-11.0, 6.4, 0),     # +5V_LED (kept away from J1.1 so no +5V_LED copper runs past the +24V pad)
+    'TP12': (-11.0, 6.4, 0),     # +5V_LED (kept away from J1.1 so no +5V_LED copper runs past the +36V pad)
     'R7': (-3.81, 4.7, 90),      # LED_RETURN (J1.4) -> 2k2
     'R5': (-1.27, 4.7, 270),     # 33R -> J1.5
     'R26': (1.27, 4.7, 90),      # DNP SPARE -> PB1, at J1.6
